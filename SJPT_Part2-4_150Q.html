@@ -29,8 +29,8 @@ function speak(c,answer){
 function clearAutoTimers(){if(autoTimer){clearTimeout(autoTimer);autoTimer=null}}
 function updateAutoStatus(){const button=$('autoPlay');if(!button)return;button.classList.toggle('active',autoPlaying);button.setAttribute('aria-pressed',autoPlaying);button.textContent=autoPlaying?'■':'▶';const label=autoPlaying?'자동 넘김 정지':'자동 넘김 시작';button.setAttribute('aria-label',label);button.title=label}
 function stopAuto(){autoPlaying=false;clearAutoTimers();updateAutoStatus()}
-function scheduleAuto(){clearAutoTimers();if(!autoPlaying||!filtered.length||mode!=='card'){stopAuto();return}autoTimer=setTimeout(()=>{clearAutoTimers();stop();let movedToNext=false;if(back){index=(index+1)%filtered.length;back=false;movedToNext=true}else back=true;render();if(movedToNext)speak(filtered[index],false);scheduleAuto()},AUTO_DELAY)}
-function toggleAuto(){if(autoPlaying){stopAuto();stop();return}if(!filtered.length)return;mode='card';back=false;autoPlaying=true;render();speak(filtered[index],false);scheduleAuto()}
+function scheduleAuto(){clearAutoTimers();if(!autoPlaying||!filtered.length||mode!=='card'){stopAuto();return}autoTimer=setTimeout(()=>{clearAutoTimers();stop();let movedToNext=false;if(back){index=(index+1)%filtered.length;back=false;movedToNext=true}else back=true;render();speak(filtered[index],back);scheduleAuto()},AUTO_DELAY)}
+function toggleAuto(){if(autoPlaying){stopAuto();stop();return}if(!filtered.length)return;mode='card';back=false;autoPlaying=true;updateAutoStatus();render();speak(filtered[index],false);scheduleAuto()}
 
 function toggleStar(id){stars.has(id)?stars.delete(id):stars.add(id);try{localStorage.setItem('sjpt150-stars-v1',JSON.stringify([...stars]))}catch{$('message').textContent='이 브라우저에서는 별표를 영구 저장할 수 없습니다.'}if(onlyStars)apply();else render()}
 function apply(){stopAuto();stop();const q=$('search').value.toLowerCase().trim();filtered=DATA.filter(c=>(!$('part').value||c.part==$('part').value)&&(!$('number').value||c.no==$('number').value)&&(!onlyStars||stars.has(c.id))&&(!q||Object.values(c).join(' ').toLowerCase().includes(q)));index=0;back=false;render()}
