@@ -14,5 +14,5 @@ section div:has(> #searchInput){display:none!important}
 button,.menuLink,select{height:36px!important;min-height:36px!important;box-sizing:border-box!important}
 button,.menuLink{display:inline-flex!important;align-items:center!important;justify-content:center!important;line-height:1!important}
 select{text-align:center!important;text-align-last:center!important;padding-top:0!important;padding-bottom:0!important}
-.card button{height:33px!important;min-height:33px!important}
+.card button{height:36px!important;min-height:36px!important}
 .prompt,.answer[lang="ja"],.sentence,.listSentence,.listQ,.listA,.q,.jp,[lang="ja"]{font-family:"BIZ UDPGothic","BIZ UD Gothic","Yu Gothic","Noto Sans JP",sans-serif!important}
