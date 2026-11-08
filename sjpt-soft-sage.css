@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Noto+Sans+JP:wght@400;500;700&display=swap');
 :root{color-scheme:light!important;--sjpt-bg:#DCE3D9;--sjpt-surface:#F7F9F5;--sjpt-muted:#E8EEE5;--sjpt-strong:#D7E0D4;--sjpt-text:#1C2D24;--sjpt-sub:#5E7064;--sjpt-border:#A8B7A8;--sjpt-primary:#476A57;--sjpt-primary-dark:#385B49;--sjpt-accent:#B7672C;--sjpt-accent-dark:#985326;--sjpt-danger:#A94C42}
 html,body{background-color:var(--sjpt-bg)!important;color:var(--sjpt-text)!important}body{background-image:none!important}header{background-color:var(--sjpt-strong)!important;border-color:var(--sjpt-border)!important;color:var(--sjpt-text)!important}footer,small,.hint,.help,.intro,.description,.empty,.stats,.phase{color:var(--sjpt-sub)!important}
 button,input,select,textarea,.menuLink{background-color:var(--sjpt-surface)!important;color:var(--sjpt-text)!important;border-color:var(--sjpt-border)!important}button:hover,.menuLink:hover{background-color:var(--sjpt-strong)!important}button.active,.primary,.tab.active,.action{background-color:var(--sjpt-primary)!important;color:#fff!important;border-color:var(--sjpt-primary-dark)!important}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible,[tabindex]:focus-visible{outline-color:var(--sjpt-primary)!important}input::placeholder,textarea::placeholder{color:#78877D!important}
@@ -14,5 +14,6 @@ section div:has(> #searchInput){display:none!important}
 button,.menuLink,select{height:36px!important;min-height:36px!important;box-sizing:border-box!important}
 button,.menuLink{display:inline-flex!important;align-items:center!important;justify-content:center!important;line-height:1!important}
 select{text-align:center!important;text-align-last:center!important;padding-top:0!important;padding-bottom:0!important}
+button,.menuLink,select{font-family:"Noto Sans JP","Yu Gothic",sans-serif!important}
 .card button{height:36px!important;min-height:36px!important}
 .prompt,.answer[lang="ja"],.sentence,.listSentence,.listQ,.listA,.q,.jp,[lang="ja"]{font-family:"BIZ UDPGothic","BIZ UD Gothic","Yu Gothic","Noto Sans JP",sans-serif!important}
