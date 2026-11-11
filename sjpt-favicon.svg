@@ -1,14 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <defs>
     <linearGradient id="bg" x1="8" y1="6" x2="56" y2="58" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#6366f1"/>
-      <stop offset="1" stop-color="#4338ca"/>
+      <stop stop-color="#DCE3D9"/>
+      <stop offset="1" stop-color="#A8B7A8"/>
     </linearGradient>
   </defs>
-  <rect width="64" height="64" rx="15" fill="#0f172a"/>
+  <rect width="64" height="64" rx="15" fill="#6F8775"/>
   <rect x="6" y="6" width="52" height="52" rx="12" fill="url(#bg)"/>
-  <path d="M18 17h28a5 5 0 0 1 5 5v24a5 5 0 0 1-5 5H18a5 5 0 0 1-5-5V22a5 5 0 0 1 5-5Z" fill="#fff" opacity=".96"/>
-  <path d="M32 17v34" stroke="#c7d2fe" stroke-width="2"/>
-  <text x="22.5" y="39" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#4338ca">S</text>
-  <text x="41.5" y="39" text-anchor="middle" font-family="'Noto Sans JP','Yu Gothic',sans-serif" font-size="17" font-weight="700" fill="#4338ca">日</text>
+  <path d="M18 17h28a5 5 0 0 1 5 5v24a5 5 0 0 1-5 5H18a5 5 0 0 1-5-5V22a5 5 0 0 1 5-5Z" fill="#F7F9F5" opacity=".97"/>
+  <path d="M32 17v34" stroke="#C79BA5" stroke-width="2"/>
+  <text x="22.5" y="39" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#7B2D3E">S</text>
+  <text x="41.5" y="39" text-anchor="middle" font-family="'Noto Sans JP','Yu Gothic',sans-serif" font-size="17" font-weight="700" fill="#7B2D3E">日</text>
 </svg>
