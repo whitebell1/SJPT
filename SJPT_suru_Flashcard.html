@@ -65,7 +65,13 @@ header .text-slate-400 { color: var(--sjpt-sub); }
 #cardInner .bg-slate-900\/60,#vocabTableBody .bg-slate-800 { background:var(--sjpt-muted); }
 #progressBar { background:linear-gradient(90deg,var(--sjpt-primary),#A47A4D); }
 </style>
-<style>#autoPlayBtn,#starToggleBtn{width:44px;height:44px;padding:0;display:inline-grid;place-items:center;border-radius:9px}#autoPlayBtn{background:#ea580c;border:1px solid #fb923c;color:#fff}#autoPlayBtn:hover{background:#c2410c;border-color:#fdba74}#autoPlayBtn.ring-2{background:#f97316;border-color:#fed7aa}</style></head>
+<style>
+.cardToolbar{width:100%;max-width:32rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px}
+.cardToolbarActions{display:flex;gap:8px;margin-inline-start:auto}
+.cardToolbarActions button{width:44px;height:44px!important;min-height:44px!important;flex:0 0 44px;padding:0;border:1px solid var(--sjpt-border);border-radius:9px;font-size:16px}
+#starToggleBtn i.fa-solid{color:#98651F}
+#autoPlayBtn.ring-2{background-color:var(--sjpt-accent-dark)!important}
+</style></head>
 <body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col font-sans">
   <!-- 상단 네비게이션 헤더 -->
   <header class="bg-slate-800/80 backdrop-blur border-b border-slate-700/60 sticky top-0 z-30 px-4 py-3 shadow-md">
@@ -130,12 +136,12 @@ header .text-slate-400 { color: var(--sjpt-sub); }
     <!-- 플래시카드 뷰 -->
     <div id="flashcardView" class="flex-1 flex flex-col items-center justify-center gap-4">
       <!-- 진행률 바 및 카운터 -->
-      <div class="w-full flex items-center justify-between text-xs text-slate-400 px-1">
+      <div class="cardToolbar text-xs text-slate-400">
         <div class="flex items-center gap-2">
           <span class="font-semibold text-slate-200" id="currentNumBadge">Card 1 / 309</span>
           <span class="px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-[11px] text-indigo-400" id="currentProbBadge">학습 구간: 01</span>
         </div>
-        <div class="flex items-center gap-3">
+        <div class="cardToolbarActions">
           <button id="autoPlayBtn" class="w-11 h-11 inline-grid place-items-center rounded-lg bg-orange-600 hover:bg-orange-700 border border-orange-400 text-white transition text-base" aria-label="자동 넘김 시작" title="자동 넘김 시작" aria-pressed="false">▶</button>
           <button id="starToggleBtn" class="w-11 h-11 inline-grid place-items-center rounded-lg text-slate-400 hover:text-amber-400 transition text-base">
             <i class="fa-regular fa-star"></i>
