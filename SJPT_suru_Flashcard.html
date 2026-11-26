@@ -36,6 +36,31 @@
 td div[lang="ja"] { line-height:2.4; }
 #cardContainer.has-example { height:550px; }
 @media(max-width:480px){ #cardContainer.has-example { height:640px; } }
+/* Match the Level 5 sage palette across both faces and the word list. */
+#cardInner > .backface-hidden {
+  background: linear-gradient(135deg, #FBFCFA, #DCE5DA);
+  color: var(--sjpt-text);
+  border-color: var(--sjpt-border);
+}
+#cardInner > .rotate-y-180 {
+  background: linear-gradient(135deg, #F0F4ED, #CFDCCF);
+  border-color: #66806D;
+}
+#flashcardView :is(.text-white,.text-slate-200,#backExampleJapanese),
+#vocabTableContainer :is(.text-white,.text-slate-200),
+#listTotalCount { color: var(--sjpt-text); }
+#cardInner :is(.text-indigo-300,.text-indigo-400),
+#flashcardView .text-indigo-400,
+#vocabTableContainer .text-indigo-300 { color: var(--sjpt-primary); }
+#flashcardView :is(.text-slate-400,.text-slate-500),
+#vocabTableContainer :is(.text-slate-300,.text-slate-400,.text-slate-500),
+header .text-slate-400 { color: var(--sjpt-sub); }
+#backMeaning,#backExampleKorean { color:#475A4D; }
+#backExample { border-color:var(--sjpt-border); }
+#vocabTableContainer { background:var(--sjpt-surface);border-color:var(--sjpt-border); }
+#vocabTableContainer thead,#currentProbBadge,
+#cardInner .bg-slate-900\/60,#vocabTableBody .bg-slate-800 { background:var(--sjpt-muted); }
+#progressBar { background:linear-gradient(90deg,var(--sjpt-primary),#A47A4D); }
 </style>
 <style>#autoPlayBtn,#starToggleBtn{width:44px;height:44px;padding:0;display:inline-grid;place-items:center;border-radius:9px}#autoPlayBtn{background:#ea580c;border:1px solid #fb923c;color:#fff}#autoPlayBtn:hover{background:#c2410c;border-color:#fdba74}#autoPlayBtn.ring-2{background:#f97316;border-color:#fed7aa}</style></head>
 <body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col font-sans">
