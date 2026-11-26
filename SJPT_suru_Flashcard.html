@@ -250,7 +250,8 @@ header .text-slate-400 { color: var(--sjpt-sub); }
     let isFlipped = false;
     let starredIds = new Set(JSON.parse(localStorage.getItem('sjpt_suru309_starred_v1') || '[]'));
     let onlyStarred = false;
-    const AUTO_DELAY = 5000;
+    const AUTO_DELAY = 1000;
+    let autoRun = 0;
     let autoPlaying = false;
     let autoTimer = null;
 
@@ -312,20 +313,75 @@ header .text-slate-400 { color: var(--sjpt-sub); }
     }
 
     // TTS 음성 재생 (일본어)
-    function playJapaneseAudio(text) {
-      if (!('speechSynthesis' in window)) return;
+    function playJapaneseAudio(text, onEnd, onError) {
+      if (!onEnd && autoPlaying) stopAuto();
+      if (!('speechSynthesis' in window)) {
+        onError?.();
+        return;
+      }
       window.speechSynthesis.cancel();
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = 'ja-JP';
       utterance.rate = 0.9;
+      utterance.onend = onEnd || null;
+      utterance.onerror = onError || null;
       window.speechSynthesis.speak(utterance);
     }
 
     function clearAutoTimer() { if (autoTimer) { clearTimeout(autoTimer); autoTimer = null; } }
     function updateAutoStatus() { autoPlayBtn.classList.toggle('ring-2', autoPlaying); autoPlayBtn.classList.toggle('ring-orange-200', autoPlaying); autoPlayBtn.textContent = autoPlaying ? '■' : '▶'; autoPlayBtn.setAttribute('aria-pressed', String(autoPlaying)); const label = autoPlaying ? '자동 넘김 정지' : '자동 넘김 시작'; autoPlayBtn.setAttribute('aria-label', label); autoPlayBtn.title = label; }
-    function stopAuto() { autoPlaying = false; clearAutoTimer(); updateAutoStatus(); }
-    function scheduleAuto() { clearAutoTimer(); if (!autoPlaying || !displayedList.length || flashcardView.classList.contains('hidden')) { stopAuto(); return; } autoTimer = setTimeout(() => { window.speechSynthesis?.cancel(); if (isFlipped) { currentIndex = (currentIndex + 1) % displayedList.length; renderCurrentCard(); playJapaneseAudio(displayedList[currentIndex].word.replace(/[()]/g, '')); } else { setFlipped(true); } scheduleAuto(); }, AUTO_DELAY); }
-    function toggleAuto() { if (autoPlaying) { stopAuto(); window.speechSynthesis?.cancel(); return; } if (!displayedList.length) return; listView.classList.add('hidden'); flashcardView.classList.remove('hidden'); setFlipped(false); autoPlaying = true; updateAutoStatus(); playJapaneseAudio(displayedList[currentIndex].word.replace(/[()]/g, '')); scheduleAuto(); }
+    function stopAuto() {
+      const wasPlaying = autoPlaying;
+      autoPlaying = false;
+      autoRun++;
+      clearAutoTimer();
+      if (wasPlaying) window.speechSynthesis?.cancel();
+      updateAutoStatus();
+    }
+
+    function scheduleAuto() {
+      if (!autoPlaying || !displayedList.length || flashcardView.classList.contains('hidden')) {
+        stopAuto();
+        return;
+      }
+      const run = ++autoRun;
+      const card = displayedList[currentIndex];
+      const current = () => autoPlaying && run === autoRun;
+      const wait = callback => {
+        if (!current()) return;
+        autoTimer = setTimeout(() => {
+          autoTimer = null;
+          if (current()) callback();
+        }, AUTO_DELAY);
+      };
+      const fail = () => { if (current()) stopAuto(); };
+      const next = () => wait(() => {
+        currentIndex = (currentIndex + 1) % displayedList.length;
+        renderCurrentCard();
+        scheduleAuto();
+      });
+
+      clearAutoTimer();
+      setFlipped(false);
+      playJapaneseAudio(card.word.replace(/[()]/g, ''), () => {
+        if (!current()) return;
+        setFlipped(true);
+        wait(() => {
+          if (card.exJa?.trim()) playJapaneseAudio(card.exJa, next, fail);
+          else next();
+        });
+      }, fail);
+    }
+
+    function toggleAuto() {
+      if (autoPlaying) { stopAuto(); return; }
+      if (!displayedList.length) return;
+      listView.classList.add('hidden');
+      flashcardView.classList.remove('hidden');
+      autoPlaying = true;
+      updateAutoStatus();
+      scheduleAuto();
+    }
 
     // 필터링 적용 함수
     function applyFilters() {
@@ -419,8 +475,8 @@ header .text-slate-400 { color: var(--sjpt-sub); }
 
     function toggleFlip() {
       if (displayedList.length === 0) return;
+      if (autoPlaying) stopAuto();
       setFlipped(!isFlipped);
-      if (autoPlaying) scheduleAuto();
     }
 
     // 목록 모드 렌더링
