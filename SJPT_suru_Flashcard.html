@@ -263,6 +263,7 @@ header .text-slate-400 { color: var(--sjpt-sub); }
 
     // 상태 관리
     let displayedList = [...RAW_VOCAB];
+    const STUDY_POSITION_KEY = 'sjpt_suru309_position_v1';
     let currentIndex = 0;
     let isFlipped = false;
     let starredIds = new Set(JSON.parse(localStorage.getItem('sjpt_suru309_starred_v1') || '[]'));
@@ -494,6 +495,27 @@ header .text-slate-400 { color: var(--sjpt-sub); }
       } else {
         cardInner.classList.remove('rotate-y-180');
       }
+      const card = displayedList[currentIndex];
+      if (card) {
+        try {
+          localStorage.setItem(STUDY_POSITION_KEY, JSON.stringify({ cardId: card.id, back: flipped }));
+        } catch {
+          // The card remains usable when browser storage is unavailable.
+        }
+      }
+    }
+
+    function restoreStudyPosition() {
+      let saved;
+      try {
+        saved = JSON.parse(localStorage.getItem(STUDY_POSITION_KEY));
+      } catch {
+        return false;
+      }
+      const savedIndex = displayedList.findIndex(card => card.id === saved?.cardId);
+      if (savedIndex < 0) return false;
+      currentIndex = savedIndex;
+      return saved.back === true;
     }
 
     function toggleFlip() {
@@ -740,7 +762,7 @@ header .text-slate-400 { color: var(--sjpt-sub); }
       initProbOptions();
       starredCount.textContent = starredIds.size;
       setupEventListeners();
-      renderCurrentCard();
+      renderCurrentCard(restoreStudyPosition());
       renderListView();
     });
   </script>
