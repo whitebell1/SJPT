@@ -201,7 +201,7 @@ header .text-slate-400 { color: var(--sjpt-sub); }
 
             <div class="w-full text-center">
               <span class="text-[11px] text-slate-400">다시 탭하면 앞면으로 회전합니다</span>
-              <div class="backCardActions"><button type="button" id="exampleAudioBtn" class="furiganaControl" hidden>예문 듣기</button><button type="button" class="furiganaControl" aria-pressed="true">후리가나 숨기기</button><button type="button" id="copyBackBtn" class="furiganaControl">본문 복사</button></div>
+              <div class="backCardActions"><button type="button" id="exampleAudioBtn" class="furiganaControl" hidden>예문 듣기</button><button type="button" class="furiganaControl" aria-pressed="true">후리가나 숨기기</button><button type="button" id="copyBackBtn" class="furiganaControl">예문 복사</button></div>
             </div>
           </div>
         </div>
@@ -562,8 +562,8 @@ header .text-slate-400 { color: var(--sjpt-sub); }
       copyBackBtn.addEventListener('click', async event => {
         event.stopPropagation();
         const card = displayedList[currentIndex];
-        if (!card) return;
-        const text = [card.word, card.meaning, card.exJa, card.exKo].filter(Boolean).join('\n');
+        const text = card?.exJa;
+        if (!text) return;
         try {
           await navigator.clipboard.writeText(text);
           copyBackBtn.textContent = '복사 완료';
@@ -571,7 +571,7 @@ header .text-slate-400 { color: var(--sjpt-sub); }
           copyBackBtn.textContent = '복사 실패';
         }
         clearTimeout(copyFeedbackTimer);
-        copyFeedbackTimer = setTimeout(() => { copyBackBtn.textContent = '본문 복사'; }, 1500);
+        copyFeedbackTimer = setTimeout(() => { copyBackBtn.textContent = '예문 복사'; }, 1500);
       });
       const furiganaButtons = cardContainer.querySelectorAll('.furiganaControl[aria-pressed]');
       function toggleFurigana() {
