@@ -427,7 +427,7 @@ header .text-slate-400 { color: var(--sjpt-sub); }
     }
 
     // 현재 카드 렌더링
-    function renderCurrentCard() {
+    function renderCurrentCard(keepBack = false) {
       const example = document.getElementById('backExample');
       example.hidden = true;
       document.getElementById('cardContainer').classList.remove('has-example');
@@ -477,7 +477,7 @@ header .text-slate-400 { color: var(--sjpt-sub); }
         : '<i class="fa-regular fa-star text-slate-400"></i>';
 
       // 카드 앞면 상태로 리셋
-      setFlipped(false);
+      setFlipped(keepBack);
     }
 
     // 카드 회전 함수
@@ -576,7 +576,7 @@ header .text-slate-400 { color: var(--sjpt-sub); }
         if (displayedList.length === 0) return;
         currentIndex = (currentIndex - 1 + displayedList.length) % displayedList.length;
         if (autoPlaying) clearAutoTimer();
-        renderCurrentCard();
+        renderCurrentCard(isFlipped);
         if (autoPlaying) scheduleAuto();
       });
 
@@ -584,7 +584,7 @@ header .text-slate-400 { color: var(--sjpt-sub); }
         if (displayedList.length === 0) return;
         currentIndex = (currentIndex + 1) % displayedList.length;
         if (autoPlaying) clearAutoTimer();
-        renderCurrentCard();
+        renderCurrentCard(isFlipped);
         if (autoPlaying) scheduleAuto();
       });
 
