@@ -204,7 +204,7 @@ header .text-slate-400 { color: var(--sjpt-sub); }
 
             <div class="w-full text-center">
               <span class="text-[11px] text-slate-400">다시 탭하면 앞면으로 회전합니다</span>
-              <div class="backCardActions"><button type="button" id="exampleAudioBtn" class="furiganaControl" hidden>예문 듣기</button><button type="button" class="furiganaControl" aria-pressed="true">후리가나 숨기기</button><button type="button" id="copyBackBtn" class="furiganaControl">예문 복사</button><button type="button" id="highlightExampleBtn" class="furiganaControl" title="예문을 선택한 뒤 눌러 표시하거나 지웁니다" hidden>형광펜</button><span id="highlightStatus" class="sr-only" role="status"></span></div>
+              <div class="backCardActions"><button type="button" id="exampleAudioBtn" class="furiganaControl" hidden>듣기</button><button type="button" class="furiganaControl" aria-pressed="true">후리가나</button><button type="button" id="copyBackBtn" class="furiganaControl">복사</button><button type="button" id="highlightExampleBtn" class="furiganaControl" title="예문을 선택한 뒤 눌러 표시하거나 지웁니다" hidden>형광펜</button><span id="highlightStatus" class="sr-only" role="status"></span></div>
             </div>
           </div>
         </div>
@@ -697,13 +697,15 @@ header .text-slate-400 { color: var(--sjpt-sub); }
           copyBackBtn.textContent = '복사 실패';
         }
         clearTimeout(copyFeedbackTimer);
-        copyFeedbackTimer = setTimeout(() => { copyBackBtn.textContent = '예문 복사'; }, 1500);
+        copyFeedbackTimer = setTimeout(() => { copyBackBtn.textContent = '복사'; }, 1500);
       });
       const furiganaButtons = cardContainer.querySelectorAll('.furiganaControl[aria-pressed]');
       function toggleFurigana() {
         const hidden = cardContainer.classList.toggle('furigana-hidden');
         furiganaButtons.forEach(control => {
-          control.textContent = hidden ? '후리가나 보기' : '후리가나 숨기기';
+          if (!control.closest('.backCardActions')) {
+            control.textContent = hidden ? '후리가나 보기' : '후리가나 숨기기';
+          }
           control.setAttribute('aria-pressed', String(!hidden));
         });
       }
