@@ -68,6 +68,11 @@ header .text-slate-400 { color: var(--sjpt-sub); }
 <style>
 .cardToolbar{width:100%;max-width:32rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px}
 .cardToolbarActions{display:flex;gap:8px;margin-inline-start:auto}
+.studyFilters{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.studyFilters button{white-space:nowrap}
+#cardContainer.furigana-hidden :is(#frontReading,#backReadingMini){display:none}
+#cardContainer.furigana-hidden rt{visibility:hidden}
+.furiganaControl{align-self:center;margin-top:6px;padding:0 10px;border:1px solid var(--sjpt-border);border-radius:9px;font-size:12px}
 .cardToolbarActions button{width:44px;height:44px!important;min-height:44px!important;flex:0 0 44px;padding:0;border:1px solid var(--sjpt-border);border-radius:9px;font-size:16px}
 #starToggleBtn i.fa-solid{color:#98651F}
 #autoPlayBtn.ring-2{background-color:var(--sjpt-accent-dark)!important}
@@ -97,9 +102,6 @@ header .text-slate-400 { color: var(--sjpt-sub); }
         <button id="modeListBtn" class="px-3 py-1.5 rounded-lg bg-slate-700 font-medium text-slate-300 transition hover:bg-slate-600">
           <i class="fa-solid fa-list mr-1"></i>목록 모드
         </button>
-        <button id="studyStarredBtn" class="px-3 py-1.5 rounded-lg bg-slate-700 font-medium text-amber-300 transition hover:bg-slate-600">
-          <i class="fa-solid fa-star mr-1"></i>별표(<span id="starredCount">0</span>)
-        </button>
       </div>
     </div>
   </header>
@@ -120,7 +122,7 @@ header .text-slate-400 { color: var(--sjpt-sub); }
         </button>
       </div>
       
-      <div class="flex items-center gap-2">
+      <div class="studyFilters">
         <select id="probFilter" class="bg-slate-900 border border-slate-700 text-xs rounded-lg px-2.5 py-2 text-slate-300 focus:outline-none focus:border-indigo-500">
           <option value="ALL">전체 학습 구간</option>
         </select>
@@ -129,6 +131,9 @@ header .text-slate-400 { color: var(--sjpt-sub); }
         </button>
         <button id="resetOrderBtn" title="원래 순서로 초기화" class="px-2.5 py-2 bg-slate-700/80 hover:bg-slate-600 text-slate-300 rounded-lg text-xs transition">
           <i class="fa-solid fa-rotate-left"></i>
+        </button>
+        <button id="studyStarredBtn" class="px-3 rounded-lg border text-xs font-medium">
+          <i class="fa-solid fa-star mr-1" aria-hidden="true"></i>별표(<span id="starredCount">0</span>)
         </button>
       </div>
     </section>
@@ -171,6 +176,7 @@ header .text-slate-400 { color: var(--sjpt-sub); }
 
             <div class="w-full text-center">
               <span class="text-[11px] text-slate-500">Space 키: 뒤집기 | ← →: 이전/다음</span>
+              <div><button type="button" class="furiganaControl" aria-pressed="true">후리가나 숨기기</button></div>
             </div>
           </div>
 
@@ -191,6 +197,7 @@ header .text-slate-400 { color: var(--sjpt-sub); }
 
             <div class="w-full text-center">
               <span class="text-[11px] text-slate-400">다시 탭하면 앞면으로 회전합니다</span>
+              <div><button type="button" class="furiganaControl" aria-pressed="true">후리가나 숨기기</button></div>
             </div>
           </div>
         </div>
@@ -540,6 +547,15 @@ header .text-slate-400 { color: var(--sjpt-sub); }
     // 이벤트 리스너 설정
     function setupEventListeners() {
       autoPlayBtn.addEventListener('click', toggleAuto);
+      const furiganaButtons = cardContainer.querySelectorAll('.furiganaControl');
+      furiganaButtons.forEach(button => button.addEventListener('click', event => {
+        event.stopPropagation();
+        const hidden = cardContainer.classList.toggle('furigana-hidden');
+        furiganaButtons.forEach(control => {
+          control.textContent = hidden ? '후리가나 보기' : '후리가나 숨기기';
+          control.setAttribute('aria-pressed', String(!hidden));
+        });
+      }));
 
       // 카드 뒤집기
       cardContainer.addEventListener('click', toggleFlip);
@@ -653,7 +669,8 @@ header .text-slate-400 { color: var(--sjpt-sub); }
 
       // 키보드 단축키
       window.addEventListener('keydown', (e) => {
-        if (['input', 'select', 'textarea'].includes(document.activeElement.tagName.toLowerCase())) {
+        if (['input', 'select', 'textarea'].includes(document.activeElement.tagName.toLowerCase()) ||
+            (e.code === 'Space' && document.activeElement.matches('.furiganaControl'))) {
           return;
         }
         if (e.code === 'Space') {
