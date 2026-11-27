@@ -172,6 +172,7 @@ header .text-slate-400 { color: var(--sjpt-sub); }
             <div class="my-auto flex flex-col items-center gap-2">
               <span id="frontReading" class="text-indigo-300 text-sm sm:text-base tracking-widest font-medium">いねむり(する)</span>
               <h2 id="frontWord" class="text-4xl sm:text-5xl font-bold text-white tracking-wider">居眠り(する)</h2>
+              <p id="frontMeaning" class="meaning font-semibold" hidden></p>
             </div>
 
             <div class="w-full text-center">
@@ -279,6 +280,7 @@ header .text-slate-400 { color: var(--sjpt-sub); }
     const backWordMini = document.getElementById('backWordMini');
     const backReadingMini = document.getElementById('backReadingMini');
     const backMeaning = document.getElementById('backMeaning');
+    const frontMeaning = document.getElementById('frontMeaning');
     const currentNumBadge = document.getElementById('currentNumBadge');
     const currentProbBadge = document.getElementById('currentProbBadge');
     const progressBar = document.getElementById('progressBar');
@@ -434,6 +436,7 @@ header .text-slate-400 { color: var(--sjpt-sub); }
         frontReading.textContent = "-";
         frontCardId.textContent = "No. 0";
         backMeaning.textContent = "조건에 일치하는 단어가 없습니다";
+        frontMeaning.textContent = "";
         backWordMini.textContent = "-";
         backReadingMini.textContent = "";
         currentNumBadge.textContent = "0 / 0";
@@ -452,6 +455,7 @@ header .text-slate-400 { color: var(--sjpt-sub); }
       backWordMini.textContent = item.word;
       backReadingMini.textContent = `[${item.reading}]`;
       backMeaning.textContent = item.meaning;
+      frontMeaning.textContent = item.meaning;
       if (item.exJa) {
         document.getElementById('backExampleJapanese').innerHTML = item.exRuby;
         document.getElementById('backExampleKorean').textContent = item.exKo;
@@ -548,13 +552,16 @@ header .text-slate-400 { color: var(--sjpt-sub); }
     function setupEventListeners() {
       autoPlayBtn.addEventListener('click', toggleAuto);
       const furiganaButtons = cardContainer.querySelectorAll('.furiganaControl');
-      furiganaButtons.forEach(button => button.addEventListener('click', event => {
-        event.stopPropagation();
+      function toggleFurigana() {
         const hidden = cardContainer.classList.toggle('furigana-hidden');
         furiganaButtons.forEach(control => {
           control.textContent = hidden ? '후리가나 보기' : '후리가나 숨기기';
           control.setAttribute('aria-pressed', String(!hidden));
         });
+      }
+      furiganaButtons.forEach(button => button.addEventListener('click', event => {
+        event.stopPropagation();
+        toggleFurigana();
       }));
 
       // 카드 뒤집기
@@ -676,6 +683,16 @@ header .text-slate-400 { color: var(--sjpt-sub); }
         if (e.code === 'Space') {
           e.preventDefault();
           toggleFlip();
+        } else if (e.code === 'ArrowUp' || e.code === 'ArrowDown') {
+          if (flashcardView.classList.contains('hidden') || !displayedList.length ||
+              e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
+          e.preventDefault();
+          if (e.repeat) return;
+          if (e.code === 'ArrowUp') toggleFurigana();
+          else {
+            const meaning = isFlipped ? backMeaning : frontMeaning;
+            meaning.hidden = !meaning.hidden;
+          }
         } else if (e.code === 'ArrowLeft') {
           e.preventDefault();
           prevBtn.click();
