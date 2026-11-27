@@ -25,9 +25,10 @@
     #cardContainer.has-example { aspect-ratio:auto; }
     #backExample { margin-top:12px; padding-top:16px; border-top:1px solid #475569; }
     #backExample[hidden] { display:none; }
-    #backExampleJapanese { font-size:19px; line-height:1.8; color:#e0e7ff; }
+    #backWordMini, #backExampleJapanese { font-size:19px; }
+    #backExampleJapanese { line-height:1.8; color:#e0e7ff; }
     #backExampleKorean { margin-top:10px; font-size:15px; line-height:1.7; color:#cbd5e1; }
-    @media(max-width:480px){#frontWord{font-size:2.2rem} #backExampleJapanese{font-size:18px}}
+    @media(max-width:480px){#frontWord{font-size:2.2rem} #backWordMini,#backExampleJapanese{font-size:18px}}
 
 /* Furigana is precomputed; audio continues to use the original sentence. */
 #backExampleJapanese { line-height:2.5; overflow-wrap:anywhere; }
