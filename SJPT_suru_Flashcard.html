@@ -73,6 +73,8 @@ header .text-slate-400 { color: var(--sjpt-sub); }
 #cardContainer.furigana-hidden :is(#frontReading,#backReadingMini){display:none}
 #cardContainer.furigana-hidden rt{visibility:hidden}
 .furiganaControl{align-self:center;margin-top:6px;padding:0 10px;border:1px solid var(--sjpt-border);border-radius:9px;font-size:12px}
+.backCardActions{display:flex;justify-content:center;align-items:center;gap:8px}
+#exampleAudioBtn[hidden]{display:none!important}
 .cardToolbarActions button{width:44px;height:44px!important;min-height:44px!important;flex:0 0 44px;padding:0;border:1px solid var(--sjpt-border);border-radius:9px;font-size:16px}
 #starToggleBtn i.fa-solid{color:#98651F}
 #autoPlayBtn.ring-2{background-color:var(--sjpt-accent-dark)!important}
@@ -193,12 +195,12 @@ header .text-slate-400 { color: var(--sjpt-sub); }
                 <span id="backWordMini" class="font-semibold text-white">居眠り(する)</span>
                 <span id="backReadingMini" class="text-indigo-300 font-normal">[いねむり(する)]</span>
               </div>
-              <h3 id="backMeaning" class="text-2xl sm:text-3xl font-extrabold text-emerald-400">졸다</h3><div id="backExample" hidden><p id="backExampleJapanese" lang="ja"></p><p id="backExampleKorean"></p><button type="button" id="exampleAudioBtn" class="mt-3 px-3 py-2 rounded-lg bg-indigo-600 text-sm">예문 듣기</button></div>
+              <h3 id="backMeaning" class="text-2xl sm:text-3xl font-extrabold text-emerald-400">졸다</h3><div id="backExample" hidden><p id="backExampleJapanese" lang="ja"></p><p id="backExampleKorean"></p></div>
             </div>
 
             <div class="w-full text-center">
               <span class="text-[11px] text-slate-400">다시 탭하면 앞면으로 회전합니다</span>
-              <div><button type="button" class="furiganaControl" aria-pressed="true">후리가나 숨기기</button></div>
+              <div class="backCardActions"><button type="button" id="exampleAudioBtn" class="furiganaControl" hidden>예문 듣기</button><button type="button" class="furiganaControl" aria-pressed="true">후리가나 숨기기</button></div>
             </div>
           </div>
         </div>
@@ -429,7 +431,9 @@ header .text-slate-400 { color: var(--sjpt-sub); }
     // 현재 카드 렌더링
     function renderCurrentCard(keepBack = false) {
       const example = document.getElementById('backExample');
+      const exampleAudio = document.getElementById('exampleAudioBtn');
       example.hidden = true;
+      exampleAudio.hidden = true;
       document.getElementById('cardContainer').classList.remove('has-example');
       if (displayedList.length === 0) {
         frontWord.textContent = "검색 결과 없음";
@@ -460,6 +464,7 @@ header .text-slate-400 { color: var(--sjpt-sub); }
         document.getElementById('backExampleJapanese').innerHTML = item.exRuby;
         document.getElementById('backExampleKorean').textContent = item.exKo;
         example.hidden = false;
+        exampleAudio.hidden = false;
         document.getElementById('cardContainer').classList.add('has-example');
       }
       backProbTag.textContent = `구간: ${item.prob}`;
@@ -551,7 +556,7 @@ header .text-slate-400 { color: var(--sjpt-sub); }
     // 이벤트 리스너 설정
     function setupEventListeners() {
       autoPlayBtn.addEventListener('click', toggleAuto);
-      const furiganaButtons = cardContainer.querySelectorAll('.furiganaControl');
+      const furiganaButtons = cardContainer.querySelectorAll('.furiganaControl[aria-pressed]');
       function toggleFurigana() {
         const hidden = cardContainer.classList.toggle('furigana-hidden');
         furiganaButtons.forEach(control => {
