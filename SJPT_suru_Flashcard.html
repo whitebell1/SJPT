@@ -73,7 +73,7 @@ header .text-slate-400 { color: var(--sjpt-sub); }
 #cardContainer.furigana-hidden :is(#frontReading,#backReadingMini){display:none}
 #cardContainer.furigana-hidden rt{visibility:hidden}
 .furiganaControl{align-self:center;margin-top:6px;padding:0 10px;border:1px solid var(--sjpt-border);border-radius:9px;font-size:12px}
-.backCardActions{display:flex;justify-content:center;align-items:center;gap:8px}
+.backCardActions{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px}
 #exampleAudioBtn[hidden]{display:none!important}
 .cardToolbarActions button{width:44px;height:44px!important;min-height:44px!important;flex:0 0 44px;padding:0;border:1px solid var(--sjpt-border);border-radius:9px;font-size:16px}
 #starToggleBtn i.fa-solid{color:#98651F}
@@ -200,7 +200,7 @@ header .text-slate-400 { color: var(--sjpt-sub); }
 
             <div class="w-full text-center">
               <span class="text-[11px] text-slate-400">다시 탭하면 앞면으로 회전합니다</span>
-              <div class="backCardActions"><button type="button" id="exampleAudioBtn" class="furiganaControl" hidden>예문 듣기</button><button type="button" class="furiganaControl" aria-pressed="true">후리가나 숨기기</button></div>
+              <div class="backCardActions"><button type="button" id="exampleAudioBtn" class="furiganaControl" hidden>예문 듣기</button><button type="button" class="furiganaControl" aria-pressed="true">후리가나 숨기기</button><button type="button" id="copyBackBtn" class="furiganaControl">본문 복사</button></div>
             </div>
           </div>
         </div>
@@ -556,6 +556,22 @@ header .text-slate-400 { color: var(--sjpt-sub); }
     // 이벤트 리스너 설정
     function setupEventListeners() {
       autoPlayBtn.addEventListener('click', toggleAuto);
+      const copyBackBtn = document.getElementById('copyBackBtn');
+      let copyFeedbackTimer;
+      copyBackBtn.addEventListener('click', async event => {
+        event.stopPropagation();
+        const card = displayedList[currentIndex];
+        if (!card) return;
+        const text = [card.word, card.meaning, card.exJa, card.exKo].filter(Boolean).join('\n');
+        try {
+          await navigator.clipboard.writeText(text);
+          copyBackBtn.textContent = '복사 완료';
+        } catch {
+          copyBackBtn.textContent = '복사 실패';
+        }
+        clearTimeout(copyFeedbackTimer);
+        copyFeedbackTimer = setTimeout(() => { copyBackBtn.textContent = '본문 복사'; }, 1500);
+      });
       const furiganaButtons = cardContainer.querySelectorAll('.furiganaControl[aria-pressed]');
       function toggleFurigana() {
         const hidden = cardContainer.classList.toggle('furigana-hidden');
