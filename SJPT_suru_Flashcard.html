@@ -76,6 +76,9 @@ header .text-slate-400 { color: var(--sjpt-sub); }
 .furiganaControl{align-self:center;margin-top:6px;padding:0 10px;border:1px solid var(--sjpt-border);border-radius:9px;font-size:12px}
 .backCardActions{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px}
 #exampleAudioBtn[hidden]{display:none!important}
+#backExampleJapanese{user-select:text;-webkit-user-select:text}
+#backExampleJapanese mark{background:#ffe278;color:inherit}
+#highlightExampleBtn[hidden]{display:none!important}
 .cardToolbarActions button{width:44px;height:44px!important;min-height:44px!important;flex:0 0 44px;padding:0;border:1px solid var(--sjpt-border);border-radius:9px;font-size:16px}
 #starToggleBtn i.fa-solid{color:#98651F}
 #autoPlayBtn.ring-2{background-color:var(--sjpt-accent-dark)!important}
@@ -201,7 +204,7 @@ header .text-slate-400 { color: var(--sjpt-sub); }
 
             <div class="w-full text-center">
               <span class="text-[11px] text-slate-400">다시 탭하면 앞면으로 회전합니다</span>
-              <div class="backCardActions"><button type="button" id="exampleAudioBtn" class="furiganaControl" hidden>예문 듣기</button><button type="button" class="furiganaControl" aria-pressed="true">후리가나 숨기기</button><button type="button" id="copyBackBtn" class="furiganaControl">예문 복사</button></div>
+              <div class="backCardActions"><button type="button" id="exampleAudioBtn" class="furiganaControl" hidden>예문 듣기</button><button type="button" class="furiganaControl" aria-pressed="true">후리가나 숨기기</button><button type="button" id="copyBackBtn" class="furiganaControl">예문 복사</button><button type="button" id="highlightExampleBtn" class="furiganaControl" title="예문을 선택한 뒤 눌러 표시하거나 지웁니다" hidden>형광펜</button><span id="highlightStatus" class="sr-only" role="status"></span></div>
             </div>
           </div>
         </div>
@@ -264,6 +267,12 @@ header .text-slate-400 { color: var(--sjpt-sub); }
     // 상태 관리
     let displayedList = [...RAW_VOCAB];
     const STUDY_POSITION_KEY = 'sjpt_suru309_position_v1';
+    const HIGHLIGHTS_KEY = 'sjpt_suru309_highlights_v1';
+    let cardHighlights = {};
+    try {
+      cardHighlights = JSON.parse(localStorage.getItem(HIGHLIGHTS_KEY)) || {};
+    } catch {}
+    let pendingHighlightSelection = null;
     let currentIndex = 0;
     let isFlipped = false;
     let starredIds = new Set(JSON.parse(localStorage.getItem('sjpt_suru309_starred_v1') || '[]'));
@@ -431,7 +440,65 @@ header .text-slate-400 { color: var(--sjpt-sub); }
     }
 
     // 현재 카드 렌더링
+    function renderHighlightedExample(card) {
+      const example = document.getElementById('backExampleJapanese');
+      example.innerHTML = card.exRuby;
+      const offsets = new Set(cardHighlights[card.id] || []);
+      if (!offsets.size) return;
+      const walker = document.createTreeWalker(example, NodeFilter.SHOW_TEXT);
+      const nodes = [];
+      while (walker.nextNode()) {
+        if (!walker.currentNode.parentElement.closest('rt,rp')) nodes.push(walker.currentNode);
+      }
+      let offset = 0;
+      for (const node of nodes) {
+        const value = node.data;
+        const fragment = document.createDocumentFragment();
+        for (let start = 0, end; start < value.length; start = end) {
+          const marked = offsets.has(offset + start);
+          end = start + 1;
+          while (end < value.length && offsets.has(offset + end) === marked) end++;
+          const text = value.slice(start, end);
+          if (marked) {
+            const mark = document.createElement('mark');
+            mark.textContent = text;
+            fragment.append(mark);
+          } else {
+            fragment.append(text);
+          }
+        }
+        node.replaceWith(fragment);
+        offset += value.length;
+      }
+    }
+
+    function getExampleSelection() {
+      const selection = window.getSelection();
+      if (!isFlipped || !selection?.rangeCount || selection.isCollapsed) return null;
+      const example = document.getElementById('backExampleJapanese');
+      const range = selection.getRangeAt(0);
+      if (!example.contains(range.startContainer) || !example.contains(range.endContainer)) return null;
+      const offsetAt = (node, offset) => {
+        const prefix = document.createRange();
+        prefix.selectNodeContents(example);
+        const reading = (node.nodeType === Node.ELEMENT_NODE ? node : node.parentElement).closest('rt,rp');
+        if (reading) prefix.setEndBefore(reading);
+        else prefix.setEnd(node, offset);
+        const content = prefix.cloneContents();
+        content.querySelectorAll('rt,rp').forEach(element => element.remove());
+        return content.textContent.length;
+      };
+      return {
+        cardId: displayedList[currentIndex]?.id,
+        start: offsetAt(range.startContainer, range.startOffset),
+        end: offsetAt(range.endContainer, range.endOffset)
+      };
+    }
+
     function renderCurrentCard(keepBack = false) {
+      pendingHighlightSelection = null;
+      const highlighter = document.getElementById('highlightExampleBtn');
+      highlighter.hidden = true;
       const example = document.getElementById('backExample');
       const exampleAudio = document.getElementById('exampleAudioBtn');
       example.hidden = true;
@@ -463,7 +530,8 @@ header .text-slate-400 { color: var(--sjpt-sub); }
       backMeaning.textContent = item.meaning;
       frontMeaning.textContent = item.meaning;
       if (item.exJa) {
-        document.getElementById('backExampleJapanese').innerHTML = item.exRuby;
+        renderHighlightedExample(item);
+        highlighter.hidden = false;
         document.getElementById('backExampleKorean').textContent = item.exKo;
         example.hidden = false;
         exampleAudio.hidden = false;
@@ -520,6 +588,7 @@ header .text-slate-400 { color: var(--sjpt-sub); }
 
     function toggleFlip() {
       if (displayedList.length === 0) return;
+      if (getExampleSelection()) return;
       if (autoPlaying) stopAuto();
       setFlipped(!isFlipped);
     }
@@ -579,6 +648,41 @@ header .text-slate-400 { color: var(--sjpt-sub); }
     // 이벤트 리스너 설정
     function setupEventListeners() {
       autoPlayBtn.addEventListener('click', toggleAuto);
+      const highlighter = document.getElementById('highlightExampleBtn');
+      const highlightStatus = document.getElementById('highlightStatus');
+      highlighter.addEventListener('pointerdown', event => {
+        pendingHighlightSelection = getExampleSelection();
+        if (pendingHighlightSelection && event.pointerType === 'mouse') event.preventDefault();
+      });
+      highlighter.addEventListener('click', event => {
+        event.stopPropagation();
+        const selected = getExampleSelection() || pendingHighlightSelection;
+        pendingHighlightSelection = null;
+        const card = displayedList[currentIndex];
+        if (!isFlipped || !card || selected?.cardId !== card.id || selected.start >= selected.end) {
+          highlighter.textContent = '예문을 선택하세요';
+          highlightStatus.textContent = highlighter.textContent;
+          return;
+        }
+        const offsets = new Set(cardHighlights[card.id] || []);
+        const selectedOffsets = Array.from({length: selected.end - selected.start}, (_, i) => selected.start + i);
+        const erase = selectedOffsets.every(offset => offsets.has(offset));
+        for (const offset of selectedOffsets) {
+          if (erase) offsets.delete(offset);
+          else offsets.add(offset);
+        }
+        if (offsets.size) cardHighlights[card.id] = [...offsets];
+        else delete cardHighlights[card.id];
+        highlighter.textContent = '형광펜';
+        try {
+          localStorage.setItem(HIGHLIGHTS_KEY, JSON.stringify(cardHighlights));
+          highlightStatus.textContent = erase ? '형광펜 표시를 지웠습니다.' : '형광펜 표시를 저장했습니다.';
+        } catch {
+          highlightStatus.textContent = '이 브라우저에 형광펜 표시를 저장할 수 없습니다.';
+        }
+        window.getSelection()?.removeAllRanges();
+        renderHighlightedExample(card);
+      });
       const copyBackBtn = document.getElementById('copyBackBtn');
       let copyFeedbackTimer;
       copyBackBtn.addEventListener('click', async event => {
