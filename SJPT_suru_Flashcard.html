@@ -62,7 +62,7 @@ header .text-slate-400 { color: var(--sjpt-sub); }
 #backMeaning,#backExampleKorean { color:#475A4D; }
 #backExample { border-color:var(--sjpt-border); }
 #vocabTableContainer { background:var(--sjpt-surface);border-color:var(--sjpt-border); }
-#vocabTableContainer thead,#currentProbBadge,
+#vocabTableContainer thead,
 #cardInner .bg-slate-900\/60,#vocabTableBody .bg-slate-800 { background:var(--sjpt-muted); }
 #progressBar { background:linear-gradient(90deg,var(--sjpt-primary),#A47A4D); }
 </style>
@@ -131,10 +131,6 @@ header .text-slate-400 { color: var(--sjpt-sub); }
     <div id="flashcardView" class="flex-1 flex flex-col items-center justify-center gap-4">
       <!-- 진행률 바 및 카운터 -->
       <div class="cardToolbar text-xs text-slate-400">
-        <div class="flex items-center gap-2">
-          <span class="font-semibold text-slate-200" id="currentNumBadge">Card 1 / 309</span>
-          <span class="px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-[11px] text-indigo-400" id="currentProbBadge">학습 구간: 01</span>
-        </div>
         <div class="cardToolbarActions">
           <button id="autoPlayBtn" class="w-11 h-11 inline-grid place-items-center rounded-lg bg-orange-600 hover:bg-orange-700 border border-orange-400 text-white transition text-base" aria-label="자동 넘김 시작" title="자동 넘김 시작" aria-pressed="false">▶</button>
           <button id="starToggleBtn" class="w-11 h-11 inline-grid place-items-center rounded-lg text-slate-400 hover:text-amber-400 transition text-base">
@@ -250,8 +246,6 @@ header .text-slate-400 { color: var(--sjpt-sub); }
     const backReadingMini = document.getElementById('backReadingMini');
     const backMeaning = document.getElementById('backMeaning');
     const frontMeaning = document.getElementById('frontMeaning');
-    const currentNumBadge = document.getElementById('currentNumBadge');
-    const currentProbBadge = document.getElementById('currentProbBadge');
     const progressBar = document.getElementById('progressBar');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
@@ -445,8 +439,6 @@ header .text-slate-400 { color: var(--sjpt-sub); }
         frontMeaning.textContent = "";
         backWordMini.textContent = "-";
         backReadingMini.textContent = "";
-        currentNumBadge.textContent = "0 / 0";
-        currentProbBadge.textContent = "-";
         progressBar.style.width = '0%';
         starToggleBtn.innerHTML = '<i class="fa-regular fa-star"></i>';
         return;
@@ -472,8 +464,6 @@ header .text-slate-400 { color: var(--sjpt-sub); }
       }
       backProbTag.textContent = `구간: ${item.prob}`;
 
-      currentNumBadge.textContent = `Card ${currentIndex + 1} / ${displayedList.length}`;
-      currentProbBadge.textContent = `학습 구간: ${item.prob}`;
 
       const progress = ((currentIndex + 1) / displayedList.length) * 100;
       progressBar.style.width = `${progress}%`;
