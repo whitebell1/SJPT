@@ -302,10 +302,14 @@ header .text-slate-400 { color: var(--sjpt-sub); }
     }
 
     function updateAutoStatus() { autoPlayBtn.classList.toggle('ring-2', autoPlaying); autoPlayBtn.classList.toggle('ring-orange-200', autoPlaying); autoPlayBtn.textContent = autoPlaying ? '■' : '▶'; autoPlayBtn.setAttribute('aria-pressed', String(autoPlaying)); const label = autoPlaying ? '자동 넘김 정지' : '자동 넘김 시작'; autoPlayBtn.setAttribute('aria-label', label); autoPlayBtn.title = label; }
+    const AUTO_PAUSE_MS = 2000;
+    let autoPauseTimer;
+
     function stopAuto() {
       const wasPlaying = autoPlaying;
       autoPlaying = false;
       autoRun++;
+      clearTimeout(autoPauseTimer);
       if (wasPlaying) window.speechSynthesis?.cancel();
       updateAutoStatus();
     }
@@ -321,13 +325,23 @@ header .text-slate-400 { color: var(--sjpt-sub); }
       if (playable === undefined) { stopAuto(); return; }
       const run = ++autoRun;
       const current = () => autoPlaying && run === autoRun;
+      clearTimeout(autoPauseTimer);
+      const pause = next => {
+        if (!current()) return;
+        autoPauseTimer = setTimeout(() => {
+          if (current()) next();
+        }, AUTO_PAUSE_MS);
+      };
+      const fail = () => { if (current()) stopAuto(); };
       currentIndex = playable;
       renderCurrentCard(true);
-      playJapaneseAudio(displayedList[currentIndex].exJa, () => {
-        if (!current()) return;
-        currentIndex = (currentIndex + 1) % displayedList.length;
-        scheduleAuto();
-      }, () => { if (current()) stopAuto(); });
+      const card = displayedList[currentIndex];
+      playJapaneseAudio(card.reading.replace(/[()]/g, ''), () => pause(() => {
+        playJapaneseAudio(card.exJa, () => pause(() => {
+          currentIndex = (currentIndex + 1) % displayedList.length;
+          scheduleAuto();
+        }), fail);
+      }), fail);
     }
 
     function toggleAuto() {
