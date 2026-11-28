@@ -4,7 +4,7 @@
   <link rel="icon" type="image/svg+xml" href="./sjpt-favicon.svg">
 <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>▣ 일본어 기초 어휘</title>
+  <title>▣ SJPT 기초 어휘</title>
   <link rel="stylesheet" href="./sjpt-soft-sage.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -78,7 +78,7 @@ header .text-slate-400 { color: var(--sjpt-sub); }
 #cardContainer.furigana-hidden rt{visibility:hidden}
 .furiganaControl{align-self:center;margin-top:6px;padding:0 10px;border:1px solid var(--sjpt-border);border-radius:9px;font-size:12px}
 .backCardActions{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px}
-#copyBackBtn[hidden],#exampleAudioBtn[hidden]{display:none!important}
+#exampleAudioBtn[hidden]{display:none!important}
 #backExampleJapanese{user-select:text;-webkit-user-select:text}
 #cardContainer{touch-action:pan-y pinch-zoom}
 #backExampleJapanese mark{background:#ffe278;color:inherit}
@@ -94,7 +94,7 @@ header .text-slate-400 { color: var(--sjpt-sub); }
         <a href="./index.html" aria-label="SJPT 학습 목차로 돌아가기" title="목차로 돌아가기" class="menuLink w-8 h-8 p-0 inline-flex items-center justify-center rounded-lg bg-slate-700 text-slate-200 transition hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-300">
           <i class="fa-solid fa-house" aria-hidden="true"></i>
         </a>
-          <h1 class="text-base font-bold tracking-wide" style="color:#000">▣ 일본어 기초 어휘</h1>
+          <h1 class="text-base font-bold tracking-wide" style="color:#000">▣ SJPT 기초 어휘</h1>
     </div>
   </header>
 
@@ -185,7 +185,7 @@ header .text-slate-400 { color: var(--sjpt-sub); }
 
             <div class="w-full text-center">
               <span class="text-[11px] text-slate-400">다시 탭하면 앞면으로 회전합니다</span>
-              <div class="backCardActions"><button type="button" id="exampleAudioBtn" class="furiganaControl" hidden>듣기</button><button type="button" class="furiganaControl" aria-pressed="true">후리가나</button><button type="button" id="copyBackBtn" class="furiganaControl" hidden>복사</button><button type="button" id="highlightExampleBtn" class="furiganaControl" title="예문을 선택한 뒤 눌러 표시하거나 지웁니다" hidden>형광펜</button><span id="highlightStatus" class="sr-only" role="status"></span></div>
+              <div class="backCardActions"><button type="button" id="exampleAudioBtn" class="furiganaControl" hidden>듣기</button><button type="button" class="furiganaControl" aria-pressed="true">후리가나</button><button type="button" id="copyBackBtn" class="furiganaControl">본문 복사</button><button type="button" id="highlightExampleBtn" class="furiganaControl" title="예문을 선택한 뒤 눌러 표시하거나 지웁니다" hidden>형광펜</button><span id="highlightStatus" class="sr-only" role="status"></span></div>
             </div>
           </div>
         </div>
@@ -440,7 +440,6 @@ header .text-slate-400 { color: var(--sjpt-sub); }
       pendingHighlightSelection = null;
       const highlighter = document.getElementById('highlightExampleBtn');
       highlighter.hidden = true;
-      document.getElementById('copyBackBtn').hidden = true;
       const example = document.getElementById('backExample');
       const exampleAudio = document.getElementById('exampleAudioBtn');
       example.hidden = true;
@@ -472,7 +471,6 @@ header .text-slate-400 { color: var(--sjpt-sub); }
       if (item.exJa) {
         renderHighlightedExample(item);
         highlighter.hidden = false;
-        document.getElementById('copyBackBtn').hidden = false;
         document.getElementById('backExampleKorean').textContent = item.exKo;
         example.hidden = false;
         exampleAudio.hidden = false;
@@ -587,8 +585,8 @@ header .text-slate-400 { color: var(--sjpt-sub); }
       copyBackBtn.addEventListener('click', async event => {
         event.stopPropagation();
         const card = displayedList[currentIndex];
-        const text = card?.exJa;
-        if (!text) return;
+        if (!card) return;
+        const text = [card.word, card.reading, card.meaning, card.exJa, card.exKo].filter(Boolean).join('\n');
         try {
           await navigator.clipboard.writeText(text);
           copyBackBtn.textContent = '복사 완료';
@@ -596,7 +594,7 @@ header .text-slate-400 { color: var(--sjpt-sub); }
           copyBackBtn.textContent = '복사 실패';
         }
         clearTimeout(copyFeedbackTimer);
-        copyFeedbackTimer = setTimeout(() => { copyBackBtn.textContent = '복사'; }, 1500);
+        copyFeedbackTimer = setTimeout(() => { copyBackBtn.textContent = '본문 복사'; }, 1500);
       });
       const furiganaButtons = cardContainer.querySelectorAll('.furiganaControl[aria-pressed]');
       function toggleFurigana() {
