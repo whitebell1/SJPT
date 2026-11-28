@@ -26,6 +26,8 @@
     #backExample { margin-top:12px; padding-top:16px; border-top:1px solid #475569; }
     #backExample[hidden] { display:none; }
     #backWordMini, #backExampleJapanese { font-size:19px; }
+    .backWordRuby { ruby-position:over; ruby-align:center; }
+    #backReadingMini { font-size:0.7rem; }
     #backExampleJapanese { line-height:1.8; color:#e0e7ff; }
     #backExampleKorean { margin-top:10px; font-size:15px; line-height:1.7; color:#cbd5e1; }
     @media(max-width:480px){#frontWord{font-size:2.2rem} #backWordMini,#backExampleJapanese{font-size:18px}}
@@ -175,8 +177,7 @@ header .text-slate-400 { color: var(--sjpt-sub); }
 
             <div class="my-auto flex flex-col items-center gap-3">
               <div class="text-slate-400 text-sm flex items-center gap-2 font-mono">
-                <span id="backWordMini" class="font-sans font-semibold text-white">居眠り(する)</span>
-                <span id="backReadingMini" class="text-indigo-300 font-normal">[いねむり(する)]</span>
+                <ruby class="backWordRuby font-sans" lang="ja"><span id="backWordMini" class="font-semibold text-white">居眠り(する)</span><rt id="backReadingMini" class="text-indigo-300 font-normal">いねむり(する)</rt></ruby>
               </div>
               <h3 id="backMeaning" class="text-2xl sm:text-3xl font-extrabold text-emerald-400">졸다</h3><div id="backExample" hidden><p id="backExampleJapanese" lang="ja"></p><p id="backExampleKorean"></p></div>
             </div>
@@ -465,7 +466,7 @@ header .text-slate-400 { color: var(--sjpt-sub); }
 
       backCardId.textContent = `No. ${item.id}`;
       backWordMini.textContent = item.word;
-      backReadingMini.textContent = `[${item.reading}]`;
+      backReadingMini.textContent = item.reading;
       backMeaning.textContent = item.meaning;
       frontMeaning.textContent = item.meaning;
       if (item.exJa) {
