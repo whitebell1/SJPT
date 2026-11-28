@@ -5,26 +5,7 @@
 <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Level 4·5 필수 어휘 암기카드</title>
-  <style>@import url('https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Noto+Sans+JP:wght@400;500;700&display=swap');
-:root{color-scheme:light!important;--sjpt-bg:#DCE3D9;--sjpt-surface:#F7F9F5;--sjpt-muted:#E8EEE5;--sjpt-strong:#D7E0D4;--sjpt-text:#1C2D24;--sjpt-sub:#5E7064;--sjpt-border:#A8B7A8;--sjpt-primary:#476A57;--sjpt-primary-dark:#385B49;--sjpt-accent:#B7672C;--sjpt-accent-dark:#985326;--sjpt-danger:#A94C42}
-html,body{background-color:var(--sjpt-bg)!important;color:var(--sjpt-text)!important}body{background-image:none!important}header{background-color:var(--sjpt-strong)!important;border-color:var(--sjpt-border)!important;color:var(--sjpt-text)!important}footer,small,.hint,.help,.intro,.description,.empty,.stats,.phase{color:var(--sjpt-sub)!important}
-button,input,select,textarea,.menuLink{background-color:var(--sjpt-surface)!important;color:var(--sjpt-text)!important;border-color:var(--sjpt-border)!important}button:hover,.menuLink:hover{background-color:var(--sjpt-strong)!important}button.active,.primary,.tab.active,.action{background-color:var(--sjpt-primary)!important;color:#fff!important;border-color:var(--sjpt-primary-dark)!important}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible,[tabindex]:focus-visible{outline-color:var(--sjpt-primary)!important}input::placeholder,textarea::placeholder{color:#78877D!important}
-.filters,.panel,.controls-panel,.toolbar,.search-container,.filter-container{background-color:var(--sjpt-muted)!important;border-color:var(--sjpt-border)!important;color:var(--sjpt-text)!important}.card,.card.secondary,.listitem,.answer,.answer-content,.flashcard-front,.flashcard-back{background:linear-gradient(135deg,var(--sjpt-surface),#DCE5DA)!important;color:var(--sjpt-text)!important;border-color:var(--sjpt-border)!important;box-shadow:0 14px 34px #1C2D2424!important}.card.back,.flashcard-back{background:linear-gradient(135deg,#F0F4ED,#CFDCCF)!important}.card:hover{border-color:var(--sjpt-primary)!important}
-.part,.badge,.cardTop,.eyebrow,.listitem h2,summary,dt,rt{color:var(--sjpt-primary)!important}.count,.num,.badge-num{background-color:var(--sjpt-muted)!important;color:var(--sjpt-sub)!important;border-color:var(--sjpt-border)!important}.qko,.ko,.korean,.translation,.meaning,.description,ul{color:#475A4D!important}.progress{background-color:#CBD5C8!important}.progress>div{background:linear-gradient(90deg,var(--sjpt-primary),#A47A4D)!important}.star{color:#98651F!important}
-#autoPlay,#autoPlayBtn{background-color:var(--sjpt-accent)!important;color:#fff!important;border-color:var(--sjpt-accent-dark)!important}#autoPlay:hover,#autoPlayBtn:hover{background-color:var(--sjpt-accent-dark)!important}#timer,.timer{background-color:#F2DFD0!important;color:#6E452E!important;border-color:#C49A79!important}#timer.running,.stop{background-color:var(--sjpt-danger)!important;color:#fff!important}.overlay{background-color:var(--sjpt-text)!important;color:#fff!important}.overlay .phase{color:#C8D1C8!important}
-.readingCounter{background-color:#F2DFD0!important;color:#6E452E!important;border-color:#C49A79!important}
-.bg-gray-50,.bg-gray-100,.bg-slate-50,.bg-slate-100{background-color:var(--sjpt-bg)!important}.bg-white,.bg-white\/90,.bg-white\/95{background-color:var(--sjpt-surface)!important}.text-gray-900,.text-slate-900,.text-gray-800,.text-slate-800{color:var(--sjpt-text)!important}.text-gray-500,.text-gray-600,.text-slate-500,.text-slate-600{color:var(--sjpt-sub)!important}.border-gray-200,.border-gray-300,.border-slate-200,.border-slate-300{border-color:var(--sjpt-border)!important}.bg-blue-600,.bg-indigo-600,.bg-purple-600{background-color:var(--sjpt-primary)!important}.text-blue-600,.text-indigo-600,.text-purple-600{color:var(--sjpt-primary)!important}
-.grid .card{background:linear-gradient(140deg,var(--sjpt-surface),#DCE5DA)!important}.grid .card.secondary{background:linear-gradient(140deg,#EFF3EC,#D2DED1)!important}.grid .action{background-color:var(--sjpt-primary)!important}.grid li::before{color:var(--sjpt-primary)!important}
-.card .answer{background:transparent!important;color:inherit!important;border-color:inherit!important;box-shadow:none!important}
-#search,#clear,#searchInput,#clearSearchBtn{display:none!important}
-section div:has(> #searchInput){display:none!important}
-button,.menuLink,select{height:36px!important;min-height:36px!important;box-sizing:border-box!important}
-button,.menuLink{display:inline-flex!important;align-items:center!important;justify-content:center!important;line-height:1!important}
-select{text-align:center!important;text-align-last:center!important;padding-top:0!important;padding-bottom:0!important}
-button,.menuLink,select{font-family:"Noto Sans JP","Yu Gothic",sans-serif!important}
-.card button{height:36px!important;min-height:36px!important}
-.prompt,.answer[lang="ja"],.sentence,.listSentence,.listQ,.listA,.q,.jp,[lang="ja"]{font-family:"BIZ UDPGothic","BIZ UD Gothic","Yu Gothic","Noto Sans JP",sans-serif!important}
-</style>
+  <link rel="stylesheet" href="./sjpt-soft-sage.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
@@ -104,7 +85,7 @@ header .text-slate-400 { color: var(--sjpt-sub); }
 .cardToolbarActions button{width:44px;height:44px!important;min-height:44px!important;flex:0 0 44px;padding:0;border:1px solid var(--sjpt-border);border-radius:9px;font-size:16px}
 #starToggleBtn i.fa-solid{color:#98651F}
 #autoPlayBtn.ring-2{background-color:var(--sjpt-accent-dark)!important}
-</style><style>#backExampleKorean{white-space:pre-line}</style></head>
+</style></head>
 <body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col font-sans">
   <!-- 상단 네비게이션 헤더 -->
   <header class="bg-slate-800/80 backdrop-blur border-b border-slate-700/60 sticky top-0 z-30 px-4 py-3 shadow-md">
@@ -196,7 +177,7 @@ header .text-slate-400 { color: var(--sjpt-sub); }
 
             <div class="my-auto flex flex-col items-center gap-3">
               <div class="text-slate-400 text-sm flex items-center gap-2 font-mono">
-                <ruby class="backWordRuby font-sans"><span id="backWordMini" class="font-semibold text-white">気になる</span><rt id="backReadingMini" class="text-indigo-300 font-normal">きになる</rt></ruby>
+                <ruby class="backWordRuby font-sans"><span id="backWordMini" class="font-semibold text-white">平日</span><rt id="backReadingMini" class="text-indigo-300 font-normal">へいじつ</rt></ruby>
               </div>
               <h3 id="backMeaning" class="text-2xl sm:text-3xl font-extrabold text-emerald-400">평일</h3><div id="backExample" hidden><p id="backExampleJapanese" lang="ja"></p><p id="backExampleKorean"></p></div>
             </div>
@@ -323,7 +304,7 @@ header .text-slate-400 { color: var(--sjpt-sub); }
 
     function updateAutoStatus() { autoPlayBtn.classList.toggle('ring-2', autoPlaying); autoPlayBtn.classList.toggle('ring-orange-200', autoPlaying); autoPlayBtn.textContent = autoPlaying ? '■' : '▶'; autoPlayBtn.setAttribute('aria-pressed', String(autoPlaying)); const label = autoPlaying ? '자동 넘김 정지' : '자동 넘김 시작'; autoPlayBtn.setAttribute('aria-label', label); autoPlayBtn.title = label; }
     const AUTO_PAUSE_MS = 2000;
-    let autoPauseTimer = null;
+    let autoPauseTimer;
 
     function stopAuto() {
       const wasPlaying = autoPlaying;
@@ -356,7 +337,7 @@ header .text-slate-400 { color: var(--sjpt-sub); }
       currentIndex = playable;
       renderCurrentCard(true);
       const card = displayedList[currentIndex];
-      playJapaneseAudio(card.reading.replace(/^～/, ''), () => pause(() => {
+      playJapaneseAudio(card.reading.replace(/[()]/g, ''), () => pause(() => {
         playJapaneseAudio(card.exJa, () => pause(() => {
           currentIndex = (currentIndex + 1) % displayedList.length;
           scheduleAuto();
