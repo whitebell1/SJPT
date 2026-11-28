@@ -1,89 +1,775 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SJPT Level 4·5 필수 단어 48</title>
-<link rel="stylesheet" href="./sjpt-soft-sage.css">
-<link rel="icon" type="image/svg+xml" href="./sjpt-favicon.svg">
-<style>
-:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#0f172a;color:#f1f5f9;font:17px/1.7 Arial,'Malgun Gothic',sans-serif}header{background:#1e293b;border-bottom:1px solid #334155;padding:17px}header>div,main{max-width:1040px;margin:auto}header>div,.row{display:flex;align-items:center;gap:9px;flex-wrap:wrap}header>div{justify-content:space-between}h1{font-size:18px;margin:0}small,.hint,footer{color:#94a3b8}main{padding:20px}button,input,select,.menuLink{font:15px/1.5 Arial,'Malgun Gothic',sans-serif;border:1px solid #475569;border-radius:9px;padding:9px 12px;color:#f1f5f9;background:#1e293b}button,select,.menuLink{cursor:pointer}.menuLink{text-decoration:none;display:inline-grid;place-items:center;width:34px;height:34px;padding:0;font-size:18px}button:hover,.menuLink:hover{background:#475569}button.active,.primary{background:#4f46e5}.filters{background:#1e293b88;padding:12px;border:1px solid #334155;border-radius:12px}.filters input{flex:1;min-width:210px}.status{justify-content:space-between;margin:18px 0}.badge{color:#a5b4fc}.star{color:#fbbf24}#autoPlay,#star{width:42px;height:42px;padding:0;display:inline-grid;place-items:center}#autoPlay{background:#ea580c;border-color:#fb923c}.rangePicker{display:inline-flex;gap:5px}.rangePicker select{width:70px;padding:8px 4px}.card{border:1px solid #475569;background:linear-gradient(135deg,#1e293b,#162036);border-radius:22px;padding:30px;min-height:430px;box-shadow:0 20px 50px #02061766;cursor:pointer;display:flex;flex-direction:column;gap:18px}.card.back{background:linear-gradient(135deg,#28244c,#0f172a);border-color:#6366f1}.cardTop{display:flex;justify-content:space-between;gap:12px;color:#a5b4fc;font-size:14px}.word{font-size:clamp(42px,8vw,72px);line-height:1.45;font-weight:800;margin:auto;text-align:center}.backWord{font-size:clamp(30px,5vw,46px);line-height:1.6;font-weight:800;margin:0;text-align:center}.meaning{text-align:center;color:#fbbf24;font-size:20px;margin:0}.example{font-size:clamp(22px,3.4vw,31px);line-height:1.85;margin:6px 0;overflow-wrap:anywhere}.korean{border-top:1px solid #454563;padding-top:14px;margin:0;color:#cbd5e1}.hint{text-align:center;font-size:14px}.furiganaToggle{align-self:center;margin-top:auto;padding:7px 14px;font-size:14px;background:#312e81;border-color:#6366f1}.furiganaToggle.active{background:#4f46e5}ruby{ruby-align:center}rt{font-size:calc(.5em + 2pt);color:#fbbf24;font-weight:600}.progress{height:6px;border-radius:5px;background:#1e293b;margin:18px 0;overflow:hidden}.progress>div{height:100%;background:linear-gradient(90deg,#6366f1,#34d399)}.controls{justify-content:center}.controls button{padding:12px 20px}.help{text-align:center;color:#94a3b8;font-size:14px;margin:20px 0}.listitem{background:#1e293b;border:1px solid #334155;border-radius:14px;padding:20px;margin:14px 0}.listitem h2{font-size:20px;color:#a5b4fc;margin:0}.listitem p{margin:8px 0}.empty{text-align:center;padding:60px 20px;color:#94a3b8}footer{text-align:center;padding:20px;font-size:13px}[hidden]{display:none!important}@media(max-width:640px){main{padding:12px}.card{padding:22px 18px;min-height:410px}.status>div:last-child{width:100%;flex-wrap:nowrap;gap:5px}#autoPlay,#star{width:38px;height:38px;flex:0 0 38px}#speak{padding:8px 7px;white-space:nowrap}.rangePicker select{width:56px;padding:8px 3px}.controls button{padding:11px 15px}}
+  <link rel="icon" type="image/svg+xml" href="./sjpt-favicon.svg">
+<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Level 4·5 필수 어휘 암기카드</title>
+  <style>@import url('https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Noto+Sans+JP:wght@400;500;700&display=swap');
+:root{color-scheme:light!important;--sjpt-bg:#DCE3D9;--sjpt-surface:#F7F9F5;--sjpt-muted:#E8EEE5;--sjpt-strong:#D7E0D4;--sjpt-text:#1C2D24;--sjpt-sub:#5E7064;--sjpt-border:#A8B7A8;--sjpt-primary:#476A57;--sjpt-primary-dark:#385B49;--sjpt-accent:#B7672C;--sjpt-accent-dark:#985326;--sjpt-danger:#A94C42}
+html,body{background-color:var(--sjpt-bg)!important;color:var(--sjpt-text)!important}body{background-image:none!important}header{background-color:var(--sjpt-strong)!important;border-color:var(--sjpt-border)!important;color:var(--sjpt-text)!important}footer,small,.hint,.help,.intro,.description,.empty,.stats,.phase{color:var(--sjpt-sub)!important}
+button,input,select,textarea,.menuLink{background-color:var(--sjpt-surface)!important;color:var(--sjpt-text)!important;border-color:var(--sjpt-border)!important}button:hover,.menuLink:hover{background-color:var(--sjpt-strong)!important}button.active,.primary,.tab.active,.action{background-color:var(--sjpt-primary)!important;color:#fff!important;border-color:var(--sjpt-primary-dark)!important}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible,[tabindex]:focus-visible{outline-color:var(--sjpt-primary)!important}input::placeholder,textarea::placeholder{color:#78877D!important}
+.filters,.panel,.controls-panel,.toolbar,.search-container,.filter-container{background-color:var(--sjpt-muted)!important;border-color:var(--sjpt-border)!important;color:var(--sjpt-text)!important}.card,.card.secondary,.listitem,.answer,.answer-content,.flashcard-front,.flashcard-back{background:linear-gradient(135deg,var(--sjpt-surface),#DCE5DA)!important;color:var(--sjpt-text)!important;border-color:var(--sjpt-border)!important;box-shadow:0 14px 34px #1C2D2424!important}.card.back,.flashcard-back{background:linear-gradient(135deg,#F0F4ED,#CFDCCF)!important}.card:hover{border-color:var(--sjpt-primary)!important}
+.part,.badge,.cardTop,.eyebrow,.listitem h2,summary,dt,rt{color:var(--sjpt-primary)!important}.count,.num,.badge-num{background-color:var(--sjpt-muted)!important;color:var(--sjpt-sub)!important;border-color:var(--sjpt-border)!important}.qko,.ko,.korean,.translation,.meaning,.description,ul{color:#475A4D!important}.progress{background-color:#CBD5C8!important}.progress>div{background:linear-gradient(90deg,var(--sjpt-primary),#A47A4D)!important}.star{color:#98651F!important}
+#autoPlay,#autoPlayBtn{background-color:var(--sjpt-accent)!important;color:#fff!important;border-color:var(--sjpt-accent-dark)!important}#autoPlay:hover,#autoPlayBtn:hover{background-color:var(--sjpt-accent-dark)!important}#timer,.timer{background-color:#F2DFD0!important;color:#6E452E!important;border-color:#C49A79!important}#timer.running,.stop{background-color:var(--sjpt-danger)!important;color:#fff!important}.overlay{background-color:var(--sjpt-text)!important;color:#fff!important}.overlay .phase{color:#C8D1C8!important}
+.readingCounter{background-color:#F2DFD0!important;color:#6E452E!important;border-color:#C49A79!important}
+.bg-gray-50,.bg-gray-100,.bg-slate-50,.bg-slate-100{background-color:var(--sjpt-bg)!important}.bg-white,.bg-white\/90,.bg-white\/95{background-color:var(--sjpt-surface)!important}.text-gray-900,.text-slate-900,.text-gray-800,.text-slate-800{color:var(--sjpt-text)!important}.text-gray-500,.text-gray-600,.text-slate-500,.text-slate-600{color:var(--sjpt-sub)!important}.border-gray-200,.border-gray-300,.border-slate-200,.border-slate-300{border-color:var(--sjpt-border)!important}.bg-blue-600,.bg-indigo-600,.bg-purple-600{background-color:var(--sjpt-primary)!important}.text-blue-600,.text-indigo-600,.text-purple-600{color:var(--sjpt-primary)!important}
+.grid .card{background:linear-gradient(140deg,var(--sjpt-surface),#DCE5DA)!important}.grid .card.secondary{background:linear-gradient(140deg,#EFF3EC,#D2DED1)!important}.grid .action{background-color:var(--sjpt-primary)!important}.grid li::before{color:var(--sjpt-primary)!important}
+.card .answer{background:transparent!important;color:inherit!important;border-color:inherit!important;box-shadow:none!important}
+#search,#clear,#searchInput,#clearSearchBtn{display:none!important}
+section div:has(> #searchInput){display:none!important}
+button,.menuLink,select{height:36px!important;min-height:36px!important;box-sizing:border-box!important}
+button,.menuLink{display:inline-flex!important;align-items:center!important;justify-content:center!important;line-height:1!important}
+select{text-align:center!important;text-align-last:center!important;padding-top:0!important;padding-bottom:0!important}
+button,.menuLink,select{font-family:"Noto Sans JP","Yu Gothic",sans-serif!important}
+.card button{height:36px!important;min-height:36px!important}
+.prompt,.answer[lang="ja"],.sentence,.listSentence,.listQ,.listA,.q,.jp,[lang="ja"]{font-family:"BIZ UDPGothic","BIZ UD Gothic","Yu Gothic","Noto Sans JP",sans-serif!important}
 </style>
-</head>
-<body>
-<header><div><div><h1>▣ SJPT Level 4·5 필수 단어</h1><small>8회차 · 필수 단어 및 활용 표현 48항목</small></div><nav class="row"><a class="menuLink" href="./index.html" aria-label="SJPT 학습 목차로 돌아가기">⌂</a><button id="cardsMode" class="active">카드 모드</button><button id="listMode">목록 모드</button><button id="starFilter" class="star">★ 별표 (0)</button></nav></div></header>
-<main>
-<section class="row filters"><input id="search" aria-label="검색" placeholder="단어, 뜻, 예문 검색…"><button id="clear">지우기</button><select id="round" aria-label="회차 선택"><option value="">전체 회차</option></select><button id="shuffle">⇄ 셔플</button><button id="reset">↺ 순서 복원</button></section>
-<div class="row status"><div class="row"><strong id="count"></strong><span id="tag" class="badge"></span></div><div class="row"><button id="autoPlay" aria-label="자동재생 시작" title="자동재생 시작">▶</button><button id="star" class="star" aria-label="현재 단어 별표">☆</button><button id="speak">♫ 듣기</button><div class="rangePicker" aria-label="반복 재생 범위"><select id="rangeStart" aria-label="반복 시작 카드"></select><select id="rangeEnd" aria-label="반복 마지막 카드"></select></div></div></div>
-<p id="message" role="status"></p>
-<section id="cardView"><div id="card" class="card" role="button" tabindex="0" aria-label="카드 뒤집기"></div><div class="progress"><div id="progress"></div></div><div class="row controls"><button id="prev">← 이전</button><button id="koreanToggle">해석</button><button id="flip" class="primary">↻ 뒤집기</button><button id="next">다음 →</button></div><p class="help">카드를 탭하면 뜻과 활용 예문을 확인할 수 있습니다.<br>자동재생은 선택한 시작 카드부터 마지막 카드까지 반복합니다.</p></section>
-<section id="listView" hidden></section><div id="empty" class="empty" hidden>조건에 맞는 단어가 없습니다.</div>
-</main><footer>SJPT Level 4·5 · 필수 단어 및 활용 표현 48</footer>
-<script>
-const EXAMPLE_RUBY={"1":"<ruby>平日<rt>へいじつ</rt></ruby>は<ruby>七時<rt>しちじ</rt></ruby>に<ruby>起<rt>お</rt></ruby>きます。","2":"<ruby>休日<rt>きゅうじつ</rt></ruby>は<ruby>家<rt>いえ</rt></ruby>でゆっくりします。","3":"<ruby>週末<rt>しゅうまつ</rt></ruby>の<ruby>予定<rt>よてい</rt></ruby>を<ruby>決<rt>き</rt></ruby>めます。","4":"<ruby>寝<rt>ね</rt></ruby>る<ruby>前<rt>まえ</rt></ruby>に<ruby>本<rt>ほん</rt></ruby>を<ruby>読<rt>よ</rt></ruby>む<ruby>習慣<rt>しゅうかん</rt></ruby>があります。","5":"<ruby>勉強<rt>べんきょう</rt></ruby>のあとで<ruby>休憩<rt>きゅうけい</rt></ruby>を<ruby>取<rt>と</rt></ruby>ります。","6":"<ruby>朝<rt>あさ</rt></ruby>は<ruby>出<rt>で</rt></ruby>かける<ruby>準備<rt>じゅんび</rt></ruby>をします。","7":"<ruby>冷蔵<rt>れいぞう</rt></ruby><ruby>庫<rt>こ</rt></ruby>の<ruby>食材<rt>しょくざい</rt></ruby>を<ruby>確認<rt>かくにん</rt></ruby>します。","8":"<ruby>買<rt>か</rt></ruby>う<ruby>前<rt>まえ</rt></ruby>に<ruby>値段<rt>ねだん</rt></ruby>を<ruby>比<rt>くら</rt></ruby>べます。","9":"<ruby>野菜<rt>やさい</rt></ruby>の<ruby>売り場<rt>うりば</rt></ruby>で<ruby>選<rt>えら</rt></ruby>びます。","10":"<ruby>今日<rt>きょう</rt></ruby>の<ruby>予算<rt>よさん</rt></ruby>は<ruby>千<rt>せん</rt></ruby><ruby>円<rt>えん</rt></ruby>です。","11":"<ruby>時間<rt>じかん</rt></ruby>がある<ruby>日<rt>ひ</rt></ruby>は<ruby>自炊<rt>じすい</rt></ruby>します。","12":"<ruby>新鮮<rt>しんせん</rt></ruby>な<ruby>野菜<rt>やさい</rt></ruby>を<ruby>選<rt>えら</rt></ruby>びます。","13":"<ruby>近所<rt>きんじょ</rt></ruby>に<ruby>小<rt>ちい</rt></ruby>さな<ruby>公園<rt>こうえん</rt></ruby>があります。","14":"<ruby>家賃<rt>やちん</rt></ruby>は<ruby>毎月<rt>まいつき</rt></ruby><ruby>五<rt>ご</rt></ruby><ruby>万<rt>まん</rt></ruby><ruby>円<rt>えん</rt></ruby>です。","15":"<ruby>日当<rt>ひあ</rt></ruby>たりのいい<ruby>部屋<rt>へや</rt></ruby>です。","16":"<ruby>通勤<rt>つうきん</rt></ruby>に<ruby>三十分<rt>さんじゅっぷん</rt></ruby>かかります。","17":"<ruby>夜<rt>よる</rt></ruby>はとても<ruby>静<rt>しず</rt></ruby>かな<ruby>町<rt>まち</rt></ruby>です。","18":"<ruby>寝<rt>ね</rt></ruby>る<ruby>前<rt>まえ</rt></ruby>に<ruby>部屋<rt>へや</rt></ruby>を<ruby>片<rt>かた</rt></ruby>づけます。","19":"<ruby>趣味<rt>しゅみ</rt></ruby>は<ruby>写真<rt>しゃしん</rt></ruby>を<ruby>撮<rt>と</rt></ruby>ることです。","20":"<ruby>休日<rt>きゅうじつ</rt></ruby>は<ruby>近<rt>ちか</rt></ruby>くの<ruby>公園<rt>こうえん</rt></ruby>を<ruby>散歩<rt>さんぽ</rt></ruby>します。","21":"<ruby>友達<rt>ともだち</rt></ruby>と<ruby>料理<rt>りょうり</rt></ruby><ruby>教室<rt>きょうしつ</rt></ruby>に<ruby>参加<rt>さんか</rt></ruby>しました。","22":"<ruby>散歩<rt>さんぽ</rt></ruby>はいい<ruby>気分<rt>きぶん</rt></ruby><ruby>転換<rt>てんかん</rt></ruby>になります。","23":"<ruby>初<rt>はじ</rt></ruby>めて<ruby>料理<rt>りょうり</rt></ruby>の<ruby>体験<rt>たいけん</rt></ruby>をしました。","24":"<ruby>好<rt>す</rt></ruby>きな<ruby>運動<rt>うんどう</rt></ruby>を<ruby>長<rt>なが</rt></ruby>く<ruby>続<rt>つづ</rt></ruby>けたいです。","25":"<ruby>明日<rt>あす</rt></ruby>の<ruby>朝<rt>あさ</rt></ruby>、<ruby>早<rt>はや</rt></ruby>く<ruby>出発<rt>しゅっぱつ</rt></ruby>します。","26":"<ruby>駅<rt>えき</rt></ruby>での<ruby>乗り換<rt>のりか</rt></ruby>えを<ruby>調<rt>しら</rt></ruby>べます。","27":"<ruby>出発<rt>しゅっぱつ</rt></ruby>する<ruby>前<rt>まえ</rt></ruby>にホテルを<ruby>予約<rt>よやく</rt></ruby>します。","28":"<ruby>荷物<rt>にもつ</rt></ruby>は<ruby>小<rt>ちい</rt></ruby>さいかばんに<ruby>入<rt>い</rt></ruby>れます。","29":"お<ruby>昼前<rt>ひるまえ</rt></ruby>に<ruby>駅<rt>えき</rt></ruby>に<ruby>到着<rt>とうちゃく</rt></ruby>する<ruby>予定<rt>よてい</rt></ruby>です。","30":"<ruby>道<rt>みち</rt></ruby>に<ruby>迷<rt>まよ</rt></ruby>ったら、<ruby>人<rt>ひと</rt></ruby>に<ruby>聞<rt>き</rt></ruby>きます。","31":"<ruby>今週<rt>こんしゅう</rt></ruby>の<ruby>勉強<rt>べんきょう</rt></ruby>の<ruby>目標<rt>もくひょう</rt></ruby>を<ruby>決<rt>き</rt></ruby>めます。","32":"<ruby>授業<rt>じゅぎょう</rt></ruby>のあとで<ruby>復習<rt>ふくしゅう</rt></ruby>します。","33":"<ruby>毎日<rt>まいにち</rt></ruby><ruby>少<rt>すこ</rt></ruby>しずつ<ruby>話<rt>はな</rt></ruby>す<ruby>練習<rt>れんしゅう</rt></ruby>をします。","34":"<ruby>分<rt>わ</rt></ruby>からない<ruby>所<rt>ところ</rt></ruby>を<ruby>先生<rt>せんせい</rt></ruby>に<ruby>確認<rt>かくにん</rt></ruby>します。","35":"<ruby>静<rt>しず</rt></ruby>かな<ruby>部屋<rt>へや</rt></ruby>で<ruby>勉強<rt>べんきょう</rt></ruby>に<ruby>集中<rt>しゅうちゅう</rt></ruby>します。","36":"<ruby>困<rt>こま</rt></ruby>ったら、<ruby>先輩<rt>せんぱい</rt></ruby>に<ruby>相談<rt>そうだん</rt></ruby>します。","37":"<ruby>家族<rt>かぞく</rt></ruby>にメッセージで<ruby>連絡<rt>れんらく</rt></ruby>します。","38":"<ruby>勉強<rt>べんきょう</rt></ruby><ruby>中<rt>ちゅう</rt></ruby>は<ruby>通知<rt>つうち</rt></ruby>を<ruby>止<rt>と</rt></ruby>めます。","39":"<ruby>地図<rt>ちず</rt></ruby>の<ruby>画面<rt>がめん</rt></ruby>を<ruby>友達<rt>ともだち</rt></ruby>に<ruby>見<rt>み</rt></ruby>せます。","40":"スマホの<ruby>使<rt>つか</rt></ruby>いすぎに<ruby>注意<rt>ちゅうい</rt></ruby>します。","41":"<ruby>買<rt>か</rt></ruby>う<ruby>前<rt>まえ</rt></ruby>に<ruby>値段<rt>ねだん</rt></ruby>を<ruby>確<rt>たし</rt></ruby>かめます。","42":"<ruby>急<rt>きゅう</rt></ruby>な<ruby>連絡<rt>れんらく</rt></ruby>が<ruby>来<rt>き</rt></ruby>たら<ruby>確認<rt>かくにん</rt></ruby>します。","43":"<ruby>待ち合<rt>まちあ</rt></ruby>わせの<ruby>場所<rt>ばしょ</rt></ruby>を<ruby>決<rt>き</rt></ruby>めます。","44":"<ruby>十分<rt>じゅっぷん</rt></ruby>ぐらい<ruby>遅<rt>おく</rt></ruby>れると<ruby>伝<rt>つた</rt></ruby>えます。","45":"<ruby>友達<rt>ともだち</rt></ruby>に<ruby>荷物<rt>にもつ</rt></ruby>を<ruby>運<rt>はこ</rt></ruby>ぶのを<ruby>頼<rt>たの</rt></ruby>みます。","46":"<ruby>駅<rt>えき</rt></ruby>まで<ruby>来<rt>き</rt></ruby>てもらうと<ruby>助<rt>たす</rt></ruby>かります。","47":"<ruby>写真<rt>しゃしん</rt></ruby>を<ruby>使<rt>つか</rt></ruby>う<ruby>前<rt>まえ</rt></ruby>に<ruby>許可<rt>きょか</rt></ruby>を<ruby>取<rt>と</rt></ruby>ります。","48":"<ruby>助<rt>たす</rt></ruby>けてくれた<ruby>友達<rt>ともだち</rt></ruby>にお<ruby>礼<rt>れい</rt></ruby>を<ruby>言<rt>い</rt></ruby>います。"};
-const DATA=[
-{id:1,round:1,theme:'일상과 시간',w:'平日',r:'へいじつ',ko:'평일',ex:'平日は七時に起きます。',exko:'평일에는 일곱 시에 일어납니다.'},
-{id:2,round:1,theme:'일상과 시간',w:'休日',r:'きゅうじつ',ko:'휴일',ex:'休日は家でゆっくりします。',exko:'휴일에는 집에서 느긋하게 쉽니다.'},
-{id:3,round:1,theme:'일상과 시간',w:'予定',r:'よてい',ko:'예정, 계획',ex:'週末の予定を決めます。',exko:'주말 계획을 정합니다.'},
-{id:4,round:1,theme:'일상과 시간',w:'習慣',r:'しゅうかん',ko:'습관',ex:'寝る前に本を読む習慣があります。',exko:'자기 전에 책을 읽는 습관이 있습니다.'},
-{id:5,round:1,theme:'일상과 시간',w:'休憩',r:'きゅうけい',ko:'휴식',ex:'勉強のあとで休憩を取ります。',exko:'공부한 뒤에 휴식을 취합니다.'},
-{id:6,round:1,theme:'일상과 시간',w:'準備',r:'じゅんび',ko:'준비',ex:'朝は出かける準備をします。',exko:'아침에는 외출할 준비를 합니다.'},
-{id:7,round:2,theme:'식사와 쇼핑',w:'食材',r:'しょくざい',ko:'식재료',ex:'冷蔵庫の食材を確認します。',exko:'냉장고의 식재료를 확인합니다.'},
-{id:8,round:2,theme:'식사와 쇼핑',w:'値段',r:'ねだん',ko:'가격',ex:'買う前に値段を比べます。',exko:'사기 전에 가격을 비교합니다.'},
-{id:9,round:2,theme:'식사와 쇼핑',w:'売り場',r:'うりば',ko:'매장, 코너',ex:'野菜の売り場で選びます。',exko:'채소 판매 코너에서 고릅니다.'},
-{id:10,round:2,theme:'식사와 쇼핑',w:'予算',r:'よさん',ko:'예산',ex:'今日の予算は千円です。',exko:'오늘의 예산은 천 엔입니다.'},
-{id:11,round:2,theme:'식사와 쇼핑',w:'自炊',r:'じすい',ko:'직접 요리함',ex:'時間がある日は自炊します。',exko:'시간이 있는 날에는 직접 요리해 먹습니다.'},
-{id:12,round:2,theme:'식사와 쇼핑',w:'新鮮',r:'しんせん',ko:'신선함',ex:'新鮮な野菜を選びます。',exko:'신선한 채소를 고릅니다.'},
-{id:13,round:3,theme:'주거와 동네',w:'近所',r:'きんじょ',ko:'근처, 동네',ex:'近所に小さな公園があります。',exko:'동네에 작은 공원이 있습니다.'},
-{id:14,round:3,theme:'주거와 동네',w:'家賃',r:'やちん',ko:'집세, 월세',ex:'家賃は毎月五万円です。',exko:'집세는 매달 오만 엔입니다.'},
-{id:15,round:3,theme:'주거와 동네',w:'日当たり',r:'ひあたり',ko:'채광',ex:'日当たりのいい部屋です。',exko:'햇볕이 잘 드는 방입니다.'},
-{id:16,round:3,theme:'주거와 동네',w:'通勤',r:'つうきん',ko:'통근',ex:'通勤に三十分かかります。',exko:'통근하는 데 삼십 분 걸립니다.'},
-{id:17,round:3,theme:'주거와 동네',w:'静か',r:'しずか',ko:'조용함',ex:'夜はとても静かな町です。',exko:'밤에는 매우 조용한 동네입니다.'},
-{id:18,round:3,theme:'주거와 동네',w:'片づけ',r:'かたづけ',ko:'정리 정돈',ex:'寝る前に部屋を片づけます。',exko:'자기 전에 방을 정리합니다.'},
-{id:19,round:4,theme:'휴일과 취미',w:'趣味',r:'しゅみ',ko:'취미',ex:'趣味は写真を撮ることです。',exko:'취미는 사진을 찍는 것입니다.'},
-{id:20,round:4,theme:'휴일과 취미',w:'散歩',r:'さんぽ',ko:'산책',ex:'休日は近くの公園を散歩します。',exko:'휴일에는 근처 공원을 산책합니다.'},
-{id:21,round:4,theme:'휴일과 취미',w:'参加',r:'さんか',ko:'참가',ex:'友達と料理教室に参加しました。',exko:'친구와 요리 교실에 참가했습니다.'},
-{id:22,round:4,theme:'휴일과 취미',w:'気分転換',r:'きぶんてんかん',ko:'기분 전환',ex:'散歩はいい気分転換になります。',exko:'산책은 좋은 기분 전환이 됩니다.'},
-{id:23,round:4,theme:'휴일과 취미',w:'体験',r:'たいけん',ko:'체험',ex:'初めて料理の体験をしました。',exko:'처음으로 요리 체험을 했습니다.'},
-{id:24,round:4,theme:'휴일과 취미',w:'続ける',r:'つづける',ko:'계속하다',ex:'好きな運動を長く続けたいです。',exko:'좋아하는 운동을 오래 계속하고 싶습니다.'},
-{id:25,round:5,theme:'여행과 교통',w:'出発',r:'しゅっぱつ',ko:'출발',ex:'明日の朝、早く出発します。',exko:'내일 아침 일찍 출발합니다.'},
-{id:26,round:5,theme:'여행과 교통',w:'乗り換え',r:'のりかえ',ko:'환승',ex:'駅での乗り換えを調べます。',exko:'역에서의 환승을 알아봅니다.'},
-{id:27,round:5,theme:'여행과 교통',w:'予約',r:'よやく',ko:'예약',ex:'出発する前にホテルを予約します。',exko:'출발하기 전에 호텔을 예약합니다.'},
-{id:28,round:5,theme:'여행과 교통',w:'荷物',r:'にもつ',ko:'짐',ex:'荷物は小さいかばんに入れます。',exko:'짐은 작은 가방에 넣습니다.'},
-{id:29,round:5,theme:'여행과 교통',w:'到着',r:'とうちゃく',ko:'도착',ex:'お昼前に駅に到着する予定です。',exko:'점심 전에 역에 도착할 예정입니다.'},
-{id:30,round:5,theme:'여행과 교통',w:'迷う',r:'まよう',ko:'길을 잃다',ex:'道に迷ったら、人に聞きます。',exko:'길을 잃으면 사람에게 물어봅니다.'},
-{id:31,round:6,theme:'공부와 일',w:'目標',r:'もくひょう',ko:'목표',ex:'今週の勉強の目標を決めます。',exko:'이번 주 공부 목표를 정합니다.'},
-{id:32,round:6,theme:'공부와 일',w:'復習',r:'ふくしゅう',ko:'복습',ex:'授業のあとで復習します。',exko:'수업이 끝난 뒤 복습합니다.'},
-{id:33,round:6,theme:'공부와 일',w:'練習',r:'れんしゅう',ko:'연습',ex:'毎日少しずつ話す練習をします。',exko:'매일 조금씩 말하기 연습을 합니다.'},
-{id:34,round:6,theme:'공부와 일',w:'確認',r:'かくにん',ko:'확인',ex:'分からない所を先生に確認します。',exko:'모르는 부분을 선생님에게 확인합니다.'},
-{id:35,round:6,theme:'공부와 일',w:'集中',r:'しゅうちゅう',ko:'집중',ex:'静かな部屋で勉強に集中します。',exko:'조용한 방에서 공부에 집중합니다.'},
-{id:36,round:6,theme:'공부와 일',w:'相談',r:'そうだん',ko:'상의, 상담',ex:'困ったら、先輩に相談します。',exko:'곤란해지면 선배에게 상의합니다.'},
-{id:37,round:7,theme:'스마트폰과 생활',w:'連絡',r:'れんらく',ko:'연락',ex:'家族にメッセージで連絡します。',exko:'가족에게 메시지로 연락합니다.'},
-{id:38,round:7,theme:'스마트폰과 생활',w:'通知',r:'つうち',ko:'알림',ex:'勉強中は通知を止めます。',exko:'공부 중에는 알림을 끕니다.'},
-{id:39,round:7,theme:'스마트폰과 생활',w:'画面',r:'がめん',ko:'화면',ex:'地図の画面を友達に見せます。',exko:'지도 화면을 친구에게 보여 줍니다.'},
-{id:40,round:7,theme:'스마트폰과 생활',w:'使いすぎ',r:'つかいすぎ',ko:'과도한 사용',ex:'スマホの使いすぎに注意します。',exko:'스마트폰 과다 사용에 주의합니다.'},
-{id:41,round:7,theme:'스마트폰과 생활',w:'確かめる',r:'たしかめる',ko:'확인하다',ex:'買う前に値段を確かめます。',exko:'사기 전에 가격을 확인합니다.'},
-{id:42,round:7,theme:'스마트폰과 생활',w:'急な',r:'きゅうな',ko:'갑작스러운',ex:'急な連絡が来たら確認します。',exko:'갑작스러운 연락이 오면 확인합니다.'},
-{id:43,round:8,theme:'대인 관계와 예절',w:'待ち合わせ',r:'まちあわせ',ko:'약속',ex:'待ち合わせの場所を決めます。',exko:'만나기로 한 장소를 정합니다.'},
-{id:44,round:8,theme:'대인 관계와 예절',w:'遅れる',r:'おくれる',ko:'늦다',ex:'十分ぐらい遅れると伝えます。',exko:'십 분 정도 늦는다고 전합니다.'},
-{id:45,round:8,theme:'대인 관계와 예절',w:'頼む',r:'たのむ',ko:'부탁하다',ex:'友達に荷物を運ぶのを頼みます。',exko:'친구에게 짐 옮기는 것을 부탁합니다.'},
-{id:46,round:8,theme:'대인 관계와 예절',w:'助かる',r:'たすかる',ko:'도움이 되다',ex:'駅まで来てもらうと助かります。',exko:'역까지 와 주면 도움이 됩니다.'},
-{id:47,round:8,theme:'대인 관계와 예절',w:'許可',r:'きょか',ko:'허가, 허락',ex:'写真を使う前に許可を取ります。',exko:'사진을 사용하기 전에 허락을 받습니다.'},
-{id:48,round:8,theme:'대인 관계와 예절',w:'お礼',r:'おれい',ko:'감사 인사, 답례',ex:'助けてくれた友達にお礼を言います。',exko:'도와준 친구에게 감사 인사를 합니다.'}
-];
-const $=id=>document.getElementById(id),AUTO_DELAY=3000,TTS_START_DELAY=0,MANUAL_TTS_START_DELAY=0;let filtered=[...DATA],index=0,back=false,showKorean=false,showFurigana=false,onlyStars=false,mode='card',autoPlaying=false,autoTimer=null,speechDelayTimer=null,speechRunId=0;let stars=new Set(JSON.parse(localStorage.getItem('sjpt-l45-vocab-stars-v1')||'[]'));
-const esc=s=>String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-function stopSpeech(){speechRunId++;clearTimeout(speechDelayTimer);if('speechSynthesis'in window)speechSynthesis.cancel();$('message').textContent=''}
-function speak(c,answer,done,delay=TTS_START_DELAY){if(!c||!('speechSynthesis'in window)){if(done)done();return}stopSpeech();const runId=speechRunId,text=answer?c.ex:c.r;$('message').textContent='음성 준비 중…';speechDelayTimer=setTimeout(()=>{if(runId!==speechRunId)return;const u=new SpeechSynthesisUtterance(text);u.lang='ja-JP';u.rate=.82;const voices=speechSynthesis.getVoices().filter(v=>/^ja/i.test(v.lang));if(voices[0])u.voice=voices.find(v=>v.default)||voices[0];u.onstart=()=>{if(runId===speechRunId)$('message').textContent='일본어 음성 재생 중…'};u.onend=()=>{if(runId!==speechRunId)return;$('message').textContent='';if(done)done()};u.onerror=()=>{if(runId!==speechRunId)return;$('message').textContent='';if(done)done()};speechSynthesis.speak(u)},delay)}
-function bounds(){let start=filtered.findIndex(c=>String(c.id)==$('rangeStart').value),end=filtered.findIndex(c=>String(c.id)==$('rangeEnd').value);return{start:start<0?0:start,end:end<0?Math.max(0,filtered.length-1):end}}
-function updateRanges(){const a=$('rangeStart'),b=$('rangeEnd'),av=a.value,bv=b.value;a.innerHTML=b.innerHTML='';filtered.forEach(c=>{const label=String(c.id).padStart(2,'0');a.add(new Option(label,c.id));b.add(new Option(label,c.id))});a.disabled=b.disabled=!filtered.length;if(!filtered.length)return;a.value=filtered.some(c=>String(c.id)===av)?av:filtered[0].id;b.value=filtered.some(c=>String(c.id)===bv)?bv:filtered.at(-1).id;if(bounds().end<bounds().start)b.value=a.value}
-function stopAuto(){autoPlaying=false;clearTimeout(autoTimer);$('autoPlay').textContent='▶';$('autoPlay').classList.remove('active')}
-function schedule(){clearTimeout(autoTimer);if(!autoPlaying||!filtered.length)return;autoTimer=setTimeout(()=>{if(back){const x=bounds();index=index>=x.end?x.start:index+1;back=false}else back=true;showKorean=false;showFurigana=false;render();speak(filtered[index],back,schedule)},AUTO_DELAY)}
-function toggleAuto(){if(autoPlaying){stopAuto();stopSpeech();return}if(!filtered.length)return;const x=bounds();index=x.start;back=false;showKorean=false;showFurigana=false;autoPlaying=true;$('autoPlay').textContent='■';$('autoPlay').classList.add('active');render();speak(filtered[index],false,schedule)}
-function apply(){stopAuto();stopSpeech();const q=$('search').value.trim().toLowerCase();filtered=DATA.filter(c=>(!$('round').value||c.round==$('round').value)&&(!onlyStars||stars.has(c.id))&&(!q||Object.values(c).join(' ').toLowerCase().includes(q)));index=0;back=false;showKorean=false;showFurigana=false;updateRanges();render()}
-function render(){const c=filtered[index];$('starFilter').textContent=`★ 별표 (${stars.size})`;$('starFilter').classList.toggle('active',onlyStars);$('cardsMode').classList.toggle('active',mode==='card');$('listMode').classList.toggle('active',mode==='list');$('cardView').hidden=!c||mode!=='card';$('listView').hidden=!c||mode!=='list';$('empty').hidden=!!c;$('count').textContent=c?(mode==='card'?`Card ${index+1} / ${filtered.length}`:`총 ${filtered.length}개`):'0개';$('tag').textContent=c?`제${c.round}회 · ${c.theme}`:'';if(!c)return;$('star').textContent=stars.has(c.id)?'★':'☆';$('card').classList.toggle('back',back);$('koreanToggle').hidden=!back;$('koreanToggle').textContent=showKorean?'해석 숨기기':'해석';$('card').innerHTML=back?`<div class="cardTop"><span>No. ${String(c.id).padStart(2,'0')} · 제${c.round}회</span><span>${esc(c.theme)}</span></div><p class="backWord" lang="ja">${showFurigana?`<ruby>${esc(c.w)}<rt>${esc(c.r)}</rt></ruby>`:esc(c.w)}</p><p class="meaning">${esc(c.ko)}</p><p class="example" lang="ja">例. ${showFurigana?EXAMPLE_RUBY[c.id]:esc(c.ex)}</p>${showKorean?`<p class="korean">${esc(c.exko)}</p>`:''}<button id="furiganaToggle" class="furiganaToggle${showFurigana?' active':''}" type="button">${showFurigana?'후리가나 숨기기':'후리가나 보기'}</button><div class="hint">다시 탭하면 앞면으로 돌아갑니다</div>`:`<div class="cardTop"><span>No. ${String(c.id).padStart(2,'0')} · 제${c.round}회</span><span>${esc(c.theme)}</span></div><p class="word" lang="ja">${esc(c.w)}</p><div class="hint">탭하여 뜻과 예문 확인</div>`;$('progress').style.width=((index+1)/filtered.length*100)+'%';if(mode==='list')$('listView').innerHTML=filtered.map(x=>`<article class="listitem"><div class="row"><h2>${String(x.id).padStart(2,'0')}. ${esc(x.w)} [${esc(x.r)}]</h2><button data-speak="${x.id}">듣기</button></div><p>${esc(x.ko)}</p><p lang="ja">${esc(x.ex)}</p><p class="korean">${esc(x.exko)}</p></article>`).join('')}
-function flip(){if(!filtered.length)return;stopSpeech();back=!back;showKorean=false;showFurigana=false;render()}
-function move(n){if(!filtered.length)return;stopSpeech();index=(index+n+filtered.length)%filtered.length;back=false;showKorean=false;showFurigana=false;render()}
-$('card').onclick=e=>{if(e.target.closest('#furiganaToggle')){showFurigana=!showFurigana;render();return}flip()};$('flip').onclick=flip;$('prev').onclick=()=>move(-1);$('next').onclick=()=>move(1);$('koreanToggle').onclick=()=>{showKorean=!showKorean;render()};$('speak').onclick=()=>speak(filtered[index],back,null,MANUAL_TTS_START_DELAY);$('autoPlay').onclick=toggleAuto;$('star').onclick=()=>{const id=filtered[index].id;stars.has(id)?stars.delete(id):stars.add(id);localStorage.setItem('sjpt-l45-vocab-stars-v1',JSON.stringify([...stars]));render()};$('starFilter').onclick=()=>{onlyStars=!onlyStars;apply()};$('cardsMode').onclick=()=>{mode='card';render()};$('listMode').onclick=()=>{stopAuto();mode='list';render()};$('search').oninput=apply;$('round').onchange=apply;$('clear').onclick=()=>{$('search').value='';apply()};$('reset').onclick=()=>{$('search').value='';$('round').value='';onlyStars=false;apply()};$('shuffle').onclick=()=>{stopAuto();for(let i=filtered.length-1;i;i--){const j=Math.floor(Math.random()*(i+1));[filtered[i],filtered[j]]=[filtered[j],filtered[i]]}index=0;updateRanges();render()};$('rangeStart').onchange=()=>{stopAuto();const x=bounds();if(x.end<x.start)$('rangeEnd').value=$('rangeStart').value;index=bounds().start;back=false;render()};$('rangeEnd').onchange=()=>{stopAuto();const x=bounds();if(x.end<x.start)$('rangeStart').value=$('rangeEnd').value;index=bounds().start;back=false;render()};$('listView').onclick=e=>{const b=e.target.closest('[data-speak]');if(b)speak(DATA.find(c=>c.id==b.dataset.speak),false,null,MANUAL_TTS_START_DELAY)};for(let i=1;i<=8;i++)$('round').add(new Option(`제${i}회`,i));apply();
-</script>
-</body></html>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .perspective-1000 {
+      perspective: 1000px;
+    }
+    .transform-style-3d {
+      transform-style: preserve-3d;
+    }
+    .backface-hidden {
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .rotate-y-180 {
+      transform: rotateY(180deg);
+    }
+    #cardContainer.has-example { aspect-ratio:auto; }
+    #backExample { margin-top:12px; padding-top:16px; border-top:1px solid #475569; }
+    #backExample[hidden] { display:none; }
+    #backWordMini, #backExampleJapanese { font-size:19px; }
+    .backWordRuby { ruby-position:over; ruby-align:center; }
+    #backReadingMini { font-size:0.7rem; }
+    #backExampleJapanese { line-height:1.8; color:#e0e7ff; }
+    #backExampleKorean { margin-top:10px; font-size:15px; line-height:1.7; color:#cbd5e1; }
+    @media(max-width:480px){#frontWord{font-size:2.2rem} #backWordMini,#backExampleJapanese{font-size:18px}}
+
+/* Furigana is precomputed; audio continues to use the original sentence. */
+#backExampleJapanese { line-height:2.5; overflow-wrap:anywhere; }
+#backExampleJapanese ruby, td[lang="ja"] ruby, td ruby { ruby-position:over; ruby-align:center; }
+#backExampleJapanese rt, td rt { font-size:0.58em; font-weight:400; color:#c7d2fe; }
+td div[lang="ja"] { line-height:2.4; }
+#cardContainer { aspect-ratio:16 / 8.5; }
+@media(min-width:640px){ #cardContainer { aspect-ratio:16 / 8.075; } }
+#cardContainer.has-example { height:467.5px; }
+@media(max-width:480px){ #cardContainer.has-example { height:544px; } }
+#cardInner > .backface-hidden { overflow-y:auto; overscroll-behavior:contain; }
+/* Match the Level 5 sage palette across both faces and the word list. */
+#cardInner > .backface-hidden {
+  background: linear-gradient(135deg, #FBFCFA, #DCE5DA);
+  color: var(--sjpt-text);
+  border-color: var(--sjpt-border);
+}
+#cardInner > .rotate-y-180 {
+  background: linear-gradient(135deg, #F0F4ED, #CFDCCF);
+  border-color: #66806D;
+}
+#flashcardView :is(.text-white,.text-slate-200,#backExampleJapanese),
+#vocabTableContainer :is(.text-white,.text-slate-200),
+#listTotalCount { color: var(--sjpt-text); }
+#cardInner :is(.text-indigo-300,.text-indigo-400),
+#flashcardView .text-indigo-400,
+#vocabTableContainer .text-indigo-300 { color: var(--sjpt-primary); }
+#flashcardView :is(.text-slate-400,.text-slate-500),
+#vocabTableContainer :is(.text-slate-300,.text-slate-400,.text-slate-500),
+header .text-slate-400 { color: var(--sjpt-sub); }
+#backMeaning,#backExampleKorean { color:#475A4D; }
+#backExample { border-color:var(--sjpt-border); }
+#vocabTableContainer { background:var(--sjpt-surface);border-color:var(--sjpt-border); }
+#vocabTableContainer thead,
+#cardInner .bg-slate-900\/60,#vocabTableBody .bg-slate-800 { background:var(--sjpt-muted); }
+#progressBar { background:linear-gradient(90deg,var(--sjpt-primary),#A47A4D); }
+</style>
+<style>
+.cardToolbar{width:100%;max-width:32rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px}
+.cardToolbarActions{display:flex;gap:8px;margin-inline-start:auto}
+.studyFilters{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.studyFilters button{white-space:nowrap}
+#cardContainer.furigana-hidden :is(#frontReading,#backReadingMini){display:none}
+#cardContainer.furigana-hidden rt{visibility:hidden}
+.furiganaControl{align-self:center;margin-top:6px;padding:0 10px;border:1px solid var(--sjpt-border);border-radius:9px;font-size:12px}
+.backCardActions{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px}
+#exampleAudioBtn[hidden]{display:none!important}
+#backExampleJapanese{user-select:text;-webkit-user-select:text}
+#cardContainer{touch-action:pan-y pinch-zoom}
+#backExampleJapanese mark{background:#ffe278;color:inherit}
+#highlightExampleBtn[hidden]{display:none!important}
+.cardToolbarActions button{width:44px;height:44px!important;min-height:44px!important;flex:0 0 44px;padding:0;border:1px solid var(--sjpt-border);border-radius:9px;font-size:16px}
+#starToggleBtn i.fa-solid{color:#98651F}
+#autoPlayBtn.ring-2{background-color:var(--sjpt-accent-dark)!important}
+</style><style>#backExampleKorean{white-space:pre-line}</style></head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col font-sans">
+  <!-- 상단 네비게이션 헤더 -->
+  <header class="bg-slate-800/80 backdrop-blur border-b border-slate-700/60 sticky top-0 z-30 px-4 py-3 shadow-md">
+    <div class="max-w-4xl mx-auto flex items-center gap-2">
+        <a href="./index.html" aria-label="SJPT 학습 목차로 돌아가기" title="목차로 돌아가기" class="menuLink w-8 h-8 p-0 inline-flex items-center justify-center rounded-lg bg-slate-700 text-slate-200 transition hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-300">
+          <i class="fa-solid fa-house" aria-hidden="true"></i>
+        </a>
+          <h1 class="text-base font-bold tracking-wide" style="color:#000">Level 4·5 필수 어휘 암기카드</h1>
+    </div>
+  </header>
+
+  <main class="flex-1 max-w-4xl w-full mx-auto p-4 flex flex-col gap-4">
+    <!-- 검색 및 필터 패널 -->
+    <section class="bg-slate-800/60 rounded-xl p-3 border border-slate-700/60 flex flex-col sm:flex-row gap-2.5 items-stretch sm:items-center">
+      <div class="relative flex-1">
+        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="단어, 읽는 법, 뜻, 번호(예: 01) 검색..."
+          class="w-full bg-slate-900/90 text-sm border border-slate-700 rounded-lg pl-9 pr-8 py-2 focus:outline-none focus:border-indigo-500 transition placeholder:text-slate-500"
+        />
+        <button id="clearSearchBtn" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="studyFilters">
+        <select id="probFilter" class="bg-slate-900 border border-slate-700 text-xs rounded-lg px-2.5 py-2 text-slate-300 focus:outline-none focus:border-indigo-500">
+          <option value="ALL">전체 학습 구간</option>
+        </select>
+        <button id="shuffleBtn" title="단어 순서 섞기" class="px-3 py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg text-xs flex items-center gap-1.5 transition">
+          <i class="fa-solid fa-shuffle"></i> 셔플
+        </button>
+        <button id="resetOrderBtn" title="원래 순서로 초기화" class="px-2.5 py-2 bg-slate-700/80 hover:bg-slate-600 text-slate-300 rounded-lg text-xs transition">
+          <i class="fa-solid fa-rotate-left"></i>
+        </button>
+        <button id="studyStarredBtn" class="px-3 rounded-lg border text-xs font-medium">
+          <span aria-label="즐겨찾기">★ (<span id="starredCount">0</span>)</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- 플래시카드 뷰 -->
+    <div id="flashcardView" class="flex-1 flex flex-col items-center justify-center gap-4">
+      <!-- 진행률 바 및 카운터 -->
+      <div class="cardToolbar text-xs text-slate-400">
+        <div class="cardToolbarActions">
+          <button id="autoPlayBtn" class="w-11 h-11 inline-grid place-items-center rounded-lg bg-orange-600 hover:bg-orange-700 border border-orange-400 text-white transition text-base" aria-label="자동 넘김 시작" title="자동 넘김 시작" aria-pressed="false">▶</button>
+          <button id="starToggleBtn" class="w-11 h-11 inline-grid place-items-center rounded-lg text-slate-400 hover:text-amber-400 transition text-base">
+            <i class="fa-regular fa-star"></i>
+          </button>
+          <button id="ttsBtn" class="text-slate-400 hover:text-indigo-400 transition text-base" title="일본어 발음 듣기">
+            <i class="fa-solid fa-volume-high"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- 플래시카드 컨테이너 -->
+      <div class="w-full max-w-lg aspect-[16/10] sm:aspect-[16/9.5] perspective-1000 cursor-pointer select-none" id="cardContainer">
+        <div id="cardInner" class="relative w-full h-full transform-style-3d transition-transform duration-500 ease-out shadow-2xl rounded-2xl">
+          <!-- 카드 앞면 (일본어 단어 및 발음) -->
+          <div class="absolute inset-0 backface-hidden bg-gradient-to-br from-slate-800 to-slate-850 border border-slate-700/80 rounded-2xl p-6 sm:p-8 flex flex-col items-center justify-between text-center shadow-indigo-950/20 shadow-xl">
+            <div class="w-full flex justify-between items-center text-xs text-slate-400">
+              <span class="font-mono text-indigo-400" id="frontCardId">No. 1</span>
+              <span class="flex items-center gap-1 text-[11px] bg-slate-900/60 px-2.5 py-1 rounded-full text-slate-400">
+                <i class="fa-solid fa-arrows-rotate text-[10px]"></i> 탭하여 뜻 확인
+              </span>
+            </div>
+
+            <div class="my-auto flex flex-col items-center gap-2">
+              <span id="frontReading" class="text-indigo-300 text-sm sm:text-base tracking-widest font-medium">へいじつ</span>
+              <h2 id="frontWord" class="text-4xl sm:text-5xl font-bold text-white tracking-wider">平日</h2>
+              <p id="frontMeaning" class="meaning font-semibold" hidden></p>
+            </div>
+
+            <div class="w-full text-center">
+              <span class="text-[11px] text-slate-500">Space 키: 뒤집기 | ← →: 이전/다음</span>
+              <div><button type="button" class="furiganaControl" aria-pressed="true">후리가나 숨기기</button></div>
+            </div>
+          </div>
+
+          <!-- 카드 뒷면 (한국어 뜻) -->
+          <div class="absolute inset-0 backface-hidden rotate-y-180 bg-gradient-to-br from-indigo-950/80 to-slate-900 border border-indigo-700/50 rounded-2xl p-6 sm:p-8 flex flex-col items-center justify-between text-center shadow-indigo-900/20 shadow-xl">
+            <div class="w-full flex justify-between items-center text-xs text-slate-400">
+              <span class="font-mono text-indigo-300" id="backCardId">No. 1</span>
+              <span class="text-xs text-indigo-300 font-medium" id="backProbTag">구간: 01</span>
+            </div>
+
+            <div class="my-auto flex flex-col items-center gap-3">
+              <div class="text-slate-400 text-sm flex items-center gap-2 font-mono">
+                <ruby class="backWordRuby font-sans"><span id="backWordMini" class="font-semibold text-white">気になる</span><rt id="backReadingMini" class="text-indigo-300 font-normal">きになる</rt></ruby>
+              </div>
+              <h3 id="backMeaning" class="text-2xl sm:text-3xl font-extrabold text-emerald-400">평일</h3><div id="backExample" hidden><p id="backExampleJapanese" lang="ja"></p><p id="backExampleKorean"></p></div>
+            </div>
+
+            <div class="w-full text-center">
+              <span class="text-[11px] text-slate-400">다시 탭하면 앞면으로 회전합니다</span>
+              <div class="backCardActions"><button type="button" id="exampleAudioBtn" class="furiganaControl" hidden>듣기</button><button type="button" class="furiganaControl" aria-pressed="true">후리가나</button><button type="button" id="copyBackBtn" class="furiganaControl">복사</button><button type="button" id="highlightExampleBtn" class="furiganaControl" title="예문을 선택한 뒤 눌러 표시하거나 지웁니다" hidden>형광펜</button><span id="highlightStatus" class="sr-only" role="status"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 진행 프로그레스 바 -->
+      <div class="w-full max-w-lg bg-slate-800 rounded-full h-1.5 overflow-hidden border border-slate-700/40">
+        <div id="progressBar" class="bg-gradient-to-r from-indigo-500 to-emerald-400 h-full w-0 transition-all duration-300"></div>
+      </div>
+
+      <!-- 조작 컨트롤 버튼 -->
+      <div class="flex items-center gap-3 mt-1">
+        <button id="prevBtn" class="w-12 h-12 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 flex items-center justify-center text-slate-200 transition active:scale-95">
+          <i class="fa-solid fa-chevron-left text-sm"></i>
+        </button>
+        <button id="flipBtn" class="px-6 h-12 rounded-xl bg-indigo-600 hover:bg-indigo-500 font-semibold text-white flex items-center gap-2 shadow-lg shadow-indigo-600/30 transition active:scale-95 text-sm">
+          <i class="fa-solid fa-repeat"></i> 뒤집기
+        </button>
+        <button id="nextBtn" class="w-12 h-12 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 flex items-center justify-center text-slate-200 transition active:scale-95">
+          <i class="fa-solid fa-chevron-right text-sm"></i>
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="text-center py-3 text-xs text-slate-500 border-t border-slate-800 mt-auto">
+    Level 4·5 필수 어휘 48개 · 발음 듣기
+  </footer>
+
+  <script>
+    // 309개 단어 원본 데이터베이스
+    const RAW_VOCAB = [{"id":1,"word":"平日","reading":"へいじつ","meaning":"평일","prob":"01 일상과 시간","exJa":"平日は七時に起きます。","exKo":"평일에는 일곱 시에 일어납니다.","exRuby":"<ruby>平日<rt>へいじつ</rt></ruby>は<ruby>七時<rt>しちじ</rt></ruby>に<ruby>起<rt>お</rt></ruby>きます。"},{"id":2,"word":"休日","reading":"きゅうじつ","meaning":"휴일","prob":"01 일상과 시간","exJa":"休日は家でゆっくりします。","exKo":"휴일에는 집에서 느긋하게 쉽니다.","exRuby":"<ruby>休日<rt>きゅうじつ</rt></ruby>は<ruby>家<rt>いえ</rt></ruby>でゆっくりします。"},{"id":3,"word":"予定","reading":"よてい","meaning":"예정, 계획","prob":"01 일상과 시간","exJa":"週末の予定を決めます。","exKo":"주말 계획을 정합니다.","exRuby":"<ruby>週末<rt>しゅうまつ</rt></ruby>の<ruby>予定<rt>よてい</rt></ruby>を<ruby>決<rt>き</rt></ruby>めます。"},{"id":4,"word":"習慣","reading":"しゅうかん","meaning":"습관","prob":"01 일상과 시간","exJa":"寝る前に本を読む習慣があります。","exKo":"자기 전에 책을 읽는 습관이 있습니다.","exRuby":"<ruby>寝<rt>ね</rt></ruby>る<ruby>前<rt>まえ</rt></ruby>に<ruby>本<rt>ほん</rt></ruby>を<ruby>読<rt>よ</rt></ruby>む<ruby>習慣<rt>しゅうかん</rt></ruby>があります。"},{"id":5,"word":"休憩","reading":"きゅうけい","meaning":"휴식","prob":"01 일상과 시간","exJa":"勉強のあとで休憩を取ります。","exKo":"공부한 뒤에 휴식을 취합니다.","exRuby":"<ruby>勉強<rt>べんきょう</rt></ruby>のあとで<ruby>休憩<rt>きゅうけい</rt></ruby>を<ruby>取<rt>と</rt></ruby>ります。"},{"id":6,"word":"準備","reading":"じゅんび","meaning":"준비","prob":"01 일상과 시간","exJa":"朝は出かける準備をします。","exKo":"아침에는 외출할 준비를 합니다.","exRuby":"<ruby>朝<rt>あさ</rt></ruby>は<ruby>出<rt>で</rt></ruby>かける<ruby>準備<rt>じゅんび</rt></ruby>をします。"},{"id":7,"word":"食材","reading":"しょくざい","meaning":"식재료","prob":"02 식사와 쇼핑","exJa":"冷蔵庫の食材を確認します。","exKo":"냉장고의 식재료를 확인합니다.","exRuby":"<ruby>冷蔵<rt>れいぞう</rt></ruby><ruby>庫<rt>こ</rt></ruby>の<ruby>食材<rt>しょくざい</rt></ruby>を<ruby>確認<rt>かくにん</rt></ruby>します。"},{"id":8,"word":"値段","reading":"ねだん","meaning":"가격","prob":"02 식사와 쇼핑","exJa":"買う前に値段を比べます。","exKo":"사기 전에 가격을 비교합니다.","exRuby":"<ruby>買<rt>か</rt></ruby>う<ruby>前<rt>まえ</rt></ruby>に<ruby>値段<rt>ねだん</rt></ruby>を<ruby>比<rt>くら</rt></ruby>べます。"},{"id":9,"word":"売り場","reading":"うりば","meaning":"매장, 코너","prob":"02 식사와 쇼핑","exJa":"野菜の売り場で選びます。","exKo":"채소 판매 코너에서 고릅니다.","exRuby":"<ruby>野菜<rt>やさい</rt></ruby>の<ruby>売り場<rt>うりば</rt></ruby>で<ruby>選<rt>えら</rt></ruby>びます。"},{"id":10,"word":"予算","reading":"よさん","meaning":"예산","prob":"02 식사와 쇼핑","exJa":"今日の予算は千円です。","exKo":"오늘의 예산은 천 엔입니다.","exRuby":"<ruby>今日<rt>きょう</rt></ruby>の<ruby>予算<rt>よさん</rt></ruby>は<ruby>千<rt>せん</rt></ruby><ruby>円<rt>えん</rt></ruby>です。"},{"id":11,"word":"自炊","reading":"じすい","meaning":"직접 요리함","prob":"02 식사와 쇼핑","exJa":"時間がある日は自炊します。","exKo":"시간이 있는 날에는 직접 요리해 먹습니다.","exRuby":"<ruby>時間<rt>じかん</rt></ruby>がある<ruby>日<rt>ひ</rt></ruby>は<ruby>自炊<rt>じすい</rt></ruby>します。"},{"id":12,"word":"新鮮","reading":"しんせん","meaning":"신선함","prob":"02 식사와 쇼핑","exJa":"新鮮な野菜を選びます。","exKo":"신선한 채소를 고릅니다.","exRuby":"<ruby>新鮮<rt>しんせん</rt></ruby>な<ruby>野菜<rt>やさい</rt></ruby>を<ruby>選<rt>えら</rt></ruby>びます。"},{"id":13,"word":"近所","reading":"きんじょ","meaning":"근처, 동네","prob":"03 주거와 동네","exJa":"近所に小さな公園があります。","exKo":"동네에 작은 공원이 있습니다.","exRuby":"<ruby>近所<rt>きんじょ</rt></ruby>に<ruby>小<rt>ちい</rt></ruby>さな<ruby>公園<rt>こうえん</rt></ruby>があります。"},{"id":14,"word":"家賃","reading":"やちん","meaning":"집세, 월세","prob":"03 주거와 동네","exJa":"家賃は毎月五万円です。","exKo":"집세는 매달 오만 엔입니다.","exRuby":"<ruby>家賃<rt>やちん</rt></ruby>は<ruby>毎月<rt>まいつき</rt></ruby><ruby>五<rt>ご</rt></ruby><ruby>万<rt>まん</rt></ruby><ruby>円<rt>えん</rt></ruby>です。"},{"id":15,"word":"日当たり","reading":"ひあたり","meaning":"채광","prob":"03 주거와 동네","exJa":"日当たりのいい部屋です。","exKo":"햇볕이 잘 드는 방입니다.","exRuby":"<ruby>日当<rt>ひあ</rt></ruby>たりのいい<ruby>部屋<rt>へや</rt></ruby>です。"},{"id":16,"word":"通勤","reading":"つうきん","meaning":"통근","prob":"03 주거와 동네","exJa":"通勤に三十分かかります。","exKo":"통근하는 데 삼십 분 걸립니다.","exRuby":"<ruby>通勤<rt>つうきん</rt></ruby>に<ruby>三十分<rt>さんじゅっぷん</rt></ruby>かかります。"},{"id":17,"word":"静か","reading":"しずか","meaning":"조용함","prob":"03 주거와 동네","exJa":"夜はとても静かな町です。","exKo":"밤에는 매우 조용한 동네입니다.","exRuby":"<ruby>夜<rt>よる</rt></ruby>はとても<ruby>静<rt>しず</rt></ruby>かな<ruby>町<rt>まち</rt></ruby>です。"},{"id":18,"word":"片づけ","reading":"かたづけ","meaning":"정리 정돈","prob":"03 주거와 동네","exJa":"寝る前に部屋を片づけます。","exKo":"자기 전에 방을 정리합니다.","exRuby":"<ruby>寝<rt>ね</rt></ruby>る<ruby>前<rt>まえ</rt></ruby>に<ruby>部屋<rt>へや</rt></ruby>を<ruby>片<rt>かた</rt></ruby>づけます。"},{"id":19,"word":"趣味","reading":"しゅみ","meaning":"취미","prob":"04 휴일과 취미","exJa":"趣味は写真を撮ることです。","exKo":"취미는 사진을 찍는 것입니다.","exRuby":"<ruby>趣味<rt>しゅみ</rt></ruby>は<ruby>写真<rt>しゃしん</rt></ruby>を<ruby>撮<rt>と</rt></ruby>ることです。"},{"id":20,"word":"散歩","reading":"さんぽ","meaning":"산책","prob":"04 휴일과 취미","exJa":"休日は近くの公園を散歩します。","exKo":"휴일에는 근처 공원을 산책합니다.","exRuby":"<ruby>休日<rt>きゅうじつ</rt></ruby>は<ruby>近<rt>ちか</rt></ruby>くの<ruby>公園<rt>こうえん</rt></ruby>を<ruby>散歩<rt>さんぽ</rt></ruby>します。"},{"id":21,"word":"参加","reading":"さんか","meaning":"참가","prob":"04 휴일과 취미","exJa":"友達と料理教室に参加しました。","exKo":"친구와 요리 교실에 참가했습니다.","exRuby":"<ruby>友達<rt>ともだち</rt></ruby>と<ruby>料理<rt>りょうり</rt></ruby><ruby>教室<rt>きょうしつ</rt></ruby>に<ruby>参加<rt>さんか</rt></ruby>しました。"},{"id":22,"word":"気分転換","reading":"きぶんてんかん","meaning":"기분 전환","prob":"04 휴일과 취미","exJa":"散歩はいい気分転換になります。","exKo":"산책은 좋은 기분 전환이 됩니다.","exRuby":"<ruby>散歩<rt>さんぽ</rt></ruby>はいい<ruby>気分<rt>きぶん</rt></ruby><ruby>転換<rt>てんかん</rt></ruby>になります。"},{"id":23,"word":"体験","reading":"たいけん","meaning":"체험","prob":"04 휴일과 취미","exJa":"初めて料理の体験をしました。","exKo":"처음으로 요리 체험을 했습니다.","exRuby":"<ruby>初<rt>はじ</rt></ruby>めて<ruby>料理<rt>りょうり</rt></ruby>の<ruby>体験<rt>たいけん</rt></ruby>をしました。"},{"id":24,"word":"続ける","reading":"つづける","meaning":"계속하다","prob":"04 휴일과 취미","exJa":"好きな運動を長く続けたいです。","exKo":"좋아하는 운동을 오래 계속하고 싶습니다.","exRuby":"<ruby>好<rt>す</rt></ruby>きな<ruby>運動<rt>うんどう</rt></ruby>を<ruby>長<rt>なが</rt></ruby>く<ruby>続<rt>つづ</rt></ruby>けたいです。"},{"id":25,"word":"出発","reading":"しゅっぱつ","meaning":"출발","prob":"05 여행과 교통","exJa":"明日の朝、早く出発します。","exKo":"내일 아침 일찍 출발합니다.","exRuby":"<ruby>明日<rt>あす</rt></ruby>の<ruby>朝<rt>あさ</rt></ruby>、<ruby>早<rt>はや</rt></ruby>く<ruby>出発<rt>しゅっぱつ</rt></ruby>します。"},{"id":26,"word":"乗り換え","reading":"のりかえ","meaning":"환승","prob":"05 여행과 교통","exJa":"駅での乗り換えを調べます。","exKo":"역에서의 환승을 알아봅니다.","exRuby":"<ruby>駅<rt>えき</rt></ruby>での<ruby>乗り換<rt>のりか</rt></ruby>えを<ruby>調<rt>しら</rt></ruby>べます。"},{"id":27,"word":"予約","reading":"よやく","meaning":"예약","prob":"05 여행과 교통","exJa":"出発する前にホテルを予約します。","exKo":"출발하기 전에 호텔을 예약합니다.","exRuby":"<ruby>出発<rt>しゅっぱつ</rt></ruby>する<ruby>前<rt>まえ</rt></ruby>にホテルを<ruby>予約<rt>よやく</rt></ruby>します。"},{"id":28,"word":"荷物","reading":"にもつ","meaning":"짐","prob":"05 여행과 교통","exJa":"荷物は小さいかばんに入れます。","exKo":"짐은 작은 가방에 넣습니다.","exRuby":"<ruby>荷物<rt>にもつ</rt></ruby>は<ruby>小<rt>ちい</rt></ruby>さいかばんに<ruby>入<rt>い</rt></ruby>れます。"},{"id":29,"word":"到着","reading":"とうちゃく","meaning":"도착","prob":"05 여행과 교통","exJa":"お昼前に駅に到着する予定です。","exKo":"점심 전에 역에 도착할 예정입니다.","exRuby":"お<ruby>昼前<rt>ひるまえ</rt></ruby>に<ruby>駅<rt>えき</rt></ruby>に<ruby>到着<rt>とうちゃく</rt></ruby>する<ruby>予定<rt>よてい</rt></ruby>です。"},{"id":30,"word":"迷う","reading":"まよう","meaning":"길을 잃다","prob":"05 여행과 교통","exJa":"道に迷ったら、人に聞きます。","exKo":"길을 잃으면 사람에게 물어봅니다.","exRuby":"<ruby>道<rt>みち</rt></ruby>に<ruby>迷<rt>まよ</rt></ruby>ったら、<ruby>人<rt>ひと</rt></ruby>に<ruby>聞<rt>き</rt></ruby>きます。"},{"id":31,"word":"目標","reading":"もくひょう","meaning":"목표","prob":"06 공부와 일","exJa":"今週の勉強の目標を決めます。","exKo":"이번 주 공부 목표를 정합니다.","exRuby":"<ruby>今週<rt>こんしゅう</rt></ruby>の<ruby>勉強<rt>べんきょう</rt></ruby>の<ruby>目標<rt>もくひょう</rt></ruby>を<ruby>決<rt>き</rt></ruby>めます。"},{"id":32,"word":"復習","reading":"ふくしゅう","meaning":"복습","prob":"06 공부와 일","exJa":"授業のあとで復習します。","exKo":"수업이 끝난 뒤 복습합니다.","exRuby":"<ruby>授業<rt>じゅぎょう</rt></ruby>のあとで<ruby>復習<rt>ふくしゅう</rt></ruby>します。"},{"id":33,"word":"練習","reading":"れんしゅう","meaning":"연습","prob":"06 공부와 일","exJa":"毎日少しずつ話す練習をします。","exKo":"매일 조금씩 말하기 연습을 합니다.","exRuby":"<ruby>毎日<rt>まいにち</rt></ruby><ruby>少<rt>すこ</rt></ruby>しずつ<ruby>話<rt>はな</rt></ruby>す<ruby>練習<rt>れんしゅう</rt></ruby>をします。"},{"id":34,"word":"確認","reading":"かくにん","meaning":"확인","prob":"06 공부와 일","exJa":"分からない所を先生に確認します。","exKo":"모르는 부분을 선생님에게 확인합니다.","exRuby":"<ruby>分<rt>わ</rt></ruby>からない<ruby>所<rt>ところ</rt></ruby>を<ruby>先生<rt>せんせい</rt></ruby>に<ruby>確認<rt>かくにん</rt></ruby>します。"},{"id":35,"word":"集中","reading":"しゅうちゅう","meaning":"집중","prob":"06 공부와 일","exJa":"静かな部屋で勉強に集中します。","exKo":"조용한 방에서 공부에 집중합니다.","exRuby":"<ruby>静<rt>しず</rt></ruby>かな<ruby>部屋<rt>へや</rt></ruby>で<ruby>勉強<rt>べんきょう</rt></ruby>に<ruby>集中<rt>しゅうちゅう</rt></ruby>します。"},{"id":36,"word":"相談","reading":"そうだん","meaning":"상의, 상담","prob":"06 공부와 일","exJa":"困ったら、先輩に相談します。","exKo":"곤란해지면 선배에게 상의합니다.","exRuby":"<ruby>困<rt>こま</rt></ruby>ったら、<ruby>先輩<rt>せんぱい</rt></ruby>に<ruby>相談<rt>そうだん</rt></ruby>します。"},{"id":37,"word":"連絡","reading":"れんらく","meaning":"연락","prob":"07 스마트폰과 생활","exJa":"家族にメッセージで連絡します。","exKo":"가족에게 메시지로 연락합니다.","exRuby":"<ruby>家族<rt>かぞく</rt></ruby>にメッセージで<ruby>連絡<rt>れんらく</rt></ruby>します。"},{"id":38,"word":"通知","reading":"つうち","meaning":"알림","prob":"07 스마트폰과 생활","exJa":"勉強中は通知を止めます。","exKo":"공부 중에는 알림을 끕니다.","exRuby":"<ruby>勉強<rt>べんきょう</rt></ruby><ruby>中<rt>ちゅう</rt></ruby>は<ruby>通知<rt>つうち</rt></ruby>を<ruby>止<rt>と</rt></ruby>めます。"},{"id":39,"word":"画面","reading":"がめん","meaning":"화면","prob":"07 스마트폰과 생활","exJa":"地図の画面を友達に見せます。","exKo":"지도 화면을 친구에게 보여 줍니다.","exRuby":"<ruby>地図<rt>ちず</rt></ruby>の<ruby>画面<rt>がめん</rt></ruby>を<ruby>友達<rt>ともだち</rt></ruby>に<ruby>見<rt>み</rt></ruby>せます。"},{"id":40,"word":"使いすぎ","reading":"つかいすぎ","meaning":"과도한 사용","prob":"07 스마트폰과 생활","exJa":"スマホの使いすぎに注意します。","exKo":"스마트폰 과다 사용에 주의합니다.","exRuby":"スマホの<ruby>使<rt>つか</rt></ruby>いすぎに<ruby>注意<rt>ちゅうい</rt></ruby>します。"},{"id":41,"word":"確かめる","reading":"たしかめる","meaning":"확인하다","prob":"07 스마트폰과 생활","exJa":"買う前に値段を確かめます。","exKo":"사기 전에 가격을 확인합니다.","exRuby":"<ruby>買<rt>か</rt></ruby>う<ruby>前<rt>まえ</rt></ruby>に<ruby>値段<rt>ねだん</rt></ruby>を<ruby>確<rt>たし</rt></ruby>かめます。"},{"id":42,"word":"急な","reading":"きゅうな","meaning":"갑작스러운","prob":"07 스마트폰과 생활","exJa":"急な連絡が来たら確認します。","exKo":"갑작스러운 연락이 오면 확인합니다.","exRuby":"<ruby>急<rt>きゅう</rt></ruby>な<ruby>連絡<rt>れんらく</rt></ruby>が<ruby>来<rt>き</rt></ruby>たら<ruby>確認<rt>かくにん</rt></ruby>します。"},{"id":43,"word":"待ち合わせ","reading":"まちあわせ","meaning":"약속","prob":"08 대인 관계와 예절","exJa":"待ち合わせの場所を決めます。","exKo":"만나기로 한 장소를 정합니다.","exRuby":"<ruby>待ち合<rt>まちあ</rt></ruby>わせの<ruby>場所<rt>ばしょ</rt></ruby>を<ruby>決<rt>き</rt></ruby>めます。"},{"id":44,"word":"遅れる","reading":"おくれる","meaning":"늦다","prob":"08 대인 관계와 예절","exJa":"十分ぐらい遅れると伝えます。","exKo":"십 분 정도 늦는다고 전합니다.","exRuby":"<ruby>十分<rt>じゅっぷん</rt></ruby>ぐらい<ruby>遅<rt>おく</rt></ruby>れると<ruby>伝<rt>つた</rt></ruby>えます。"},{"id":45,"word":"頼む","reading":"たのむ","meaning":"부탁하다","prob":"08 대인 관계와 예절","exJa":"友達に荷物を運ぶのを頼みます。","exKo":"친구에게 짐 옮기는 것을 부탁합니다.","exRuby":"<ruby>友達<rt>ともだち</rt></ruby>に<ruby>荷物<rt>にもつ</rt></ruby>を<ruby>運<rt>はこ</rt></ruby>ぶのを<ruby>頼<rt>たの</rt></ruby>みます。"},{"id":46,"word":"助かる","reading":"たすかる","meaning":"도움이 되다","prob":"08 대인 관계와 예절","exJa":"駅まで来てもらうと助かります。","exKo":"역까지 와 주면 도움이 됩니다.","exRuby":"<ruby>駅<rt>えき</rt></ruby>まで<ruby>来<rt>き</rt></ruby>てもらうと<ruby>助<rt>たす</rt></ruby>かります。"},{"id":47,"word":"許可","reading":"きょか","meaning":"허가, 허락","prob":"08 대인 관계와 예절","exJa":"写真を使う前に許可を取ります。","exKo":"사진을 사용하기 전에 허락을 받습니다.","exRuby":"<ruby>写真<rt>しゃしん</rt></ruby>を<ruby>使<rt>つか</rt></ruby>う<ruby>前<rt>まえ</rt></ruby>に<ruby>許可<rt>きょか</rt></ruby>を<ruby>取<rt>と</rt></ruby>ります。"},{"id":48,"word":"お礼","reading":"おれい","meaning":"감사 인사, 답례","prob":"08 대인 관계와 예절","exJa":"助けてくれた友達にお礼を言います。","exKo":"도와준 친구에게 감사 인사를 합니다.","exRuby":"<ruby>助<rt>たす</rt></ruby>けてくれた<ruby>友達<rt>ともだち</rt></ruby>にお<ruby>礼<rt>れい</rt></ruby>を<ruby>言<rt>い</rt></ruby>います。"}];
+
+    // 상태 관리
+    let displayedList = [...RAW_VOCAB];
+    const STUDY_POSITION_KEY = 'sjpt_l45_vocab48_position_v1';
+    const HIGHLIGHTS_KEY = 'sjpt_l45_vocab48_highlights_v1';
+    let cardHighlights = {};
+    try {
+      cardHighlights = JSON.parse(localStorage.getItem(HIGHLIGHTS_KEY)) || {};
+    } catch {}
+    let pendingHighlightSelection = null;
+    let currentIndex = 0;
+    let isFlipped = false;
+    let starredIds = new Set(JSON.parse(localStorage.getItem('sjpt-l45-vocab-stars-v1') || '[]'));
+    let onlyStarred = false;
+    let autoRun = 0;
+    let autoPlaying = false;
+
+    // DOM 요소
+    const cardContainer = document.getElementById('cardContainer');
+    const cardInner = document.getElementById('cardInner');
+    const frontCardId = document.getElementById('frontCardId');
+    const frontReading = document.getElementById('frontReading');
+    const frontWord = document.getElementById('frontWord');
+    const backCardId = document.getElementById('backCardId');
+    const backProbTag = document.getElementById('backProbTag');
+    const backWordMini = document.getElementById('backWordMini');
+    const backReadingMini = document.getElementById('backReadingMini');
+    const backMeaning = document.getElementById('backMeaning');
+    const frontMeaning = document.getElementById('frontMeaning');
+    const progressBar = document.getElementById('progressBar');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const flipBtn = document.getElementById('flipBtn');
+    const autoPlayBtn = document.getElementById('autoPlayBtn');
+    const starToggleBtn = document.getElementById('starToggleBtn');
+    const starredCount = document.getElementById('starredCount');
+    const ttsBtn = document.getElementById('ttsBtn');
+
+    // 필터 및 모드 요소
+    const searchInput = document.getElementById('searchInput');
+    const clearSearchBtn = document.getElementById('clearSearchBtn');
+    const probFilter = document.getElementById('probFilter');
+    const shuffleBtn = document.getElementById('shuffleBtn');
+    const resetOrderBtn = document.getElementById('resetOrderBtn');
+    const studyStarredBtn = document.getElementById('studyStarredBtn');
+    const flashcardView = document.getElementById('flashcardView');
+
+    // 문제 번호 셀렉트박스 옵션 채우기
+    function initProbOptions() {
+      const probSet = new Set();
+      RAW_VOCAB.forEach(v => {
+        v.prob.split(',').forEach(p => probSet.add(p.trim()));
+      });
+      const sortedProbs = Array.from(probSet).sort((a, b) => {
+        const numA = parseInt(a);
+        const numB = parseInt(b);
+        if (!isNaN(numA) && !isNaN(numB)) return numA - numB;
+        return a.localeCompare(b);
+      });
+
+      sortedProbs.forEach(p => {
+        const opt = document.createElement('option');
+        opt.value = p;
+        opt.textContent = `${p}번`;
+        probFilter.appendChild(opt);
+      });
+    }
+
+    // TTS 음성 재생 (일본어)
+    function playJapaneseAudio(text, onEnd, onError) {
+      if (!onEnd && autoPlaying) stopAuto();
+      if (!('speechSynthesis' in window)) {
+        onError?.();
+        return;
+      }
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'ja-JP';
+      utterance.rate = 0.9;
+      utterance.onend = onEnd || null;
+      utterance.onerror = onError || null;
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function updateAutoStatus() { autoPlayBtn.classList.toggle('ring-2', autoPlaying); autoPlayBtn.classList.toggle('ring-orange-200', autoPlaying); autoPlayBtn.textContent = autoPlaying ? '■' : '▶'; autoPlayBtn.setAttribute('aria-pressed', String(autoPlaying)); const label = autoPlaying ? '자동 넘김 정지' : '자동 넘김 시작'; autoPlayBtn.setAttribute('aria-label', label); autoPlayBtn.title = label; }
+    const AUTO_PAUSE_MS = 2000;
+    let autoPauseTimer = null;
+
+    function stopAuto() {
+      const wasPlaying = autoPlaying;
+      autoPlaying = false;
+      autoRun++;
+      clearTimeout(autoPauseTimer);
+      if (wasPlaying) window.speechSynthesis?.cancel();
+      updateAutoStatus();
+    }
+
+    function scheduleAuto() {
+      if (!autoPlaying || !displayedList.length || flashcardView.classList.contains('hidden')) {
+        stopAuto();
+        return;
+      }
+      const playable = Array.from({length: displayedList.length}, (_, step) =>
+        (currentIndex + step) % displayedList.length
+      ).find(index => displayedList[index].exJa?.trim());
+      if (playable === undefined) { stopAuto(); return; }
+      const run = ++autoRun;
+      const current = () => autoPlaying && run === autoRun;
+      clearTimeout(autoPauseTimer);
+      const pause = next => {
+        if (!current()) return;
+        autoPauseTimer = setTimeout(() => {
+          if (current()) next();
+        }, AUTO_PAUSE_MS);
+      };
+      const fail = () => { if (current()) stopAuto(); };
+      currentIndex = playable;
+      renderCurrentCard(true);
+      const card = displayedList[currentIndex];
+      playJapaneseAudio(card.reading.replace(/^～/, ''), () => pause(() => {
+        playJapaneseAudio(card.exJa, () => pause(() => {
+          currentIndex = (currentIndex + 1) % displayedList.length;
+          scheduleAuto();
+        }), fail);
+      }), fail);
+    }
+
+    function toggleAuto() {
+      if (autoPlaying) { stopAuto(); return; }
+      if (!displayedList.length) return;
+      flashcardView.classList.remove('hidden');
+      autoPlaying = true;
+      updateAutoStatus();
+      scheduleAuto();
+    }
+
+    // 필터링 적용 함수
+    function applyFilters() {
+      stopAuto();
+      const query = searchInput.value.trim().toLowerCase();
+      const selectedProb = probFilter.value;
+
+      displayedList = RAW_VOCAB.filter(item => {
+        if (onlyStarred && !starredIds.has(item.id)) return false;
+
+        const matchesQuery = !query ||
+          item.id.toString() === query ||
+          item.word.toLowerCase().includes(query) ||
+          item.reading.toLowerCase().includes(query) ||
+          item.meaning.toLowerCase().includes(query) ||
+          item.prob.toLowerCase().includes(query) || item.exJa.toLowerCase().includes(query) || item.exKo.toLowerCase().includes(query);
+
+        const matchesProb = selectedProb === 'ALL' || item.prob.includes(selectedProb);
+
+        return matchesQuery && matchesProb;
+      });
+
+      currentIndex = 0;
+      isFlipped = false;
+      renderCurrentCard();
+      clearSearchBtn.classList.toggle('hidden', query === '');
+    }
+
+    // 현재 카드 렌더링
+    function renderHighlightedExample(card) {
+      const example = document.getElementById('backExampleJapanese');
+      example.innerHTML = card.exRuby;
+      const offsets = new Set(cardHighlights[card.id] || []);
+      if (!offsets.size) return;
+      const walker = document.createTreeWalker(example, NodeFilter.SHOW_TEXT);
+      const nodes = [];
+      while (walker.nextNode()) {
+        if (!walker.currentNode.parentElement.closest('rt,rp')) nodes.push(walker.currentNode);
+      }
+      let offset = 0;
+      for (const node of nodes) {
+        const value = node.data;
+        const fragment = document.createDocumentFragment();
+        for (let start = 0, end; start < value.length; start = end) {
+          const marked = offsets.has(offset + start);
+          end = start + 1;
+          while (end < value.length && offsets.has(offset + end) === marked) end++;
+          const text = value.slice(start, end);
+          if (marked) {
+            const mark = document.createElement('mark');
+            mark.textContent = text;
+            fragment.append(mark);
+          } else {
+            fragment.append(text);
+          }
+        }
+        node.replaceWith(fragment);
+        offset += value.length;
+      }
+    }
+
+    function getExampleSelection() {
+      const selection = window.getSelection();
+      if (!isFlipped || !selection?.rangeCount || selection.isCollapsed) return null;
+      const example = document.getElementById('backExampleJapanese');
+      const range = selection.getRangeAt(0);
+      if (!example.contains(range.startContainer) || !example.contains(range.endContainer)) return null;
+      const offsetAt = (node, offset) => {
+        const prefix = document.createRange();
+        prefix.selectNodeContents(example);
+        const reading = (node.nodeType === Node.ELEMENT_NODE ? node : node.parentElement).closest('rt,rp');
+        if (reading) prefix.setEndBefore(reading);
+        else prefix.setEnd(node, offset);
+        const content = prefix.cloneContents();
+        content.querySelectorAll('rt,rp').forEach(element => element.remove());
+        return content.textContent.length;
+      };
+      return {
+        cardId: displayedList[currentIndex]?.id,
+        start: offsetAt(range.startContainer, range.startOffset),
+        end: offsetAt(range.endContainer, range.endOffset)
+      };
+    }
+
+    function renderCurrentCard(keepBack = false) {
+      pendingHighlightSelection = null;
+      const highlighter = document.getElementById('highlightExampleBtn');
+      highlighter.hidden = true;
+      const example = document.getElementById('backExample');
+      const exampleAudio = document.getElementById('exampleAudioBtn');
+      example.hidden = true;
+      exampleAudio.hidden = true;
+      document.getElementById('cardContainer').classList.remove('has-example');
+      if (displayedList.length === 0) {
+        frontWord.textContent = "검색 결과 없음";
+        frontReading.textContent = "-";
+        frontCardId.textContent = "No. 0";
+        backMeaning.textContent = "조건에 일치하는 단어가 없습니다";
+        frontMeaning.textContent = "";
+        backWordMini.textContent = "-";
+        backReadingMini.textContent = "";
+        progressBar.style.width = '0%';
+        starToggleBtn.innerHTML = '<i class="fa-regular fa-star"></i>';
+        return;
+      }
+
+      const item = displayedList[currentIndex];
+      frontCardId.textContent = `No. ${item.id}`;
+      frontReading.textContent = item.reading;
+      frontWord.textContent = item.word;
+
+      backCardId.textContent = `No. ${item.id}`;
+      backWordMini.textContent = item.word;
+      backReadingMini.textContent = item.reading;
+      backMeaning.textContent = item.meaning;
+      frontMeaning.textContent = item.meaning;
+      if (item.exJa) {
+        renderHighlightedExample(item);
+        highlighter.hidden = false;
+        document.getElementById('backExampleKorean').textContent = item.exKo;
+        example.hidden = false;
+        exampleAudio.hidden = false;
+        document.getElementById('cardContainer').classList.add('has-example');
+      }
+      backProbTag.textContent = `구간: ${item.prob}`;
+
+
+      const progress = ((currentIndex + 1) / displayedList.length) * 100;
+      progressBar.style.width = `${progress}%`;
+
+      // 별표 상태 업데이트
+      const isStarred = starredIds.has(item.id);
+      starToggleBtn.innerHTML = isStarred
+        ? '<i class="fa-solid fa-star text-amber-400"></i>'
+        : '<i class="fa-regular fa-star text-slate-400"></i>';
+
+      // 카드 앞면 상태로 리셋
+      setFlipped(keepBack);
+    }
+
+    // 카드 회전 함수
+    function setFlipped(flipped) {
+      isFlipped = flipped;
+      if (isFlipped) {
+        cardInner.classList.add('rotate-y-180');
+      } else {
+        cardInner.classList.remove('rotate-y-180');
+      }
+      const card = displayedList[currentIndex];
+      if (card) {
+        try {
+          localStorage.setItem(STUDY_POSITION_KEY, JSON.stringify({ cardId: card.id, back: flipped }));
+        } catch {
+          // The card remains usable when browser storage is unavailable.
+        }
+      }
+    }
+
+    function restoreStudyPosition() {
+      let saved;
+      try {
+        saved = JSON.parse(localStorage.getItem(STUDY_POSITION_KEY));
+      } catch {
+        return false;
+      }
+      const savedIndex = displayedList.findIndex(card => card.id === saved?.cardId);
+      if (savedIndex < 0) return false;
+      currentIndex = savedIndex;
+      return saved.back === true;
+    }
+
+    function toggleFlip() {
+      if (displayedList.length === 0) return;
+      if (getExampleSelection()) return;
+      if (autoPlaying) stopAuto();
+      setFlipped(!isFlipped);
+    }
+
+    // 별표 토글 및 로컬스토리지 동기화
+    function toggleStar(id) {
+      if (starredIds.has(id)) {
+        starredIds.delete(id);
+      } else {
+        starredIds.add(id);
+      }
+      localStorage.setItem('sjpt-l45-vocab-stars-v1', JSON.stringify([...starredIds]));
+      starredCount.textContent = starredIds.size;
+      renderCurrentCard();
+    }
+
+    // 이벤트 리스너 설정
+    function setupEventListeners() {
+      autoPlayBtn.addEventListener('click', toggleAuto);
+      const highlighter = document.getElementById('highlightExampleBtn');
+      const highlightStatus = document.getElementById('highlightStatus');
+      highlighter.addEventListener('pointerdown', event => {
+        pendingHighlightSelection = getExampleSelection();
+        if (pendingHighlightSelection && event.pointerType === 'mouse') event.preventDefault();
+      });
+      highlighter.addEventListener('click', event => {
+        event.stopPropagation();
+        const selected = getExampleSelection() || pendingHighlightSelection;
+        pendingHighlightSelection = null;
+        const card = displayedList[currentIndex];
+        if (!isFlipped || !card || selected?.cardId !== card.id || selected.start >= selected.end) {
+          highlighter.textContent = '예문을 선택하세요';
+          highlightStatus.textContent = highlighter.textContent;
+          return;
+        }
+        const offsets = new Set(cardHighlights[card.id] || []);
+        const selectedOffsets = Array.from({length: selected.end - selected.start}, (_, i) => selected.start + i);
+        const erase = selectedOffsets.every(offset => offsets.has(offset));
+        for (const offset of selectedOffsets) {
+          if (erase) offsets.delete(offset);
+          else offsets.add(offset);
+        }
+        if (offsets.size) cardHighlights[card.id] = [...offsets];
+        else delete cardHighlights[card.id];
+        highlighter.textContent = '형광펜';
+        try {
+          localStorage.setItem(HIGHLIGHTS_KEY, JSON.stringify(cardHighlights));
+          highlightStatus.textContent = erase ? '형광펜 표시를 지웠습니다.' : '형광펜 표시를 저장했습니다.';
+        } catch {
+          highlightStatus.textContent = '이 브라우저에 형광펜 표시를 저장할 수 없습니다.';
+        }
+        window.getSelection()?.removeAllRanges();
+        renderHighlightedExample(card);
+      });
+      const copyBackBtn = document.getElementById('copyBackBtn');
+      let copyFeedbackTimer;
+      copyBackBtn.addEventListener('click', async event => {
+        event.stopPropagation();
+        const card = displayedList[currentIndex];
+        const text = card?.exJa;
+        if (!text) return;
+        try {
+          await navigator.clipboard.writeText(text);
+          copyBackBtn.textContent = '복사 완료';
+        } catch {
+          copyBackBtn.textContent = '복사 실패';
+        }
+        clearTimeout(copyFeedbackTimer);
+        copyFeedbackTimer = setTimeout(() => { copyBackBtn.textContent = '복사'; }, 1500);
+      });
+      const furiganaButtons = cardContainer.querySelectorAll('.furiganaControl[aria-pressed]');
+      function toggleFurigana() {
+        const hidden = cardContainer.classList.toggle('furigana-hidden');
+        furiganaButtons.forEach(control => {
+          if (!control.closest('.backCardActions')) {
+            control.textContent = hidden ? '후리가나 보기' : '후리가나 숨기기';
+          }
+          control.setAttribute('aria-pressed', String(!hidden));
+        });
+      }
+      furiganaButtons.forEach(button => button.addEventListener('click', event => {
+        event.stopPropagation();
+        toggleFurigana();
+      }));
+
+      // 카드 뒤집기
+      cardContainer.addEventListener('click', toggleFlip);
+      let swipeStart = null;
+      cardContainer.addEventListener('touchstart', event => {
+        const touch = event.touches[0];
+        swipeStart = event.touches.length === 1 && !event.target.closest('button')
+          ? {id: touch.identifier, x: touch.clientX, y: touch.clientY, time: Date.now()}
+          : null;
+      }, {passive: true});
+      cardContainer.addEventListener('touchcancel', () => { swipeStart = null; });
+      cardContainer.addEventListener('touchend', event => {
+        const start = swipeStart;
+        swipeStart = null;
+        if (!start || Date.now() - start.time > 500 || getExampleSelection()) return;
+        const touch = Array.from(event.changedTouches).find(point => point.identifier === start.id);
+        if (!touch) return;
+        const dx = touch.clientX - start.x;
+        const dy = touch.clientY - start.y;
+        if (Math.abs(dx) < 45 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+        if (event.cancelable) event.preventDefault();
+        (dx < 0 ? nextBtn : prevBtn).click();
+      }, {passive: false});
+      flipBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleFlip();
+      });
+
+      // 이전 / 다음 탐색
+      prevBtn.addEventListener('click', () => {
+        if (displayedList.length === 0) return;
+        currentIndex = (currentIndex - 1 + displayedList.length) % displayedList.length;
+        if (autoPlaying) scheduleAuto();
+        else renderCurrentCard(isFlipped);
+      });
+
+      nextBtn.addEventListener('click', () => {
+        if (displayedList.length === 0) return;
+        currentIndex = (currentIndex + 1) % displayedList.length;
+        if (autoPlaying) scheduleAuto();
+        else renderCurrentCard(isFlipped);
+      });
+
+      // 음성 듣기
+      ttsBtn.addEventListener('click', () => {
+        if (displayedList.length === 0) return;
+        playJapaneseAudio(displayedList[currentIndex].reading);
+      });
+
+      document.getElementById('exampleAudioBtn').addEventListener('click', (e) => { e.stopPropagation(); if(displayedList.length)playJapaneseAudio(displayedList[currentIndex].exJa); });
+      // 현재 카드 별표 토글
+      starToggleBtn.addEventListener('click', () => {
+        if (displayedList.length === 0) return;
+        toggleStar(displayedList[currentIndex].id);
+      });
+
+      // 검색창 입력
+      searchInput.addEventListener('input', applyFilters);
+      clearSearchBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        applyFilters();
+        searchInput.focus();
+      });
+
+      // 필터 변경
+      probFilter.addEventListener('change', applyFilters);
+
+      // 셔플 버튼
+      shuffleBtn.addEventListener('click', () => {
+        stopAuto();
+        if (displayedList.length <= 1) return;
+        for (let i = displayedList.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [displayedList[i], displayedList[j]] = [displayedList[j], displayedList[i]];
+        }
+        currentIndex = 0;
+        renderCurrentCard();
+      });
+
+      // 원래 순서 리셋
+      resetOrderBtn.addEventListener('click', () => {
+        applyFilters();
+      });
+
+      // 별표 모드 필터 토글
+      studyStarredBtn.addEventListener('click', () => {
+        onlyStarred = !onlyStarred;
+        studyStarredBtn.classList.toggle('bg-amber-600', onlyStarred);
+        studyStarredBtn.classList.toggle('text-white', onlyStarred);
+        studyStarredBtn.classList.toggle('bg-slate-700', !onlyStarred);
+        studyStarredBtn.classList.toggle('text-amber-300', !onlyStarred);
+        applyFilters();
+      });
+
+      // 키보드 단축키
+      window.addEventListener('keydown', (e) => {
+        if (['input', 'select', 'textarea'].includes(document.activeElement.tagName.toLowerCase()) ||
+            (e.code === 'Space' && document.activeElement.matches('.furiganaControl'))) {
+          return;
+        }
+        if (e.code === 'Space') {
+          e.preventDefault();
+          toggleFlip();
+        } else if (e.code === 'ArrowUp' || e.code === 'ArrowDown') {
+          if (flashcardView.classList.contains('hidden') || !displayedList.length ||
+              e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
+          e.preventDefault();
+          if (e.repeat) return;
+          if (e.code === 'ArrowUp') toggleFurigana();
+          else {
+            const meaning = isFlipped ? backMeaning : frontMeaning;
+            meaning.hidden = !meaning.hidden;
+          }
+        } else if (e.code === 'ArrowLeft') {
+          e.preventDefault();
+          prevBtn.click();
+        } else if (e.code === 'ArrowRight') {
+          e.preventDefault();
+          nextBtn.click();
+        } else if (e.code === 'KeyS') {
+          e.preventDefault();
+          if (displayedList.length > 0) {
+            toggleStar(displayedList[currentIndex].id);
+          }
+        } else if (e.code === 'KeyV') {
+          e.preventDefault();
+          if (displayedList.length > 0) {
+            playJapaneseAudio(displayedList[currentIndex].reading);
+          }
+        }
+      });
+    }
+
+    // 초기 실행
+    window.addEventListener('DOMContentLoaded', () => {
+      initProbOptions();
+      starredCount.textContent = starredIds.size;
+      setupEventListeners();
+      renderCurrentCard(restoreStudyPosition());
+    });
+  </script>
+</body>
+</html>
