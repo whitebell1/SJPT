@@ -87,28 +87,11 @@ header .text-slate-400 { color: var(--sjpt-sub); }
 <body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col font-sans">
   <!-- 상단 네비게이션 헤더 -->
   <header class="bg-slate-800/80 backdrop-blur border-b border-slate-700/60 sticky top-0 z-30 px-4 py-3 shadow-md">
-    <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-      <div class="flex items-center gap-2">
-        <span class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white shadow-indigo-500/30 shadow-md">
-          <i class="fa-solid fa-layer-group text-sm"></i>
-        </span>
-        <div>
-          <h1 class="text-base font-bold tracking-wide" style="color:#000">~する 暗記カード</h1>
-        </div>
-      </div>
-
-      <!-- 모드 및 필터 바 -->
-      <div class="flex flex-wrap items-center gap-2 text-xs">
-        <a href="./index.html" aria-label="SJPT 학습 목차로 돌아가기" title="목차로 돌아가기" class="w-8 h-8 p-0 inline-flex items-center justify-center rounded-lg bg-slate-700 text-slate-200 transition hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-300">
+    <div class="max-w-4xl mx-auto flex items-center gap-2">
+        <a href="./index.html" aria-label="SJPT 학습 목차로 돌아가기" title="목차로 돌아가기" class="menuLink w-8 h-8 p-0 inline-flex items-center justify-center rounded-lg bg-slate-700 text-slate-200 transition hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-300">
           <i class="fa-solid fa-house" aria-hidden="true"></i>
         </a>
-        <button id="modeFlashcardBtn" class="px-3 py-1.5 rounded-lg bg-indigo-600 font-semibold text-white transition hover:bg-indigo-500">
-          <i class="fa-solid fa-clone mr-1"></i>카드 모드
-        </button>
-        <button id="modeListBtn" class="px-3 py-1.5 rounded-lg bg-slate-700 font-medium text-slate-300 transition hover:bg-slate-600">
-          <i class="fa-solid fa-list mr-1"></i>목록 모드
-        </button>
-      </div>
+          <h1 class="text-base font-bold tracking-wide" style="color:#000">~する 暗記カード</h1>
     </div>
   </header>
 
@@ -229,31 +212,6 @@ header .text-slate-400 { color: var(--sjpt-sub); }
       </div>
     </div>
 
-    <!-- 목록 모드 뷰 (기본 숨김) -->
-    <div id="listView" class="hidden flex-1 flex flex-col gap-2">
-      <div class="flex items-center justify-between text-xs text-slate-400 px-1 py-1">
-        <span>총 <b id="listTotalCount" class="text-white">0</b>개 어휘</span>
-        <span>클릭하여 발음 청취 / 별표 저장 가능</span>
-      </div>
-      <div id="vocabTableContainer" class="bg-slate-800/60 rounded-xl border border-slate-700/70 overflow-x-auto max-h-[68vh] overflow-y-auto">
-        <table class="w-full text-left text-xs sm:text-sm">
-          <thead class="bg-slate-850 sticky top-0 border-b border-slate-700 text-slate-400">
-            <tr>
-              <th class="py-2.5 px-3 w-10 text-center">★</th>
-              <th class="py-2.5 px-3 w-12 text-center">No</th>
-              <th class="py-2.5 px-3">단어</th>
-              <th class="py-2.5 px-3">읽는 법</th>
-              <th class="py-2.5 px-3">한국어 뜻</th>
-              <th class="py-2.5 px-3 text-center">학습 구간</th>
-              <th class="py-2.5 px-3 w-12 text-center">발음</th>
-            </tr>
-          </thead>
-          <tbody id="vocabTableBody" class="divide-y divide-slate-700/50">
-            <!-- 자바스크립트로 렌더링 -->
-          </tbody>
-        </table>
-      </div>
-    </div>
   </main>
 
   <footer class="text-center py-3 text-xs text-slate-500 border-t border-slate-800 mt-auto">
@@ -309,13 +267,8 @@ header .text-slate-400 { color: var(--sjpt-sub); }
     const probFilter = document.getElementById('probFilter');
     const shuffleBtn = document.getElementById('shuffleBtn');
     const resetOrderBtn = document.getElementById('resetOrderBtn');
-    const modeFlashcardBtn = document.getElementById('modeFlashcardBtn');
-    const modeListBtn = document.getElementById('modeListBtn');
     const studyStarredBtn = document.getElementById('studyStarredBtn');
     const flashcardView = document.getElementById('flashcardView');
-    const listView = document.getElementById('listView');
-    const vocabTableBody = document.getElementById('vocabTableBody');
-    const listTotalCount = document.getElementById('listTotalCount');
 
     // 문제 번호 셀렉트박스 옵션 채우기
     function initProbOptions() {
@@ -386,7 +339,6 @@ header .text-slate-400 { color: var(--sjpt-sub); }
     function toggleAuto() {
       if (autoPlaying) { stopAuto(); return; }
       if (!displayedList.length) return;
-      listView.classList.add('hidden');
       flashcardView.classList.remove('hidden');
       autoPlaying = true;
       updateAutoStatus();
@@ -417,7 +369,6 @@ header .text-slate-400 { color: var(--sjpt-sub); }
       currentIndex = 0;
       isFlipped = false;
       renderCurrentCard();
-      renderListView();
       clearSearchBtn.classList.toggle('hidden', query === '');
     }
 
@@ -575,45 +526,6 @@ header .text-slate-400 { color: var(--sjpt-sub); }
       setFlipped(!isFlipped);
     }
 
-    // 목록 모드 렌더링
-    function renderListView() {
-      listTotalCount.textContent = displayedList.length;
-      vocabTableBody.innerHTML = '';
-
-      if (displayedList.length === 0) {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `<td colspan="7" class="py-6 text-center text-slate-500">조건에 맞는 단어가 없습니다.</td>`;
-        vocabTableBody.appendChild(tr);
-        return;
-      }
-
-      displayedList.forEach(item => {
-        const isStarred = starredIds.has(item.id);
-        const tr = document.createElement('tr');
-        tr.className = "hover:bg-slate-750/50 transition border-b border-slate-800/80 group";
-        tr.innerHTML = `
-          <td class="py-2.5 px-3 text-center">
-            <button class="row-star-btn text-xs ${isStarred ? 'text-amber-400' : 'text-slate-600 hover:text-slate-400'}" data-id="${item.id}">
-              <i class="fa-${isStarred ? 'solid' : 'regular'} fa-star"></i>
-            </button>
-          </td>
-          <td class="py-2.5 px-3 text-center font-mono text-slate-400">${item.id}</td>
-          <td class="py-2.5 px-3 font-bold text-white text-base">${item.word}</td>
-          <td class="py-2.5 px-3 text-indigo-300">${item.reading}</td>
-          <td class="py-2.5 px-3 text-emerald-300 font-medium">${item.meaning}<div class="mt-3 text-slate-200 font-normal leading-relaxed" lang="ja">${item.exRuby}</div><div class="mt-2 text-slate-400 font-normal leading-relaxed">${item.exKo}</div></td>
-          <td class="py-2.5 px-3 text-center">
-            <span class="inline-block px-2 py-0.5 rounded bg-slate-800 text-[11px] text-slate-300 border border-slate-700 font-mono">${item.prob}</span>
-          </td>
-          <td class="py-2.5 px-3 text-center">
-            <button class="row-audio-btn text-slate-400 hover:text-indigo-400 transition" data-word="${item.word}">
-              <i class="fa-solid fa-volume-high"></i>
-            </button>
-          </td>
-        `;
-        vocabTableBody.appendChild(tr);
-      });
-    }
-
     // 별표 토글 및 로컬스토리지 동기화
     function toggleStar(id) {
       if (starredIds.has(id)) {
@@ -624,7 +536,6 @@ header .text-slate-400 { color: var(--sjpt-sub); }
       localStorage.setItem('sjpt_suru309_starred_v1', JSON.stringify([...starredIds]));
       starredCount.textContent = starredIds.size;
       renderCurrentCard();
-      renderListView();
     }
 
     // 이벤트 리스너 설정
@@ -772,7 +683,6 @@ header .text-slate-400 { color: var(--sjpt-sub); }
         }
         currentIndex = 0;
         renderCurrentCard();
-        renderListView();
       });
 
       // 원래 순서 리셋
@@ -788,40 +698,6 @@ header .text-slate-400 { color: var(--sjpt-sub); }
         studyStarredBtn.classList.toggle('bg-slate-700', !onlyStarred);
         studyStarredBtn.classList.toggle('text-amber-300', !onlyStarred);
         applyFilters();
-      });
-
-      // 모드 변경 (카드 vs 리스트)
-      modeFlashcardBtn.addEventListener('click', () => {
-        stopAuto();
-        modeFlashcardBtn.className = "px-3 py-1.5 rounded-lg bg-indigo-600 font-semibold text-white transition";
-        modeListBtn.className = "px-3 py-1.5 rounded-lg bg-slate-700 font-medium text-slate-300 transition hover:bg-slate-600";
-        flashcardView.classList.remove('hidden');
-        listView.classList.add('hidden');
-      });
-
-      modeListBtn.addEventListener('click', () => {
-        stopAuto();
-        modeListBtn.className = "px-3 py-1.5 rounded-lg bg-indigo-600 font-semibold text-white transition";
-        modeFlashcardBtn.className = "px-3 py-1.5 rounded-lg bg-slate-700 font-medium text-slate-300 transition hover:bg-slate-600";
-        listView.classList.remove('hidden');
-        flashcardView.classList.add('hidden');
-        renderListView();
-      });
-
-      // 테이블 내부 클릭 이벤트 (위임)
-      vocabTableBody.addEventListener('click', (e) => {
-        const starBtn = e.target.closest('.row-star-btn');
-        if (starBtn) {
-          const id = parseInt(starBtn.dataset.id);
-          toggleStar(id);
-          return;
-        }
-
-        const audioBtn = e.target.closest('.row-audio-btn');
-        if (audioBtn) {
-          const word = audioBtn.dataset.word;
-          playJapaneseAudio(word);
-        }
       });
 
       // 키보드 단축키
@@ -869,7 +745,6 @@ header .text-slate-400 { color: var(--sjpt-sub); }
       starredCount.textContent = starredIds.size;
       setupEventListeners();
       renderCurrentCard(restoreStudyPosition());
-      renderListView();
     });
   </script>
 </body>
