@@ -4,7 +4,7 @@
   <link rel="icon" type="image/svg+xml" href="./sjpt-favicon.svg">
 <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>일본어 필수 어휘 플래시카드</title>
+  <title>▣ 일본어 기초 어휘</title>
   <link rel="stylesheet" href="./sjpt-soft-sage.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -22,42 +22,79 @@
     .rotate-y-180 {
       transform: rotateY(180deg);
     }
-  #cardContainer.has-example { aspect-ratio:auto; height:440px; }
+    #cardContainer.has-example { aspect-ratio:auto; }
     #backExample { margin-top:12px; padding-top:16px; border-top:1px solid #475569; }
     #backExample[hidden] { display:none; }
-    #backExampleJapanese { font-size:19px; line-height:1.8; color:#e0e7ff; }
+    #backWordMini, #backExampleJapanese { font-size:19px; }
+    .backWordRuby { ruby-position:over; ruby-align:center; }
+    #backReadingMini { font-size:0.7rem; }
+    #backExampleJapanese { line-height:1.8; color:#e0e7ff; }
     #backExampleKorean { margin-top:10px; font-size:15px; line-height:1.7; color:#cbd5e1; }
-    </style>
-<style>#autoPlayBtn,#starToggleBtn{width:44px;height:44px;padding:0;display:inline-grid;place-items:center;border-radius:9px}#autoPlayBtn{background:#ea580c;border:1px solid #fb923c;color:#fff}#autoPlayBtn:hover{background:#c2410c;border-color:#fdba74}#autoPlayBtn.ring-2{background:#f97316;border-color:#fed7aa}</style></head>
+    @media(max-width:480px){#frontWord{font-size:2.2rem} #backWordMini,#backExampleJapanese{font-size:18px}}
+
+/* Furigana is precomputed; audio continues to use the original sentence. */
+#backExampleJapanese { line-height:2.5; overflow-wrap:anywhere; }
+#backExampleJapanese ruby, td[lang="ja"] ruby, td ruby { ruby-position:over; ruby-align:center; }
+#backExampleJapanese rt, td rt { font-size:0.58em; font-weight:400; color:#c7d2fe; }
+td div[lang="ja"] { line-height:2.4; }
+#cardContainer { aspect-ratio:16 / 8.5; }
+@media(min-width:640px){ #cardContainer { aspect-ratio:16 / 8.075; } }
+#cardContainer.has-example { height:467.5px; }
+@media(max-width:480px){ #cardContainer.has-example { height:544px; } }
+#cardInner > .backface-hidden { overflow-y:auto; overscroll-behavior:contain; }
+/* Match the Level 5 sage palette across both faces and the word list. */
+#cardInner > .backface-hidden {
+  background: linear-gradient(135deg, #FBFCFA, #DCE5DA);
+  color: var(--sjpt-text);
+  border-color: var(--sjpt-border);
+}
+#cardInner > .rotate-y-180 {
+  background: linear-gradient(135deg, #F0F4ED, #CFDCCF);
+  border-color: #66806D;
+}
+#flashcardView :is(.text-white,.text-slate-200,#backExampleJapanese),
+#vocabTableContainer :is(.text-white,.text-slate-200),
+#listTotalCount { color: var(--sjpt-text); }
+#cardInner :is(.text-indigo-300,.text-indigo-400),
+#flashcardView .text-indigo-400,
+#vocabTableContainer .text-indigo-300 { color: var(--sjpt-primary); }
+#flashcardView :is(.text-slate-400,.text-slate-500),
+#vocabTableContainer :is(.text-slate-300,.text-slate-400,.text-slate-500),
+header .text-slate-400 { color: var(--sjpt-sub); }
+#backMeaning,#backExampleKorean { color:#475A4D; }
+#backExample { border-color:var(--sjpt-border); }
+#vocabTableContainer { background:var(--sjpt-surface);border-color:var(--sjpt-border); }
+#vocabTableContainer thead,
+#cardInner .bg-slate-900\/60,#vocabTableBody .bg-slate-800 { background:var(--sjpt-muted); }
+#progressBar { background:linear-gradient(90deg,var(--sjpt-primary),#A47A4D); }
+</style>
+<style>
+.cardToolbar{width:100%;max-width:32rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px}
+.cardToolbarActions{display:flex;gap:8px;margin-inline-start:auto}
+.studyFilters{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.studyFilters button{white-space:nowrap}
+.studyFilters #probFilter{width:calc-size(max-content,size * 0.85);min-width:0;text-overflow:ellipsis}
+#cardContainer.furigana-hidden :is(#frontReading,#backReadingMini){display:none}
+#cardContainer.furigana-hidden rt{visibility:hidden}
+.furiganaControl{align-self:center;margin-top:6px;padding:0 10px;border:1px solid var(--sjpt-border);border-radius:9px;font-size:12px}
+.backCardActions{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px}
+#copyBackBtn[hidden],#exampleAudioBtn[hidden]{display:none!important}
+#backExampleJapanese{user-select:text;-webkit-user-select:text}
+#cardContainer{touch-action:pan-y pinch-zoom}
+#backExampleJapanese mark{background:#ffe278;color:inherit}
+#highlightExampleBtn[hidden]{display:none!important}
+.cardToolbarActions button{width:44px;height:44px!important;min-height:44px!important;flex:0 0 44px;padding:0;border:1px solid var(--sjpt-border);border-radius:9px;font-size:16px}
+#starToggleBtn i.fa-solid{color:#98651F}
+#autoPlayBtn.ring-2{background-color:var(--sjpt-accent-dark)!important}
+</style></head>
 <body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col font-sans">
   <!-- 상단 네비게이션 헤더 -->
   <header class="bg-slate-800/80 backdrop-blur border-b border-slate-700/60 sticky top-0 z-30 px-4 py-3 shadow-md">
-    <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-      <div class="flex items-center gap-2">
-        <span class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white shadow-indigo-500/30 shadow-md">
-          <i class="fa-solid fa-layer-group text-sm"></i>
-        </span>
-        <div>
-          <h1 class="text-base font-bold text-white tracking-wide">일본어 단어 플래시카드</h1>
-          <p class="text-xs text-slate-400">문제 번호별 연계 단어 학습</p>
-        </div>
-      </div>
-
-      <!-- 모드 및 필터 바 -->
-      <div class="flex flex-wrap items-center gap-2 text-xs">
-        <a href="./index.html" aria-label="SJPT 학습 목차로 돌아가기" title="목차로 돌아가기" class="w-8 h-8 p-0 inline-flex items-center justify-center rounded-lg bg-slate-700 text-slate-200 transition hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-300">
+    <div class="max-w-4xl mx-auto flex items-center gap-2">
+        <a href="./index.html" aria-label="SJPT 학습 목차로 돌아가기" title="목차로 돌아가기" class="menuLink w-8 h-8 p-0 inline-flex items-center justify-center rounded-lg bg-slate-700 text-slate-200 transition hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-300">
           <i class="fa-solid fa-house" aria-hidden="true"></i>
         </a>
-        <button id="modeFlashcardBtn" class="px-3 py-1.5 rounded-lg bg-indigo-600 font-semibold text-white transition hover:bg-indigo-500">
-          <i class="fa-solid fa-clone mr-1"></i>카드 모드
-        </button>
-        <button id="modeListBtn" class="px-3 py-1.5 rounded-lg bg-slate-700 font-medium text-slate-300 transition hover:bg-slate-600">
-          <i class="fa-solid fa-list mr-1"></i>목록 모드
-        </button>
-        <button id="studyStarredBtn" class="px-3 py-1.5 rounded-lg bg-slate-700 font-medium text-amber-300 transition hover:bg-slate-600">
-          <i class="fa-solid fa-star mr-1"></i>별표(<span id="starredCount">0</span>)
-        </button>
-      </div>
+          <h1 class="text-base font-bold tracking-wide" style="color:#000">▣ 일본어 기초 어휘</h1>
     </div>
   </header>
 
@@ -66,26 +103,29 @@
     <section class="bg-slate-800/60 rounded-xl p-3 border border-slate-700/60 flex flex-col sm:flex-row gap-2.5 items-stretch sm:items-center">
       <div class="relative flex-1">
         <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
-        <input 
-          type="text" 
-          id="searchInput" 
-          placeholder="단어, 읽는 법, 뜻, 번호(예: 01) 검색..." 
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="단어, 읽는 법, 뜻, 번호(예: 01) 검색..."
           class="w-full bg-slate-900/90 text-sm border border-slate-700 rounded-lg pl-9 pr-8 py-2 focus:outline-none focus:border-indigo-500 transition placeholder:text-slate-500"
         />
         <button id="clearSearchBtn" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
-      
-      <div class="flex items-center gap-2">
+
+      <div class="studyFilters">
         <select id="probFilter" class="bg-slate-900 border border-slate-700 text-xs rounded-lg px-2.5 py-2 text-slate-300 focus:outline-none focus:border-indigo-500">
-          <option value="ALL">전체 문제 번호</option>
+          <option value="ALL">전체 학습 구간</option>
         </select>
-        <button id="shuffleBtn" title="단어 순서 섞기" class="px-3 py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg text-xs flex items-center gap-1.5 transition">
-          <i class="fa-solid fa-shuffle"></i> 셔플
+        <button id="shuffleBtn" title="단어 순서 섞기" aria-label="단어 순서 섞기" class="px-3 py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg text-xs flex items-center gap-1.5 transition">
+          <i class="fa-solid fa-shuffle" aria-hidden="true"></i>
         </button>
         <button id="resetOrderBtn" title="원래 순서로 초기화" class="px-2.5 py-2 bg-slate-700/80 hover:bg-slate-600 text-slate-300 rounded-lg text-xs transition">
           <i class="fa-solid fa-rotate-left"></i>
+        </button>
+        <button id="studyStarredBtn" class="px-3 rounded-lg border text-xs font-medium">
+          <span aria-label="즐겨찾기">★ (<span id="starredCount">0</span>)</span>
         </button>
       </div>
     </section>
@@ -93,12 +133,8 @@
     <!-- 플래시카드 뷰 -->
     <div id="flashcardView" class="flex-1 flex flex-col items-center justify-center gap-4">
       <!-- 진행률 바 및 카운터 -->
-      <div class="w-full flex items-center justify-between text-xs text-slate-400 px-1">
-        <div class="flex items-center gap-2">
-          <span class="font-semibold text-slate-200" id="currentNumBadge">Card 1 / 193</span>
-          <span class="px-2 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-[11px] text-indigo-400" id="currentProbBadge">관련 문제: 01</span>
-        </div>
-        <div class="flex items-center gap-3">
+      <div class="cardToolbar text-xs text-slate-400">
+        <div class="cardToolbarActions">
           <button id="autoPlayBtn" class="w-11 h-11 inline-grid place-items-center rounded-lg bg-orange-600 hover:bg-orange-700 border border-orange-400 text-white transition text-base" aria-label="자동 넘김 시작" title="자동 넘김 시작" aria-pressed="false">▶</button>
           <button id="starToggleBtn" class="w-11 h-11 inline-grid place-items-center rounded-lg text-slate-400 hover:text-amber-400 transition text-base">
             <i class="fa-regular fa-star"></i>
@@ -124,10 +160,12 @@
             <div class="my-auto flex flex-col items-center gap-2">
               <span id="frontReading" class="text-indigo-300 text-sm sm:text-base tracking-widest font-medium">えきいん</span>
               <h2 id="frontWord" class="text-4xl sm:text-5xl font-bold text-white tracking-wider">駅員</h2>
+              <p id="frontMeaning" class="meaning font-semibold" hidden></p>
             </div>
 
             <div class="w-full text-center">
               <span class="text-[11px] text-slate-500">Space 키: 뒤집기 | ← →: 이전/다음</span>
+              <div><button type="button" class="furiganaControl" aria-pressed="true">후리가나 숨기기</button></div>
             </div>
           </div>
 
@@ -135,19 +173,19 @@
           <div class="absolute inset-0 backface-hidden rotate-y-180 bg-gradient-to-br from-indigo-950/80 to-slate-900 border border-indigo-700/50 rounded-2xl p-6 sm:p-8 flex flex-col items-center justify-between text-center shadow-indigo-900/20 shadow-xl">
             <div class="w-full flex justify-between items-center text-xs text-slate-400">
               <span class="font-mono text-indigo-300" id="backCardId">No. 1</span>
-              <span class="text-xs text-indigo-300 font-medium" id="backProbTag">문제: 01</span>
+              <span class="text-xs text-indigo-300 font-medium" id="backProbTag">구간: 01</span>
             </div>
 
             <div class="my-auto flex flex-col items-center gap-3">
               <div class="text-slate-400 text-sm flex items-center gap-2 font-mono">
-                <span id="backWordMini" class="font-semibold text-white">駅員</span>
-                <span id="backReadingMini" class="text-indigo-300 font-normal">[えきいん]</span>
+                <ruby class="backWordRuby font-sans"><span id="backWordMini" class="font-semibold text-white">駅員</span><rt id="backReadingMini" class="text-indigo-300 font-normal">えきいん</rt></ruby>
               </div>
               <h3 id="backMeaning" class="text-2xl sm:text-3xl font-extrabold text-emerald-400">역무원</h3><div id="backExample" hidden><p id="backExampleJapanese" lang="ja"></p><p id="backExampleKorean"></p></div>
             </div>
 
             <div class="w-full text-center">
               <span class="text-[11px] text-slate-400">다시 탭하면 앞면으로 회전합니다</span>
+              <div class="backCardActions"><button type="button" id="exampleAudioBtn" class="furiganaControl" hidden>듣기</button><button type="button" class="furiganaControl" aria-pressed="true">후리가나</button><button type="button" id="copyBackBtn" class="furiganaControl" hidden>복사</button><button type="button" id="highlightExampleBtn" class="furiganaControl" title="예문을 선택한 뒤 눌러 표시하거나 지웁니다" hidden>형광펜</button><span id="highlightStatus" class="sr-only" role="status"></span></div>
             </div>
           </div>
         </div>
@@ -172,454 +210,31 @@
       </div>
     </div>
 
-    <!-- 목록 모드 뷰 (기본 숨김) -->
-    <div id="listView" class="hidden flex-1 flex flex-col gap-2">
-      <div class="flex items-center justify-between text-xs text-slate-400 px-1 py-1">
-        <span>총 <b id="listTotalCount" class="text-white">0</b>개 어휘</span>
-        <span>클릭하여 발음 청취 / 별표 저장 가능</span>
-      </div>
-      <div id="vocabTableContainer" class="bg-slate-800/60 rounded-xl border border-slate-700/70 overflow-x-auto max-h-[68vh] overflow-y-auto">
-        <table class="w-full text-left text-xs sm:text-sm">
-          <thead class="bg-slate-850 sticky top-0 border-b border-slate-700 text-slate-400">
-            <tr>
-              <th class="py-2.5 px-3 w-10 text-center">★</th>
-              <th class="py-2.5 px-3 w-12 text-center">No</th>
-              <th class="py-2.5 px-3">단어</th>
-              <th class="py-2.5 px-3">읽는 법</th>
-              <th class="py-2.5 px-3">한국어 뜻</th>
-              <th class="py-2.5 px-3 text-center">관련 문제</th>
-              <th class="py-2.5 px-3 w-12 text-center">발음</th>
-            </tr>
-          </thead>
-          <tbody id="vocabTableBody" class="divide-y divide-slate-700/50">
-            <!-- 자바스크립트로 렌더링 -->
-          </tbody>
-        </table>
-      </div>
-    </div>
   </main>
 
   <footer class="text-center py-3 text-xs text-slate-500 border-t border-slate-800 mt-auto">
-    일본어 193선 어휘 학습기 • 발음 듣기 지원
+    일본어 기초 어휘 403개 · 발음 듣기
   </footer>
 
   <script>
-    // 193개 단어 원본 데이터베이스
-    const RAW_VOCAB = [
-      { id: 1, word: "駅員", reading: "えきいん", meaning: "역무원", prob: "01" },
-      { id: 2, word: "聞く", reading: "きく", meaning: "묻다", prob: "01" },
-      { id: 3, word: "落とし物", reading: "おとしもの", meaning: "분실물", prob: "01" },
-      { id: 4, word: "確認", reading: "かくにん", meaning: "확인", prob: "01, 05, 06, 24" },
-      { id: 5, word: "相談", reading: "そうだん", meaning: "상담", prob: "01" },
-      { id: 6, word: "会議", reading: "かいぎ", meaning: "회의", prob: "02" },
-      { id: 7, word: "始まる", reading: "はじまる", meaning: "시작되다", prob: "02" },
-      { id: 8, word: "電車", reading: "でんしゃ", meaning: "전철", prob: "02" },
-      { id: 9, word: "遅れる", reading: "おくれる", meaning: "늦어지다", prob: "02" },
-      { id: 10, word: "資料", reading: "しりょう", meaning: "자료", prob: "02, 25" },
-      { id: 11, word: "共有", reading: "きょうゆう", meaning: "공유", prob: "02" },
-      { id: 12, word: "合流", reading: "ごうりゅう", meaning: "합류", prob: "02" },
-      { id: 13, word: "コピー機", reading: "コピーき", meaning: "복사기", prob: "03" },
-      { id: 14, word: "止まる", reading: "とまる", meaning: "멈추다", prob: "03" },
-      { id: 15, word: "急ぎ", reading: "いそぎ", meaning: "급한 일", prob: "03, 18" },
-      { id: 16, word: "管理部", reading: "かんりぶ", meaning: "관리부", prob: "03" },
-      { id: 17, word: "連絡", reading: "れんらく", meaning: "연락", prob: "03, 11, 30" },
-      { id: 18, word: "紙", reading: "かみ", meaning: "종이", prob: "03" },
-      { id: 19, word: "詰まる", reading: "つまる", meaning: "막히다", prob: "03" },
-      { id: 20, word: "今夜", reading: "こんや", meaning: "오늘 밤", prob: "04, 25" },
-      { id: 21, word: "一緒に", reading: "いっしょに", meaning: "함께", prob: "04" },
-      { id: 22, word: "映画", reading: "えいが", meaning: "영화", prob: "04" },
-      { id: 23, word: "宿題", reading: "しゅくだい", meaning: "숙제", prob: "04" },
-      { id: 24, word: "誘う", reading: "さそう", meaning: "권유하다", prob: "04" },
-      { id: 25, word: "変更", reading: "へんこう", meaning: "변경", prob: "04" },
-      { id: 26, word: "注文", reading: "ちゅうもん", meaning: "주문", prob: "05, 18" },
-      { id: 27, word: "違う", reading: "ちがう", meaning: "다르다", prob: "05" },
-      { id: 28, word: "頼む", reading: "たのむ", meaning: "부탁하다·주문하다", prob: "05, 06, 14" },
-      { id: 29, word: "料理", reading: "りょうり", meaning: "요리", prob: "05" },
-      { id: 30, word: "報告書", reading: "ほうこくしょ", meaning: "보고서", prob: "06" },
-      { id: 31, word: "最後", reading: "さいご", meaning: "마지막", prob: "06" },
-      { id: 32, word: "提出", reading: "ていしゅつ", meaning: "제출", prob: "06" },
-      { id: 33, word: "数字", reading: "すうじ", meaning: "숫자", prob: "06" },
-      { id: 34, word: "再確認", reading: "さいかくにん", meaning: "재확인", prob: "06" },
-      { id: 35, word: "郵便局", reading: "ゆうびんきょく", meaning: "우체국", prob: "07" },
-      { id: 36, word: "道", reading: "みち", meaning: "길", prob: "07" },
-      { id: 37, word: "角", reading: "かど", meaning: "모퉁이", prob: "07" },
-      { id: 38, word: "右", reading: "みぎ", meaning: "오른쪽", prob: "07, 15" },
-      { id: 39, word: "曲がる", reading: "まがる", meaning: "돌다", prob: "07" },
-      { id: 40, word: "銀行", reading: "ぎんこう", meaning: "은행", prob: "07" },
-      { id: 41, word: "隣", reading: "となり", meaning: "옆", prob: "07" },
-      { id: 42, word: "雨", reading: "あめ", meaning: "비", prob: "08" },
-      { id: 43, word: "強い", reading: "つよい", meaning: "세다", prob: "08" },
-      { id: 44, word: "傘", reading: "かさ", meaning: "우산", prob: "08" },
-      { id: 45, word: "忘れる", reading: "わすれる", meaning: "잊다", prob: "08" },
-      { id: 46, word: "近い", reading: "ちかい", meaning: "가깝다", prob: "08" },
-      { id: 47, word: "新しい", reading: "あたらしい", meaning: "새롭다", prob: "08, 28" },
-      { id: 48, word: "買う", reading: "かう", meaning: "사다", prob: "08" },
-      { id: 49, word: "席", reading: "せき", meaning: "자리", prob: "09, 19" },
-      { id: 50, word: "空く", reading: "あく", meaning: "비다", prob: "09" },
-      { id: 51, word: "申し訳ありません", reading: "もうしわけありません", meaning: "죄송합니다", prob: "09" },
-      { id: 52, word: "満席", reading: "まんせき", meaning: "만석", prob: "09" },
-      { id: 53, word: "案内", reading: "あんない", meaning: "안내", prob: "09" },
-      { id: 54, word: "待つ", reading: "まつ", meaning: "기다리다", prob: "09, 13" },
-      { id: 55, word: "音", reading: "おと", meaning: "소리", prob: "10" },
-      { id: 56, word: "大きい", reading: "おおきい", meaning: "크다", prob: "10, 22" },
-      { id: 57, word: "静か", reading: "しずか", meaning: "조용함", prob: "10" },
-      { id: 58, word: "気がつく", reading: "きがつく", meaning: "알아차리다", prob: "10" },
-      { id: 59, word: "音量", reading: "おんりょう", meaning: "음량", prob: "10" },
-      { id: 60, word: "下げる", reading: "さげる", meaning: "낮추다", prob: "10" },
-      { id: 61, word: "迷惑", reading: "めいわく", meaning: "폐", prob: "10" },
-      { id: 62, word: "昨日", reading: "きのう", meaning: "어제", prob: "11, 30" },
-      { id: 63, word: "授業", reading: "じゅぎょう", meaning: "수업", prob: "11" },
-      { id: 64, word: "熱", reading: "ねつ", meaning: "열", prob: "11, 16" },
-      { id: 65, word: "高い", reading: "たかい", meaning: "높다", prob: "11" },
-      { id: 66, word: "病院", reading: "びょういん", meaning: "병원", prob: "11" },
-      { id: 67, word: "遅い", reading: "おそい", meaning: "늦다", prob: "11" },
-      { id: 68, word: "近く", reading: "ちかく", meaning: "근처", prob: "12, 13" },
-      { id: 69, word: "昼ご飯", reading: "ひるごはん", meaning: "점심밥", prob: "12" },
-      { id: 70, word: "駅前", reading: "えきまえ", meaning: "역 앞", prob: "12" },
-      { id: 71, word: "おすすめ", reading: "おすすめ", meaning: "추천", prob: "12" },
-      { id: 72, word: "安い", reading: "やすい", meaning: "싸다", prob: "12" },
-      { id: 73, word: "量", reading: "りょう", meaning: "양", prob: "12" },
-      { id: 74, word: "値段", reading: "ねだん", meaning: "가격", prob: "12" },
-      { id: 75, word: "手ごろ", reading: "てごろ", meaning: "적당함, 가격이 부담스럽지 않음", prob: "12" },
-      { id: 76, word: "荷物", reading: "にもつ", meaning: "짐", prob: "13, 19, 20, 30" },
-      { id: 77, word: "預ける", reading: "あずける", meaning: "맡기다", prob: "13" },
-      { id: 78, word: "承知しました", reading: "しょうちしました", meaning: "알겠습니다", prob: "13" },
-      { id: 79, word: "外", reading: "そと", meaning: "밖", prob: "13" },
-      { id: 80, word: "預かる", reading: "あずかる", meaning: "맡아 두다", prob: "13" },
-      { id: 81, word: "飲む", reading: "のむ", meaning: "마시다, 약을 먹다", prob: "14, 16, 17" },
-      { id: 82, word: "紅茶", reading: "こうちゃ", meaning: "홍차", prob: "14" },
-      { id: 83, word: "暑い", reading: "あつい", meaning: "덥다", prob: "14" },
-      { id: 84, word: "一つ", reading: "ひとつ", meaning: "하나", prob: "14" },
-      { id: 85, word: "思う", reading: "おもう", meaning: "생각하다", prob: "14" },
-      { id: 86, word: "写真", reading: "しゃしん", meaning: "사진", prob: "15" },
-      { id: 87, word: "撮る", reading: "とる", meaning: "찍다", prob: "15" },
-      { id: 88, word: "背景", reading: "はいけい", meaning: "배경", prob: "15" },
-      { id: 89, word: "見える", reading: "みえる", meaning: "보이다", prob: "15" },
-      { id: 90, word: "立つ", reading: "たつ", meaning: "서다", prob: "15" },
-      { id: 91, word: "朝", reading: "あさ", meaning: "아침", prob: "16" },
-      { id: 92, word: "頭", reading: "あたま", meaning: "머리", prob: "16" },
-      { id: 93, word: "痛い", reading: "いたい", meaning: "아프다", prob: "16" },
-      { id: 94, word: "診察", reading: "しんさつ", meaning: "진찰", prob: "16" },
-      { id: 95, word: "頭痛", reading: "ずつう", meaning: "두통", prob: "16" },
-      { id: 96, word: "薬", reading: "くすり", meaning: "약", prob: "16" },
-      { id: 97, word: "仕事", reading: "しごと", meaning: "일", prob: "17, 28" },
-      { id: 98, word: "終わる", reading: "おわる", meaning: "끝나다", prob: "17" },
-      { id: 99, word: "軽く", reading: "かるく", meaning: "가볍게", prob: "17" },
-      { id: 100, word: "明日", reading: "あした", meaning: "내일", prob: "17" },
-      { id: 101, word: "参加", reading: "さんか", meaning: "참가", prob: "17" },
-      { id: 102, word: "一次会", reading: "いちじかい", meaning: "1차 모임", prob: "17" },
-      { id: 103, word: "失礼する", reading: "しつれいする", meaning: "실례하다, 이 장면에서는 먼저 자리를 뜨다", prob: "17" },
-      { id: 104, word: "本", reading: "ほん", meaning: "책", prob: "18" },
-      { id: 105, word: "売り切れ", reading: "うりきれ", meaning: "품절", prob: "18, 품절 보충" },
-      { id: 106, word: "取り寄せる", reading: "とりよせる", meaning: "다른 곳에서 주문해 받아오다", prob: "18" },
-      { id: 107, word: "可能", reading: "かのう", meaning: "가능", prob: "18" },
-      { id: 108, word: "図書館", reading: "としょかん", meaning: "도서관", prob: "19" },
-      { id: 109, word: "取る", reading: "とる", meaning: "잡다", prob: "19" },
-      { id: 110, word: "席取り", reading: "せきとり", meaning: "자리 맡기", prob: "19" },
-      { id: 111, word: "禁止", reading: "きんし", meaning: "금지", prob: "19" },
-      { id: 112, word: "安心", reading: "あんしん", meaning: "안심", prob: "19" },
-      { id: 113, word: "空港", reading: "くうこう", meaning: "공항", prob: "20" },
-      { id: 114, word: "重い", reading: "おもい", meaning: "무겁다", prob: "20" },
-      { id: 115, word: "中", reading: "なか", meaning: "안", prob: "20" },
-      { id: 116, word: "物", reading: "もの", meaning: "물건", prob: "20" },
-      { id: 117, word: "出す", reading: "だす", meaning: "꺼내다", prob: "20" },
-      { id: 118, word: "手荷物", reading: "てにもつ", meaning: "휴대 수하물", prob: "20" },
-      { id: 119, word: "整理", reading: "せいり", meaning: "정리", prob: "20" },
-      { id: 120, word: "移す", reading: "うつす", meaning: "옮기다", prob: "20" },
-      { id: 121, word: "データ", reading: "データ", meaning: "데이터", prob: "21" },
-      { id: 122, word: "意味", reading: "いみ", meaning: "의미", prob: "21" },
-      { id: 123, word: "簡単に", reading: "かんたんに", meaning: "간단히", prob: "21" },
-      { id: 124, word: "説明", reading: "せつめい", meaning: "설명", prob: "21, 28" },
-      { id: 125, word: "売り上げ", reading: "うりあげ", meaning: "매출", prob: "21" },
-      { id: 126, word: "増える", reading: "ふえる", meaning: "늘다", prob: "21" },
-      { id: 127, word: "表す", reading: "あらわす", meaning: "나타내다", prob: "21" },
-      { id: 128, word: "全体", reading: "ぜんたい", meaning: "전체", prob: "21" },
-      { id: 129, word: "服屋", reading: "ふくや", meaning: "옷가게", prob: "22" },
-      { id: 130, word: "試着室", reading: "しちゃくしつ", meaning: "피팅룸, 옷을 입어 보는 방", prob: "22" },
-      { id: 131, word: "サイズ", reading: "サイズ", meaning: "사이즈", prob: "22" },
-      { id: 132, word: "小さい", reading: "ちいさい", meaning: "작다", prob: "22" },
-      { id: 133, word: "肩", reading: "かた", meaning: "어깨", prob: "22" },
-      { id: 134, word: "試着", reading: "しちゃく", meaning: "시착, 옷을 입어 보기", prob: "22" },
-      { id: 135, word: "週末", reading: "しゅうまつ", meaning: "주말", prob: "23" },
-      { id: 136, word: "引っ越し", reading: "ひっこし", meaning: "이사", prob: "23" },
-      { id: 137, word: "手伝う", reading: "てつだう", meaning: "돕다", prob: "23" },
-      { id: 138, word: "午前中", reading: "ごぜんちゅう", meaning: "오전 중", prob: "23" },
-      { id: 139, word: "用事", reading: "ようじ", meaning: "볼일", prob: "23" },
-      { id: 140, word: "午後", reading: "ごご", meaning: "오후", prob: "23" },
-      { id: 141, word: "予定", reading: "よてい", meaning: "예정", prob: "23" },
-      { id: 142, word: "鍵", reading: "かぎ", meaning: "열쇠·자물쇠", prob: "24" },
-      { id: 143, word: "鍵をかける", reading: "かぎをかける", meaning: "잠그다", prob: "24" },
-      { id: 144, word: "大丈夫", reading: "だいじょうぶ", meaning: "괜찮음", prob: "24" },
-      { id: 145, word: "出る", reading: "でる", meaning: "나가다", prob: "24" },
-      { id: 146, word: "窓", reading: "まど", meaning: "창문", prob: "24" },
-      { id: 147, word: "閉める", reading: "しめる", meaning: "닫다", prob: "24" },
-      { id: 148, word: "安心する", reading: "あんしんする", meaning: "안심하다", prob: "24" },
-      { id: 149, word: "発表", reading: "はっぴょう", meaning: "발표", prob: "25" },
-      { id: 150, word: "今日中", reading: "きょうじゅう", meaning: "오늘 중", prob: "25" },
-      { id: 151, word: "送る", reading: "おくる", meaning: "보내다", prob: "25" },
-      { id: 152, word: "修正", reading: "しゅうせい", meaning: "수정", prob: "25" },
-      { id: 153, word: "図", reading: "ず", meaning: "그림", prob: "25" },
-      { id: 154, word: "目標", reading: "もくひょう", meaning: "목표", prob: "26" },
-      { id: 155, word: "始める", reading: "はじめる", meaning: "시작하다", prob: "26" },
-      { id: 156, word: "体力", reading: "たいりょく", meaning: "체력", prob: "26" },
-      { id: 157, word: "最近", reading: "さいきん", meaning: "최근", prob: "26" },
-      { id: 158, word: "疲れる", reading: "つかれる", meaning: "피곤하다", prob: "26" },
-      { id: 159, word: "健康적", reading: "けんこうてき", meaning: "건강한", prob: "26" },
-      { id: 160, word: "体重", reading: "たいじゅう", meaning: "체중", prob: "26" },
-      { id: 161, word: "落とす", reading: "おとす", meaning: "떨어뜨리다, 체중 등을 줄이다", prob: "26" },
-      { id: 162, word: "駅", reading: "えき", meaning: "역", prob: "27" },
-      { id: 163, word: "東京駅", reading: "とうきょうえき", meaning: "도쿄역", prob: "27" },
-      { id: 164, word: "八重洲口", reading: "やえすぐち", meaning: "도쿄역 야에스 출구", prob: "27" },
-      { id: 165, word: "お願いします", reading: "おねがいします", meaning: "부탁드립니다", prob: "27" },
-      { id: 166, word: "急ぐ", reading: "いそぐ", meaning: "서두르다", prob: "27" },
-      { id: 167, word: "新幹線", reading: "しんかんせん", meaning: "신칸센", prob: "27" },
-      { id: 168, word: "時間", reading: "じかん", meaning: "시간", prob: "27" },
-      { id: 169, word: "早く", reading: "はやく", meaning: "빨리", prob: "27" },
-      { id: 170, word: "社員", reading: "しゃいん", meaning: "사원", prob: "28" },
-      { id: 171, word: "流れ", reading: "ながれ", meaning: "흐름", prob: "28" },
-      { id: 172, word: "社内", reading: "しゃない", meaning: "사내", prob: "28" },
-      { id: 173, word: "実際", reading: "じっさい", meaning: "실제", prob: "28" },
-      { id: 174, word: "作業", reading: "さぎょう", meaning: "작업", prob: "28" },
-      { id: 175, word: "電池", reading: "でんち", meaning: "배터리", prob: "29" },
-      { id: 176, word: "充電器", reading: "じゅうでんき", meaning: "충전기", prob: "29" },
-      { id: 177, word: "持つ", reading: "もつ", meaning: "가지다", prob: "29" },
-      { id: 178, word: "使う", reading: "つかう", meaning: "사용하다", prob: "29" },
-      { id: 179, word: "必要", reading: "ひつよう", meaning: "필요", prob: "29" },
-      { id: 180, word: "充電", reading: "じゅうでん", meaning: "충전", prob: "29" },
-      { id: 181, word: "届く", reading: "とどく", meaning: "도착하다", prob: "30" },
-      { id: 182, word: "配送", reading: "はいそう", meaning: "배송", prob: "30" },
-      { id: 183, word: "状況", reading: "じょうきょう", meaning: "상황", prob: "30" },
-      { id: 184, word: "折り返し", reading: "おりかえし", meaning: "다시", prob: "30" },
-      { id: 185, word: "原因", reading: "げんいん", meaning: "원인", prob: "30" },
-      { id: 186, word: "到着", reading: "とうちゃく", meaning: "도착", prob: "30" },
-      { id: 187, word: "予約", reading: "よやく", meaning: "예약", prob: "품절 보충" },
-      { id: 188, word: "手続き", reading: "てつづき", meaning: "절차, 수속", prob: "품절 보충" },
-      { id: 189, word: "入荷", reading: "にゅうか", meaning: "입고", prob: "품절 보충" },
-      { id: 190, word: "時期", reading: "じき", meaning: "시기", prob: "품절 보충" },
-      { id: 191, word: "いつ頃", reading: "いつごろ", meaning: "언제쯤", prob: "품절 보충" },
-      { id: 192, word: "人気", reading: "にんき", meaning: "인기", prob: "품절 보충" },
-      { id: 193, word: "やっぱり", reading: "やっぱり", meaning: "역시", prob: "품절 보충" },
-      { id: 194, word: "確認します", reading: "かくにんします", meaning: "확인하겠습니다", prob: "주문·자료·배송 확인" },
-      { id: 195, word: "連絡します", reading: "れんらくします", meaning: "연락하겠습니다", prob: "지각·고장·배송 대응" },
-      { id: 196, word: "説明します", reading: "せつめいします", meaning: "설명하겠습니다", prob: "자료·업무 안내" },
-      { id: 197, word: "申し訳ありません", reading: "もうしわけありません", meaning: "죄송합니다", prob: "정중한 사과" },
-      { id: 198, word: "承知しました", reading: "しょうちしました", meaning: "알겠습니다", prob: "업무 지시·안내 수락" },
-      { id: 199, word: "ご迷惑をおかけして", reading: "ごめいわくをおかけして", meaning: "폐를 끼쳐", prob: "뒤에 사과를 이어 말함" },
-      { id: 200, word: "折り返しご連絡します", reading: "おりかえしごれんらくします", meaning: "확인 후 다시 연락드리겠습니다", prob: "확인 후 후속 연락" },
-      { id: 201, word: "提出します", reading: "ていしゅつします", meaning: "제출하겠습니다", prob: "보고서·자료 제출" },
-      { id: 202, word: "修正してから送ります", reading: "しゅうせいしてからおくります", meaning: "수정한 다음 보내겠습니다", prob: "수정 후 발송" },
-      { id: 203, word: "今日中に", reading: "きょうじゅうに", meaning: "오늘 중에", prob: "행동의 기한을 붙일 때" },
-      { id: 204, word: "三時までに", reading: "さんじまでに", meaning: "3시까지", prob: "그때까지 완료한다는 뜻" },
-      { id: 205, word: "あと十分で着きます", reading: "あとじゅっぷんでつきます", meaning: "앞으로 10분이면 도착합니다", prob: "도착 시간 안내" },
-      { id: 206, word: "電車が遅れています", reading: "でんしゃがおくれています", meaning: "전철이 지연되고 있습니다", prob: "지각 이유 설명" },
-      { id: 207, word: "相談しましょう", reading: "そうだんしましょう", meaning: "상담합시다", prob: "문제 해결 제안" },
-      { id: 208, word: "よかったら", reading: "よかったら", meaning: "괜찮으시면", prob: "제안을 부드럽게 시작" },
-      { id: 209, word: "手伝います", reading: "てつだいます", meaning: "돕겠습니다", prob: "도움 요청 수락" },
-      { id: 210, word: "午後なら", reading: "ごごなら", meaning: "오후라면", prob: "가능한 조건 제시" },
-      { id: 211, word: "荷物を預けてもいいですか", reading: "にもつをあずけてもいいですか", meaning: "짐을 맡겨도 될까요", prob: "짐 보관 허가 요청" },
-      { id: 212, word: "確認していただけますか", reading: "かくにんしていただけますか", meaning: "확인해 주실 수 있을까요", prob: "정중한 확인 요청" },
-      { id: 213, word: "教えていただけませんか", reading: "おしえていただけませんか", meaning: "알려주실 수 있을까요", prob: "정중한 정보 요청" },
-      { id: 214, word: "売り切れ", reading: "うりきれ", meaning: "품절", prob: "물건이 다 팔린 상태" },
-      { id: 215, word: "取り寄せていただくことはできますか", reading: "とりよせていただくことはできますか", meaning: "다른 곳에서 주문해 받아주실 수 있나요", prob: "재고 없는 상품 주문 요청" },
-      { id: 216, word: "予約の手続き", reading: "よやくのてつづき", meaning: "예약 절차", prob: "예약 수속" },
-      { id: 217, word: "配送状況を確認します", reading: "はいそうじょうきょうをかくにんします", meaning: "배송 상황을 확인하겠습니다", prob: "배송 지연 대응" },
-      { id: 218, word: "お願いします", reading: "おねがいします", meaning: "부탁드립니다", prob: "요청을 마무리할 때" },
-{ id: 219, word: "この意見に同意します", reading: "このいけんにどういします", meaning: "이 의견에 동의합니다", prob: "의견 제시 공통" },
-{ id: 220, word: "賛成です", reading: "さんせいです", meaning: "찬성합니다", prob: "의견 제시 공통" },
-{ id: 221, word: "理由は二つあります", reading: "りゆうはふたつあります", meaning: "이유는 두 가지입니다", prob: "이유 제시 공통" },
-{ id: 222, word: "その理由は", reading: "そのりゆうは", meaning: "그 이유는", prob: "이유 제시 공통" },
-{ id: 223, word: "次に", reading: "つぎに", meaning: "다음으로", prob: "근거 나열 공통" },
-{ id: 224, word: "それに", reading: "それに", meaning: "게다가", prob: "근거 추가 공통" },
-{ id: 225, word: "また", reading: "また", meaning: "또한", prob: "근거 추가 공통" },
-{ id: 226, word: "しかし", reading: "しかし", meaning: "그러나", prob: "반대 근거 공통" },
-{ id: 227, word: "その反面", reading: "そのはんめん", meaning: "그 반면", prob: "장단점 비교 공통" },
-{ id: 228, word: "その結果", reading: "そのけっか", meaning: "그 결과", prob: "경험과 결과 공통" },
-{ id: 229, word: "こうした理由から", reading: "こうしたりゆうから", meaning: "이러한 이유로", prob: "결론 공통" },
-{ id: 230, word: "したがって", reading: "したがって", meaning: "따라서", prob: "결론 공통" },
-{ id: 231, word: "ですので", reading: "ですので", meaning: "그러므로", prob: "결론 공통" },
-{ id: 232, word: "に比べて", reading: "にくらべて", meaning: "에 비해, 와 비교하면", prob: "비교 공통" },
-{ id: 233, word: "が挙げられます", reading: "があげられます", meaning: "을 들 수 있습니다", prob: "장점과 단점 제시" },
-{ id: 234, word: "につながる", reading: "につながる", meaning: "로 이어지다", prob: "원인과 결과 공통" },
-{ id: 235, word: "必ずしも必要ではない", reading: "かならずしもひつようではない", meaning: "반드시 필요한 것은 아니다", prob: "11 대학 진학 / 11 대학진학" },
-{ id: 236, word: "このような", reading: "このような", meaning: "이러한, 이런", prob: "01 전철에서의전화" },
-{ id: 237, word: "行動", reading: "こうどう", meaning: "행동", prob: "01 전철에서의전화" },
-{ id: 238, word: "望ましい", reading: "のぞましい", meaning: "바람직하다, 좋다", prob: "01 전철에서의전화" },
-{ id: 239, word: "電話", reading: "でんわ", meaning: "전화", prob: "01 전철에서의전화" },
-{ id: 240, word: "周り", reading: "まわり", meaning: "주위, 주변", prob: "01 전철에서의전화" },
-{ id: 241, word: "人々", reading: "ひとびと", meaning: "사람들", prob: "01 전철에서의전화" },
-{ id: 242, word: "迷惑をかける", reading: "めいわくをかける", meaning: "폐를 끼치다", prob: "01 전철에서의전화" },
-{ id: 243, word: "うるさい", reading: "うるさい", meaning: "시끄럽다, 소란스럽다", prob: "01 전철에서의전화" },
-{ id: 244, word: "防犯カメラ", reading: "ぼうはんかめら", meaning: "방범카메라", prob: "02 방범카메라" },
-{ id: 245, word: "メリット", reading: "めりっと", meaning: "장점, 이점", prob: "02 방범카메라" },
-{ id: 246, word: "デメリット", reading: "でめりっと", meaning: "단점, 폐해", prob: "02 방범카메라" },
-{ id: 247, word: "犯罪", reading: "はんざい", meaning: "범죄", prob: "02 방범카메라" },
-{ id: 248, word: "証拠", reading: "しょうこ", meaning: "증거", prob: "02 방범카메라" },
-{ id: 249, word: "確保", reading: "かくほ", meaning: "확보, 확보하다", prob: "02 방범카메라" },
-{ id: 250, word: "設置", reading: "せっち", meaning: "설치, 배치", prob: "02 방범카메라" },
-{ id: 251, word: "未然に", reading: "みぜんに", meaning: "미연에, 일이 일어나기 전에", prob: "02 방범카메라" },
-{ id: 252, word: "防ぐ", reading: "ふせぐ", meaning: "방지하다, 막다", prob: "02 방범카메라" },
-{ id: 253, word: "効果", reading: "こうか", meaning: "효과", prob: "02 방범카메라" },
-{ id: 254, word: "プライバシー", reading: "ぷらいばしー", meaning: "사생활, 프라이버시", prob: "02 방범카메라" },
-{ id: 255, word: "侵害", reading: "しんがい", meaning: "침해", prob: "02 방범카메라" },
-{ id: 256, word: "監視", reading: "かんし", meaning: "감시", prob: "02 방범카메라" },
-{ id: 257, word: "俳優", reading: "はいゆう", meaning: "배우", prob: "03 배우의보수" },
-{ id: 258, word: "芸能人", reading: "げいのうじん", meaning: "연예인", prob: "03 배우의보수" },
-{ id: 259, word: "出演", reading: "しゅつえん", meaning: "출연", prob: "03 배우의보수" },
-{ id: 260, word: "撮影", reading: "さつえい", meaning: "촬영, 촬영하다", prob: "03 배우의보수" },
-{ id: 261, word: "報酬", reading: "ほうしゅう", meaning: "보수, 보상", prob: "03 배우의보수" },
-{ id: 262, word: "社会人", reading: "しゃかいじん", meaning: "사회인, 직장인", prob: "03 배우의보수" },
-{ id: 263, word: "想像", reading: "そうぞう", meaning: "상상, 상상하다", prob: "03 배우의보수" },
-{ id: 264, word: "金額", reading: "きんがく", meaning: "금액", prob: "03 배우의보수" },
-{ id: 265, word: "現場", reading: "げんば", meaning: "현장", prob: "03 배우의보수" },
-{ id: 266, word: "制作", reading: "せいさく", meaning: "제작, 제작하다", prob: "03 배우의보수" },
-{ id: 267, word: "スタッフ", reading: "すたっふ", meaning: "스태프, 직원", prob: "03 배우의보수" },
-{ id: 268, word: "勤務環境", reading: "きんむかんきょう", meaning: "근무환경", prob: "03 배우의보수" },
-{ id: 269, word: "整う", reading: "ととのう", meaning: "환경이나 조건이 갖춰지다", prob: "03 배우의보수" },
-{ id: 270, word: "改善", reading: "かいぜん", meaning: "개선, 개선하다", prob: "03 배우의보수" },
-{ id: 271, word: "ちりも積もれば山となる", reading: "ちりもつもればやまとなる", meaning: "티끌 모아 태산", prob: "04 작은노력이모여" },
-{ id: 272, word: "何事", reading: "なにごと", meaning: "무엇이든, 어떤 일이든", prob: "04 작은노력이모여" },
-{ id: 273, word: "定める", reading: "さだめる", meaning: "정하다, 결정하다", prob: "04 작은노력이모여" },
-{ id: 274, word: "日々", reading: "ひび", meaning: "매일, 나날이", prob: "04 작은노력이모여" },
-{ id: 275, word: "努力", reading: "どりょく", meaning: "노력, 힘쓰다", prob: "04 작은노력이모여" },
-{ id: 276, word: "重ねる", reading: "かさねる", meaning: "쌓다, 거듭하다", prob: "04 작은노력이모여" },
-{ id: 277, word: "結果", reading: "けっか", meaning: "결과", prob: "04 작은노력이모여" },
-{ id: 278, word: "得る", reading: "える", meaning: "얻다, 획득하다", prob: "04 작은노력이모여" },
-{ id: 279, word: "中学時代", reading: "ちゅうがくじだい", meaning: "중학 시절", prob: "04 작은노력이모여" },
-{ id: 280, word: "苦手", reading: "にがて", meaning: "잘하지 못함, 서투름", prob: "04 작은노력이모여" },
-{ id: 281, word: "少しずつ", reading: "すこしずつ", meaning: "조금씩, 차츰차츰", prob: "04 작은노력이모여" },
-{ id: 282, word: "触れる", reading: "ふれる", meaning: "접하다, 닿다", prob: "04 작은노력이모여" },
-{ id: 283, word: "校内", reading: "こうない", meaning: "교내, 학교 안", prob: "04 작은노력이모여" },
-{ id: 284, word: "入賞", reading: "にゅうしょう", meaning: "입상, 수상", prob: "04 작은노력이모여" },
-{ id: 285, word: "自信", reading: "じしん", meaning: "자신감", prob: "04 작은노력이모여" },
-{ id: 286, word: "飲み会", reading: "のみかい", meaning: "회식, 술자리", prob: "05 직장회식" },
-{ id: 287, word: "同僚", reading: "どうりょう", meaning: "동료", prob: "05 직장회식" },
-{ id: 288, word: "上司", reading: "じょうし", meaning: "상사", prob: "05 직장회식" },
-{ id: 289, word: "コミュニケーション", reading: "こみゅにけーしょん", meaning: "소통, 의사소통", prob: "05 직장회식" },
-{ id: 290, word: "お互い", reading: "おたがい", meaning: "서로, 상호", prob: "05 직장회식" },
-{ id: 291, word: "ストレスを発散する", reading: "すとれすをはっさんする", meaning: "스트레스를 풀다", prob: "05 직장회식" },
-{ id: 292, word: "強制する", reading: "きょうせいする", meaning: "강제하다", prob: "05 직장회식" },
-{ id: 293, word: "人間関係", reading: "にんげんかんけい", meaning: "인간관계", prob: "05 직장회식" },
-{ id: 294, word: "築く", reading: "きずく", meaning: "구축하다, 세우다", prob: "05 직장회식" },
-{ id: 295, word: "役立つ", reading: "やくだつ", meaning: "유용하다, 도움이 되다", prob: "05 직장회식" },
-{ id: 296, word: "定年", reading: "ていねん", meaning: "정년", prob: "06 정년연장" },
-{ id: 297, word: "延長", reading: "えんちょう", meaning: "연장", prob: "06 정년연장" },
-{ id: 298, word: "少子高齢化", reading: "しょうしこうれいか", meaning: "저출산 고령화", prob: "06 정년연장" },
-{ id: 299, word: "労働力", reading: "ろうどうりょく", meaning: "노동력", prob: "06 정년연장" },
-{ id: 300, word: "不足", reading: "ふそく", meaning: "부족", prob: "06 정년연장" },
-{ id: 301, word: "高齢者", reading: "こうれいしゃ", meaning: "고령자, 노인", prob: "06 정년연장" },
-{ id: 302, word: "豊富", reading: "ほうふ", meaning: "풍부한", prob: "06 정년연장 / 07 온라인vs오프라인쇼핑" },
-{ id: 303, word: "経験", reading: "けいけん", meaning: "경험", prob: "06 정년연장 / 12 이직반복" },
-{ id: 304, word: "知識", reading: "ちしき", meaning: "지식", prob: "06 정년연장" },
-{ id: 305, word: "活かす", reading: "いかす", meaning: "활용하다, 살리다", prob: "06 정년연장" },
-{ id: 306, word: "健康", reading: "けんこう", meaning: "건강", prob: "06 정년연장 / 09 돈vs시간" },
-{ id: 307, word: "維持", reading: "いじ", meaning: "유지, 유지하다", prob: "06 정년연장" },
-{ id: 308, word: "年金", reading: "ねんきん", meaning: "연금", prob: "06 정년연장" },
-{ id: 309, word: "ネットショッピング", reading: "ねっとしょっぴんぐ", meaning: "온라인 쇼핑", prob: "07 온라인vs오프라인쇼핑" },
-{ id: 310, word: "実店舗", reading: "じってんぽ", meaning: "오프라인 매장", prob: "07 온라인vs오프라인쇼핑" },
-{ id: 311, word: "スマートフォン", reading: "すまーとふぉん", meaning: "스마트폰", prob: "07 온라인vs오프라인쇼핑" },
-{ id: 312, word: "いつでもどこでも", reading: "いつでもどこでも", meaning: "언제 어디서나", prob: "07 온라인vs오프라인쇼핑" },
-{ id: 313, word: "買い物", reading: "かいもの", meaning: "쇼핑, 구매", prob: "07 온라인vs오프라인쇼핑" },
-{ id: 314, word: "交通費", reading: "こうつうひ", meaning: "교통비", prob: "07 온라인vs오프라인쇼핑 / 14 대중교통vs자가용" },
-{ id: 315, word: "節約", reading: "せつやく", meaning: "절약", prob: "07 온라인vs오프라인쇼핑" },
-{ id: 316, word: "商品", reading: "しょうひん", meaning: "상품", prob: "07 온라인vs오프라인쇼핑" },
-{ id: 317, word: "種類", reading: "しゅるい", meaning: "종류", prob: "07 온라인vs오프라인쇼핑" },
-{ id: 318, word: "レビュー", reading: "れびゅー", meaning: "리뷰, 평가", prob: "07 온라인vs오프라인쇼핑" },
-{ id: 319, word: "動画", reading: "どうが", meaning: "동영상", prob: "08 TV vs YouTube" },
-{ id: 320, word: "理由", reading: "りゆう", meaning: "이유", prob: "08 TV vs YouTube" },
-{ id: 321, word: "好きなコンテンツ", reading: "すきなこんてんつ", meaning: "좋아하는 콘텐츠", prob: "08 TV vs YouTube" },
-{ id: 322, word: "選ぶ", reading: "えらぶ", meaning: "선택하다", prob: "08 TV vs YouTube" },
-{ id: 323, word: "テレビと違って", reading: "てれびとちがって", meaning: "TV와 달리", prob: "08 TV vs YouTube" },
-{ id: 324, word: "外出先", reading: "がいしゅつさき", meaning: "외출한 곳, 집 밖에 나가 있는 곳", prob: "08 TV vs YouTube" },
-{ id: 325, word: "楽しめる", reading: "たのしめる", meaning: "즐길 수 있다", prob: "08 TV vs YouTube" },
-{ id: 326, word: "一般の人", reading: "いっぱんのひと", meaning: "일반인", prob: "08 TV vs YouTube" },
-{ id: 327, word: "面白い", reading: "おもしろい", meaning: "재미있는", prob: "08 TV vs YouTube" },
-{ id: 328, word: "勉強になる", reading: "べんきょうになる", meaning: "배울 점이 있다, 공부가 되다", prob: "08 TV vs YouTube" },
-{ id: 329, word: "傾向", reading: "けいこう", meaning: "경향, 추세", prob: "08 TV vs YouTube" },
-{ id: 330, word: "プライベート", reading: "ぷらいべーと", meaning: "개인 생활, 사생활", prob: "09 돈vs시간" },
-{ id: 331, word: "お金", reading: "おかね", meaning: "돈", prob: "09 돈vs시간" },
-{ id: 332, word: "大切", reading: "たいせつ", meaning: "소중한, 중요한", prob: "09 돈vs시간" },
-{ id: 333, word: "心身", reading: "しんしん", meaning: "심신, 마음과 몸", prob: "09 돈vs시간" },
-{ id: 334, word: "重要", reading: "じゅうよう", meaning: "중요한", prob: "09 돈vs시간" },
-{ id: 335, word: "ストレスが溜まる", reading: "すとれすがたまる", meaning: "스트레스가 쌓이다", prob: "09 돈vs시간" },
-{ id: 336, word: "病気", reading: "びょうき", meaning: "병, 질병", prob: "09 돈vs시간" },
-{ id: 337, word: "家族", reading: "かぞく", meaning: "가족", prob: "09 돈vs시간" },
-{ id: 338, word: "趣味", reading: "しゅみ", meaning: "취미", prob: "09 돈vs시간" },
-{ id: 339, word: "人生", reading: "じんせい", meaning: "인생", prob: "09 돈vs시간" },
-{ id: 340, word: "豊か", reading: "ゆたか", meaning: "풍요로운, 풍부한", prob: "09 돈vs시간" },
-{ id: 341, word: "重視", reading: "じゅうし", meaning: "중시, 중시하다", prob: "09 돈vs시간 / 11 대학진학" },
-{ id: 342, word: "使い捨て用品", reading: "つかいすてようひん", meaning: "일회용품", prob: "10 일회용품제한" },
-{ id: 343, word: "制限", reading: "せいげん", meaning: "제한", prob: "10 일회용품제한" },
-{ id: 344, word: "プラスチック", reading: "ぷらすちっく", meaning: "플라스틱", prob: "10 일회용품제한" },
-{ id: 345, word: "ごみ", reading: "ごみ", meaning: "쓰레기", prob: "10 일회용품제한" },
-{ id: 346, word: "減らす", reading: "へらす", meaning: "줄이다, 감소시키다", prob: "10 일회용품제한" },
-{ id: 347, word: "環境保護", reading: "かんきょうほご", meaning: "환경보호", prob: "10 일회용품제한" },
-{ id: 348, word: "貢献", reading: "こうけん", meaning: "기여, 공헌", prob: "10 일회용품제한" },
-{ id: 349, word: "地球温暖化", reading: "ちきゅうおんだんか", meaning: "지구 온난화", prob: "10 일회용품제한" },
-{ id: 350, word: "深刻", reading: "しんこく", meaning: "심각한", prob: "10 일회용품제한" },
-{ id: 351, word: "マイボトル", reading: "まいぼとる", meaning: "개인 물병, 텀블러", prob: "10 일회용품제한" },
-{ id: 352, word: "エコバッグ", reading: "えこばっぐ", meaning: "에코백", prob: "10 일회용품제한" },
-{ id: 353, word: "習慣", reading: "しゅうかん", meaning: "습관", prob: "10 일회용품제한" },
-{ id: 354, word: "身につく", reading: "みにつく", meaning: "익혀지다, 습관이나 능력이 몸에 배다", prob: "10 일회용품제한" },
-{ id: 355, word: "不便", reading: "ふべん", meaning: "불편한", prob: "10 일회용품제한" },
-{ id: 356, word: "未来", reading: "みらい", meaning: "미래", prob: "10 일회용품제한" },
-{ id: 357, word: "大学進学", reading: "だいがくしんがく", meaning: "대학 진학", prob: "11 대학진학" },
-{ id: 358, word: "専門学校", reading: "せんもんがっこう", meaning: "전문학교", prob: "11 대학진학" },
-{ id: 359, word: "就職", reading: "しゅうしょく", meaning: "취직, 취업", prob: "11 대학진학" },
-{ id: 360, word: "選択肢", reading: "せんたくし", meaning: "선택지, 선택 옵션", prob: "11 대학진학" },
-{ id: 361, word: "社会に出る", reading: "しゃかいにでる", meaning: "사회로 나가다", prob: "11 대학진학" },
-{ id: 362, word: "経験を積む", reading: "けいけんをつむ", meaning: "경험을 쌓다", prob: "11 대학진학" },
-{ id: 363, word: "立派", reading: "りっぱ", meaning: "당당한, 훌륭한", prob: "11 대학진학" },
-{ id: 364, word: "キャリア", reading: "きゃりあ", meaning: "경력, 커리어", prob: "11 대학진학" },
-{ id: 365, word: "学歴", reading: "がくれき", meaning: "학력", prob: "11 대학진학" },
-{ id: 366, word: "実力", reading: "じつりょく", meaning: "실력", prob: "11 대학진학" },
-{ id: 367, word: "スキル", reading: "すきる", meaning: "기술, 능력", prob: "11 대학진학 / 12 이직반복" },
-{ id: 368, word: "進路", reading: "しんろ", meaning: "진로", prob: "11 대학진학" },
-{ id: 369, word: "転職", reading: "てんしょく", meaning: "이직, 직업 변경", prob: "12 이직반복" },
-{ id: 370, word: "繰り返す", reading: "くりかえす", meaning: "반복하다", prob: "12 이직반복" },
-{ id: 371, word: "企業", reading: "きぎょう", meaning: "기업", prob: "12 이직반복" },
-{ id: 372, word: "幅広い", reading: "はばひろい", meaning: "폭넓은", prob: "12 이직반복" },
-{ id: 373, word: "身につける", reading: "みにつける", meaning: "습득하다, 익히다", prob: "12 이직반복" },
-{ id: 374, word: "成長", reading: "せいちょう", meaning: "성장", prob: "12 이직반복" },
-{ id: 375, word: "つながる", reading: "つながる", meaning: "연결되다, 이어지다", prob: "12 이직반복" },
-{ id: 376, word: "職場環境", reading: "しょくばかんきょう", meaning: "직장 환경", prob: "12 이직반복" },
-{ id: 377, word: "条件", reading: "じょうけん", meaning: "조건", prob: "12 이직반복" },
-{ id: 378, word: "求める", reading: "もとめる", meaning: "추구하다, 요구하다", prob: "12 이직반복" },
-{ id: 379, word: "自然", reading: "しぜん", meaning: "자연, 이 문맥에서는 자연스러움", prob: "12 이직반복" },
-{ id: 380, word: "キャリアアップ", reading: "きゃりああっぷ", meaning: "경력 개발, 커리어 업", prob: "12 이직반복" },
-{ id: 381, word: "朝型", reading: "あさがた", meaning: "아침형", prob: "13 아침형저녁형" },
-{ id: 382, word: "夜型", reading: "よるがた", meaning: "저녁형, 밤에 활동하는 생활 유형", prob: "13 아침형저녁형" },
-{ id: 383, word: "早く起きる", reading: "はやくおきる", meaning: "일찍 일어나다", prob: "13 아침형저녁형" },
-{ id: 384, word: "すっきりした状態", reading: "すっきりしたじょうたい", meaning: "머리가 맑고 개운한 상태", prob: "13 아침형저녁형" },
-{ id: 385, word: "集中", reading: "しゅうちゅう", meaning: "집중", prob: "13 아침형저녁형" },
-{ id: 386, word: "スケジュール", reading: "すけじゅーる", meaning: "일정, 스케줄", prob: "13 아침형저녁형" },
-{ id: 387, word: "余裕", reading: "よゆう", meaning: "여유", prob: "13 아침형저녁형" },
-{ id: 388, word: "生まれる", reading: "うまれる", meaning: "생기다, 생겨나다", prob: "13 아침형저녁형" },
-{ id: 389, word: "太陽", reading: "たいよう", meaning: "태양", prob: "13 아침형저녁형" },
-{ id: 390, word: "光", reading: "ひかり", meaning: "빛", prob: "13 아침형저녁형" },
-{ id: 391, word: "浴びる", reading: "あびる", meaning: "쬐다, 맞다", prob: "13 아침형저녁형" },
-{ id: 392, word: "生活リズム", reading: "せいかつりずむ", meaning: "생활 리듬", prob: "13 아침형저녁형" },
-{ id: 393, word: "公共交通機関", reading: "こうきょうこうつうきかん", meaning: "대중교통", prob: "14 대중교통vs자가용" },
-{ id: 394, word: "通勤", reading: "つうきん", meaning: "통근", prob: "14 대중교통vs자가용" },
-{ id: 395, word: "マイカー", reading: "まいかー", meaning: "자가용", prob: "14 대중교통vs자가용" },
-{ id: 396, word: "本を読む", reading: "ほんをよむ", meaning: "책을 읽다", prob: "14 대중교통vs자가용" },
-{ id: 397, word: "音楽を聴く", reading: "おんがくをきく", meaning: "음악을 듣다", prob: "14 대중교통vs자가용" },
-{ id: 398, word: "時間を有効に使う", reading: "じかんをゆうこうにつかう", meaning: "시간을 효과적으로 사용하다", prob: "14 대중교통vs자가용" },
-{ id: 399, word: "運転", reading: "うんてん", meaning: "운전", prob: "14 대중교통vs자가용" },
-{ id: 400, word: "疲れ", reading: "つかれ", meaning: "피로", prob: "14 대중교통vs자가용" },
-{ id: 401, word: "渋滞", reading: "じゅうたい", meaning: "교통 체증", prob: "14 대중교통vs자가용" },
-{ id: 402, word: "環境に優しい", reading: "かんきょうにやさしい", meaning: "환경 친화적", prob: "14 대중교통vs자가용" },
-{ id: 403, word: "安く抑える", reading: "やすくおさえる", meaning: "비용 등을 낮게 유지하다", prob: "14 대중교통vs자가용" },
-    ];
+    // 309개 단어 원본 데이터베이스
+    const RAW_VOCAB = [{"id":1,"word":"駅員","reading":"えきいん","meaning":"역무원","prob":"01","exJa":"","exKo":"","exRuby":""},{"id":2,"word":"聞く","reading":"きく","meaning":"묻다","prob":"01","exJa":"","exKo":"","exRuby":""},{"id":3,"word":"落とし物","reading":"おとしもの","meaning":"분실물","prob":"01","exJa":"","exKo":"","exRuby":""},{"id":4,"word":"確認","reading":"かくにん","meaning":"확인","prob":"01, 05, 06, 24","exJa":"","exKo":"","exRuby":""},{"id":5,"word":"相談","reading":"そうだん","meaning":"상담","prob":"01","exJa":"","exKo":"","exRuby":""},{"id":6,"word":"会議","reading":"かいぎ","meaning":"회의","prob":"02","exJa":"","exKo":"","exRuby":""},{"id":7,"word":"始まる","reading":"はじまる","meaning":"시작되다","prob":"02","exJa":"","exKo":"","exRuby":""},{"id":8,"word":"電車","reading":"でんしゃ","meaning":"전철","prob":"02","exJa":"","exKo":"","exRuby":""},{"id":9,"word":"遅れる","reading":"おくれる","meaning":"늦어지다","prob":"02","exJa":"","exKo":"","exRuby":""},{"id":10,"word":"資料","reading":"しりょう","meaning":"자료","prob":"02, 25","exJa":"","exKo":"","exRuby":""},{"id":11,"word":"共有","reading":"きょうゆう","meaning":"공유","prob":"02","exJa":"","exKo":"","exRuby":""},{"id":12,"word":"合流","reading":"ごうりゅう","meaning":"합류","prob":"02","exJa":"","exKo":"","exRuby":""},{"id":13,"word":"コピー機","reading":"コピーき","meaning":"복사기","prob":"03","exJa":"","exKo":"","exRuby":""},{"id":14,"word":"止まる","reading":"とまる","meaning":"멈추다","prob":"03","exJa":"","exKo":"","exRuby":""},{"id":15,"word":"急ぎ","reading":"いそぎ","meaning":"급한 일","prob":"03, 18","exJa":"","exKo":"","exRuby":""},{"id":16,"word":"管理部","reading":"かんりぶ","meaning":"관리부","prob":"03","exJa":"","exKo":"","exRuby":""},{"id":17,"word":"連絡","reading":"れんらく","meaning":"연락","prob":"03, 11, 30","exJa":"","exKo":"","exRuby":""},{"id":18,"word":"紙","reading":"かみ","meaning":"종이","prob":"03","exJa":"","exKo":"","exRuby":""},{"id":19,"word":"詰まる","reading":"つまる","meaning":"막히다","prob":"03","exJa":"","exKo":"","exRuby":""},{"id":20,"word":"今夜","reading":"こんや","meaning":"오늘 밤","prob":"04, 25","exJa":"","exKo":"","exRuby":""},{"id":21,"word":"一緒に","reading":"いっしょに","meaning":"함께","prob":"04","exJa":"","exKo":"","exRuby":""},{"id":22,"word":"映画","reading":"えいが","meaning":"영화","prob":"04","exJa":"","exKo":"","exRuby":""},{"id":23,"word":"宿題","reading":"しゅくだい","meaning":"숙제","prob":"04","exJa":"","exKo":"","exRuby":""},{"id":24,"word":"誘う","reading":"さそう","meaning":"권유하다","prob":"04","exJa":"","exKo":"","exRuby":""},{"id":25,"word":"変更","reading":"へんこう","meaning":"변경","prob":"04","exJa":"","exKo":"","exRuby":""},{"id":26,"word":"注文","reading":"ちゅうもん","meaning":"주문","prob":"05, 18","exJa":"","exKo":"","exRuby":""},{"id":27,"word":"違う","reading":"ちがう","meaning":"다르다","prob":"05","exJa":"","exKo":"","exRuby":""},{"id":28,"word":"頼む","reading":"たのむ","meaning":"부탁하다·주문하다","prob":"05, 06, 14","exJa":"","exKo":"","exRuby":""},{"id":29,"word":"料理","reading":"りょうり","meaning":"요리","prob":"05","exJa":"","exKo":"","exRuby":""},{"id":30,"word":"報告書","reading":"ほうこくしょ","meaning":"보고서","prob":"06","exJa":"","exKo":"","exRuby":""},{"id":31,"word":"最後","reading":"さいご","meaning":"마지막","prob":"06","exJa":"","exKo":"","exRuby":""},{"id":32,"word":"提出","reading":"ていしゅつ","meaning":"제출","prob":"06","exJa":"","exKo":"","exRuby":""},{"id":33,"word":"数字","reading":"すうじ","meaning":"숫자","prob":"06","exJa":"","exKo":"","exRuby":""},{"id":34,"word":"再確認","reading":"さいかくにん","meaning":"재확인","prob":"06","exJa":"","exKo":"","exRuby":""},{"id":35,"word":"郵便局","reading":"ゆうびんきょく","meaning":"우체국","prob":"07","exJa":"","exKo":"","exRuby":""},{"id":36,"word":"道","reading":"みち","meaning":"길","prob":"07","exJa":"","exKo":"","exRuby":""},{"id":37,"word":"角","reading":"かど","meaning":"모퉁이","prob":"07","exJa":"","exKo":"","exRuby":""},{"id":38,"word":"右","reading":"みぎ","meaning":"오른쪽","prob":"07, 15","exJa":"","exKo":"","exRuby":""},{"id":39,"word":"曲がる","reading":"まがる","meaning":"돌다","prob":"07","exJa":"","exKo":"","exRuby":""},{"id":40,"word":"銀行","reading":"ぎんこう","meaning":"은행","prob":"07","exJa":"","exKo":"","exRuby":""},{"id":41,"word":"隣","reading":"となり","meaning":"옆","prob":"07","exJa":"","exKo":"","exRuby":""},{"id":42,"word":"雨","reading":"あめ","meaning":"비","prob":"08","exJa":"","exKo":"","exRuby":""},{"id":43,"word":"強い","reading":"つよい","meaning":"세다","prob":"08","exJa":"","exKo":"","exRuby":""},{"id":44,"word":"傘","reading":"かさ","meaning":"우산","prob":"08","exJa":"","exKo":"","exRuby":""},{"id":45,"word":"忘れる","reading":"わすれる","meaning":"잊다","prob":"08","exJa":"","exKo":"","exRuby":""},{"id":46,"word":"近い","reading":"ちかい","meaning":"가깝다","prob":"08","exJa":"","exKo":"","exRuby":""},{"id":47,"word":"新しい","reading":"あたらしい","meaning":"새롭다","prob":"08, 28","exJa":"","exKo":"","exRuby":""},{"id":48,"word":"買う","reading":"かう","meaning":"사다","prob":"08","exJa":"","exKo":"","exRuby":""},{"id":49,"word":"席","reading":"せき","meaning":"자리","prob":"09, 19","exJa":"","exKo":"","exRuby":""},{"id":50,"word":"空く","reading":"あく","meaning":"비다","prob":"09","exJa":"","exKo":"","exRuby":""},{"id":51,"word":"申し訳ありません","reading":"もうしわけありません","meaning":"죄송합니다","prob":"09","exJa":"","exKo":"","exRuby":""},{"id":52,"word":"満席","reading":"まんせき","meaning":"만석","prob":"09","exJa":"","exKo":"","exRuby":""},{"id":53,"word":"案内","reading":"あんない","meaning":"안내","prob":"09","exJa":"","exKo":"","exRuby":""},{"id":54,"word":"待つ","reading":"まつ","meaning":"기다리다","prob":"09, 13","exJa":"","exKo":"","exRuby":""},{"id":55,"word":"音","reading":"おと","meaning":"소리","prob":"10","exJa":"","exKo":"","exRuby":""},{"id":56,"word":"大きい","reading":"おおきい","meaning":"크다","prob":"10, 22","exJa":"","exKo":"","exRuby":""},{"id":57,"word":"静か","reading":"しずか","meaning":"조용함","prob":"10","exJa":"","exKo":"","exRuby":""},{"id":58,"word":"気がつく","reading":"きがつく","meaning":"알아차리다","prob":"10","exJa":"","exKo":"","exRuby":""},{"id":59,"word":"音量","reading":"おんりょう","meaning":"음량","prob":"10","exJa":"","exKo":"","exRuby":""},{"id":60,"word":"下げる","reading":"さげる","meaning":"낮추다","prob":"10","exJa":"","exKo":"","exRuby":""},{"id":61,"word":"迷惑","reading":"めいわく","meaning":"폐","prob":"10","exJa":"","exKo":"","exRuby":""},{"id":62,"word":"昨日","reading":"きのう","meaning":"어제","prob":"11, 30","exJa":"","exKo":"","exRuby":""},{"id":63,"word":"授業","reading":"じゅぎょう","meaning":"수업","prob":"11","exJa":"","exKo":"","exRuby":""},{"id":64,"word":"熱","reading":"ねつ","meaning":"열","prob":"11, 16","exJa":"","exKo":"","exRuby":""},{"id":65,"word":"高い","reading":"たかい","meaning":"높다","prob":"11","exJa":"","exKo":"","exRuby":""},{"id":66,"word":"病院","reading":"びょういん","meaning":"병원","prob":"11","exJa":"","exKo":"","exRuby":""},{"id":67,"word":"遅い","reading":"おそい","meaning":"늦다","prob":"11","exJa":"","exKo":"","exRuby":""},{"id":68,"word":"近く","reading":"ちかく","meaning":"근처","prob":"12, 13","exJa":"","exKo":"","exRuby":""},{"id":69,"word":"昼ご飯","reading":"ひるごはん","meaning":"점심밥","prob":"12","exJa":"","exKo":"","exRuby":""},{"id":70,"word":"駅前","reading":"えきまえ","meaning":"역 앞","prob":"12","exJa":"","exKo":"","exRuby":""},{"id":71,"word":"おすすめ","reading":"おすすめ","meaning":"추천","prob":"12","exJa":"","exKo":"","exRuby":""},{"id":72,"word":"安い","reading":"やすい","meaning":"싸다","prob":"12","exJa":"","exKo":"","exRuby":""},{"id":73,"word":"量","reading":"りょう","meaning":"양","prob":"12","exJa":"","exKo":"","exRuby":""},{"id":74,"word":"値段","reading":"ねだん","meaning":"가격","prob":"12","exJa":"","exKo":"","exRuby":""},{"id":75,"word":"手ごろ","reading":"てごろ","meaning":"적당함, 가격이 부담스럽지 않음","prob":"12","exJa":"","exKo":"","exRuby":""},{"id":76,"word":"荷物","reading":"にもつ","meaning":"짐","prob":"13, 19, 20, 30","exJa":"","exKo":"","exRuby":""},{"id":77,"word":"預ける","reading":"あずける","meaning":"맡기다","prob":"13","exJa":"","exKo":"","exRuby":""},{"id":78,"word":"承知しました","reading":"しょうちしました","meaning":"알겠습니다","prob":"13","exJa":"","exKo":"","exRuby":""},{"id":79,"word":"外","reading":"そと","meaning":"밖","prob":"13","exJa":"","exKo":"","exRuby":""},{"id":80,"word":"預かる","reading":"あずかる","meaning":"맡아 두다","prob":"13","exJa":"","exKo":"","exRuby":""},{"id":81,"word":"飲む","reading":"のむ","meaning":"마시다, 약을 먹다","prob":"14, 16, 17","exJa":"","exKo":"","exRuby":""},{"id":82,"word":"紅茶","reading":"こうちゃ","meaning":"홍차","prob":"14","exJa":"","exKo":"","exRuby":""},{"id":83,"word":"暑い","reading":"あつい","meaning":"덥다","prob":"14","exJa":"","exKo":"","exRuby":""},{"id":84,"word":"一つ","reading":"ひとつ","meaning":"하나","prob":"14","exJa":"","exKo":"","exRuby":""},{"id":85,"word":"思う","reading":"おもう","meaning":"생각하다","prob":"14","exJa":"","exKo":"","exRuby":""},{"id":86,"word":"写真","reading":"しゃしん","meaning":"사진","prob":"15","exJa":"","exKo":"","exRuby":""},{"id":87,"word":"撮る","reading":"とる","meaning":"찍다","prob":"15","exJa":"","exKo":"","exRuby":""},{"id":88,"word":"背景","reading":"はいけい","meaning":"배경","prob":"15","exJa":"","exKo":"","exRuby":""},{"id":89,"word":"見える","reading":"みえる","meaning":"보이다","prob":"15","exJa":"","exKo":"","exRuby":""},{"id":90,"word":"立つ","reading":"たつ","meaning":"서다","prob":"15","exJa":"","exKo":"","exRuby":""},{"id":91,"word":"朝","reading":"あさ","meaning":"아침","prob":"16","exJa":"","exKo":"","exRuby":""},{"id":92,"word":"頭","reading":"あたま","meaning":"머리","prob":"16","exJa":"","exKo":"","exRuby":""},{"id":93,"word":"痛い","reading":"いたい","meaning":"아프다","prob":"16","exJa":"","exKo":"","exRuby":""},{"id":94,"word":"診察","reading":"しんさつ","meaning":"진찰","prob":"16","exJa":"","exKo":"","exRuby":""},{"id":95,"word":"頭痛","reading":"ずつう","meaning":"두통","prob":"16","exJa":"","exKo":"","exRuby":""},{"id":96,"word":"薬","reading":"くすり","meaning":"약","prob":"16","exJa":"","exKo":"","exRuby":""},{"id":97,"word":"仕事","reading":"しごと","meaning":"일","prob":"17, 28","exJa":"","exKo":"","exRuby":""},{"id":98,"word":"終わる","reading":"おわる","meaning":"끝나다","prob":"17","exJa":"","exKo":"","exRuby":""},{"id":99,"word":"軽く","reading":"かるく","meaning":"가볍게","prob":"17","exJa":"","exKo":"","exRuby":""},{"id":100,"word":"明日","reading":"あした","meaning":"내일","prob":"17","exJa":"","exKo":"","exRuby":""},{"id":101,"word":"参加","reading":"さんか","meaning":"참가","prob":"17","exJa":"","exKo":"","exRuby":""},{"id":102,"word":"一次会","reading":"いちじかい","meaning":"1차 모임","prob":"17","exJa":"","exKo":"","exRuby":""},{"id":103,"word":"失礼する","reading":"しつれいする","meaning":"실례하다, 이 장면에서는 먼저 자리를 뜨다","prob":"17","exJa":"","exKo":"","exRuby":""},{"id":104,"word":"本","reading":"ほん","meaning":"책","prob":"18","exJa":"","exKo":"","exRuby":""},{"id":105,"word":"売り切れ","reading":"うりきれ","meaning":"품절","prob":"18, 품절 보충","exJa":"","exKo":"","exRuby":""},{"id":106,"word":"取り寄せる","reading":"とりよせる","meaning":"다른 곳에서 주문해 받아오다","prob":"18","exJa":"","exKo":"","exRuby":""},{"id":107,"word":"可能","reading":"かのう","meaning":"가능","prob":"18","exJa":"","exKo":"","exRuby":""},{"id":108,"word":"図書館","reading":"としょかん","meaning":"도서관","prob":"19","exJa":"","exKo":"","exRuby":""},{"id":109,"word":"取る","reading":"とる","meaning":"잡다","prob":"19","exJa":"","exKo":"","exRuby":""},{"id":110,"word":"席取り","reading":"せきとり","meaning":"자리 맡기","prob":"19","exJa":"","exKo":"","exRuby":""},{"id":111,"word":"禁止","reading":"きんし","meaning":"금지","prob":"19","exJa":"","exKo":"","exRuby":""},{"id":112,"word":"安心","reading":"あんしん","meaning":"안심","prob":"19","exJa":"","exKo":"","exRuby":""},{"id":113,"word":"空港","reading":"くうこう","meaning":"공항","prob":"20","exJa":"","exKo":"","exRuby":""},{"id":114,"word":"重い","reading":"おもい","meaning":"무겁다","prob":"20","exJa":"","exKo":"","exRuby":""},{"id":115,"word":"中","reading":"なか","meaning":"안","prob":"20","exJa":"","exKo":"","exRuby":""},{"id":116,"word":"物","reading":"もの","meaning":"물건","prob":"20","exJa":"","exKo":"","exRuby":""},{"id":117,"word":"出す","reading":"だす","meaning":"꺼내다","prob":"20","exJa":"","exKo":"","exRuby":""},{"id":118,"word":"手荷物","reading":"てにもつ","meaning":"휴대 수하물","prob":"20","exJa":"","exKo":"","exRuby":""},{"id":119,"word":"整理","reading":"せいり","meaning":"정리","prob":"20","exJa":"","exKo":"","exRuby":""},{"id":120,"word":"移す","reading":"うつす","meaning":"옮기다","prob":"20","exJa":"","exKo":"","exRuby":""},{"id":121,"word":"データ","reading":"データ","meaning":"데이터","prob":"21","exJa":"","exKo":"","exRuby":""},{"id":122,"word":"意味","reading":"いみ","meaning":"의미","prob":"21","exJa":"","exKo":"","exRuby":""},{"id":123,"word":"簡単に","reading":"かんたんに","meaning":"간단히","prob":"21","exJa":"","exKo":"","exRuby":""},{"id":124,"word":"説明","reading":"せつめい","meaning":"설명","prob":"21, 28","exJa":"","exKo":"","exRuby":""},{"id":125,"word":"売り上げ","reading":"うりあげ","meaning":"매출","prob":"21","exJa":"","exKo":"","exRuby":""},{"id":126,"word":"増える","reading":"ふえる","meaning":"늘다","prob":"21","exJa":"","exKo":"","exRuby":""},{"id":127,"word":"表す","reading":"あらわす","meaning":"나타내다","prob":"21","exJa":"","exKo":"","exRuby":""},{"id":128,"word":"全体","reading":"ぜんたい","meaning":"전체","prob":"21","exJa":"","exKo":"","exRuby":""},{"id":129,"word":"服屋","reading":"ふくや","meaning":"옷가게","prob":"22","exJa":"","exKo":"","exRuby":""},{"id":130,"word":"試着室","reading":"しちゃくしつ","meaning":"피팅룸, 옷을 입어 보는 방","prob":"22","exJa":"","exKo":"","exRuby":""},{"id":131,"word":"サイズ","reading":"サイズ","meaning":"사이즈","prob":"22","exJa":"","exKo":"","exRuby":""},{"id":132,"word":"小さい","reading":"ちいさい","meaning":"작다","prob":"22","exJa":"","exKo":"","exRuby":""},{"id":133,"word":"肩","reading":"かた","meaning":"어깨","prob":"22","exJa":"","exKo":"","exRuby":""},{"id":134,"word":"試着","reading":"しちゃく","meaning":"시착, 옷을 입어 보기","prob":"22","exJa":"","exKo":"","exRuby":""},{"id":135,"word":"週末","reading":"しゅうまつ","meaning":"주말","prob":"23","exJa":"","exKo":"","exRuby":""},{"id":136,"word":"引っ越し","reading":"ひっこし","meaning":"이사","prob":"23","exJa":"","exKo":"","exRuby":""},{"id":137,"word":"手伝う","reading":"てつだう","meaning":"돕다","prob":"23","exJa":"","exKo":"","exRuby":""},{"id":138,"word":"午前中","reading":"ごぜんちゅう","meaning":"오전 중","prob":"23","exJa":"","exKo":"","exRuby":""},{"id":139,"word":"用事","reading":"ようじ","meaning":"볼일","prob":"23","exJa":"","exKo":"","exRuby":""},{"id":140,"word":"午後","reading":"ごご","meaning":"오후","prob":"23","exJa":"","exKo":"","exRuby":""},{"id":141,"word":"予定","reading":"よてい","meaning":"예정","prob":"23","exJa":"","exKo":"","exRuby":""},{"id":142,"word":"鍵","reading":"かぎ","meaning":"열쇠·자물쇠","prob":"24","exJa":"","exKo":"","exRuby":""},{"id":143,"word":"鍵をかける","reading":"かぎをかける","meaning":"잠그다","prob":"24","exJa":"","exKo":"","exRuby":""},{"id":144,"word":"大丈夫","reading":"だいじょうぶ","meaning":"괜찮음","prob":"24","exJa":"","exKo":"","exRuby":""},{"id":145,"word":"出る","reading":"でる","meaning":"나가다","prob":"24","exJa":"","exKo":"","exRuby":""},{"id":146,"word":"窓","reading":"まど","meaning":"창문","prob":"24","exJa":"","exKo":"","exRuby":""},{"id":147,"word":"閉める","reading":"しめる","meaning":"닫다","prob":"24","exJa":"","exKo":"","exRuby":""},{"id":148,"word":"安心する","reading":"あんしんする","meaning":"안심하다","prob":"24","exJa":"","exKo":"","exRuby":""},{"id":149,"word":"発表","reading":"はっぴょう","meaning":"발표","prob":"25","exJa":"","exKo":"","exRuby":""},{"id":150,"word":"今日中","reading":"きょうじゅう","meaning":"오늘 중","prob":"25","exJa":"","exKo":"","exRuby":""},{"id":151,"word":"送る","reading":"おくる","meaning":"보내다","prob":"25","exJa":"","exKo":"","exRuby":""},{"id":152,"word":"修正","reading":"しゅうせい","meaning":"수정","prob":"25","exJa":"","exKo":"","exRuby":""},{"id":153,"word":"図","reading":"ず","meaning":"그림","prob":"25","exJa":"","exKo":"","exRuby":""},{"id":154,"word":"目標","reading":"もくひょう","meaning":"목표","prob":"26","exJa":"","exKo":"","exRuby":""},{"id":155,"word":"始める","reading":"はじめる","meaning":"시작하다","prob":"26","exJa":"","exKo":"","exRuby":""},{"id":156,"word":"体力","reading":"たいりょく","meaning":"체력","prob":"26","exJa":"","exKo":"","exRuby":""},{"id":157,"word":"最近","reading":"さいきん","meaning":"최근","prob":"26","exJa":"","exKo":"","exRuby":""},{"id":158,"word":"疲れる","reading":"つかれる","meaning":"피곤하다","prob":"26","exJa":"","exKo":"","exRuby":""},{"id":159,"word":"健康적","reading":"けんこうてき","meaning":"건강한","prob":"26","exJa":"","exKo":"","exRuby":""},{"id":160,"word":"体重","reading":"たいじゅう","meaning":"체중","prob":"26","exJa":"","exKo":"","exRuby":""},{"id":161,"word":"落とす","reading":"おとす","meaning":"떨어뜨리다, 체중 등을 줄이다","prob":"26","exJa":"","exKo":"","exRuby":""},{"id":162,"word":"駅","reading":"えき","meaning":"역","prob":"27","exJa":"","exKo":"","exRuby":""},{"id":163,"word":"東京駅","reading":"とうきょうえき","meaning":"도쿄역","prob":"27","exJa":"","exKo":"","exRuby":""},{"id":164,"word":"八重洲口","reading":"やえすぐち","meaning":"도쿄역 야에스 출구","prob":"27","exJa":"","exKo":"","exRuby":""},{"id":165,"word":"お願いします","reading":"おねがいします","meaning":"부탁드립니다","prob":"27","exJa":"","exKo":"","exRuby":""},{"id":166,"word":"急ぐ","reading":"いそぐ","meaning":"서두르다","prob":"27","exJa":"","exKo":"","exRuby":""},{"id":167,"word":"新幹線","reading":"しんかんせん","meaning":"신칸센","prob":"27","exJa":"","exKo":"","exRuby":""},{"id":168,"word":"時間","reading":"じかん","meaning":"시간","prob":"27","exJa":"","exKo":"","exRuby":""},{"id":169,"word":"早く","reading":"はやく","meaning":"빨리","prob":"27","exJa":"","exKo":"","exRuby":""},{"id":170,"word":"社員","reading":"しゃいん","meaning":"사원","prob":"28","exJa":"","exKo":"","exRuby":""},{"id":171,"word":"流れ","reading":"ながれ","meaning":"흐름","prob":"28","exJa":"","exKo":"","exRuby":""},{"id":172,"word":"社内","reading":"しゃない","meaning":"사내","prob":"28","exJa":"","exKo":"","exRuby":""},{"id":173,"word":"実際","reading":"じっさい","meaning":"실제","prob":"28","exJa":"","exKo":"","exRuby":""},{"id":174,"word":"作業","reading":"さぎょう","meaning":"작업","prob":"28","exJa":"","exKo":"","exRuby":""},{"id":175,"word":"電池","reading":"でんち","meaning":"배터리","prob":"29","exJa":"","exKo":"","exRuby":""},{"id":176,"word":"充電器","reading":"じゅうでんき","meaning":"충전기","prob":"29","exJa":"","exKo":"","exRuby":""},{"id":177,"word":"持つ","reading":"もつ","meaning":"가지다","prob":"29","exJa":"","exKo":"","exRuby":""},{"id":178,"word":"使う","reading":"つかう","meaning":"사용하다","prob":"29","exJa":"","exKo":"","exRuby":""},{"id":179,"word":"必要","reading":"ひつよう","meaning":"필요","prob":"29","exJa":"","exKo":"","exRuby":""},{"id":180,"word":"充電","reading":"じゅうでん","meaning":"충전","prob":"29","exJa":"","exKo":"","exRuby":""},{"id":181,"word":"届く","reading":"とどく","meaning":"도착하다","prob":"30","exJa":"","exKo":"","exRuby":""},{"id":182,"word":"配送","reading":"はいそう","meaning":"배송","prob":"30","exJa":"","exKo":"","exRuby":""},{"id":183,"word":"状況","reading":"じょうきょう","meaning":"상황","prob":"30","exJa":"","exKo":"","exRuby":""},{"id":184,"word":"折り返し","reading":"おりかえし","meaning":"다시","prob":"30","exJa":"","exKo":"","exRuby":""},{"id":185,"word":"原因","reading":"げんいん","meaning":"원인","prob":"30","exJa":"","exKo":"","exRuby":""},{"id":186,"word":"到着","reading":"とうちゃく","meaning":"도착","prob":"30","exJa":"","exKo":"","exRuby":""},{"id":187,"word":"予約","reading":"よやく","meaning":"예약","prob":"품절 보충","exJa":"","exKo":"","exRuby":""},{"id":188,"word":"手続き","reading":"てつづき","meaning":"절차, 수속","prob":"품절 보충","exJa":"","exKo":"","exRuby":""},{"id":189,"word":"入荷","reading":"にゅうか","meaning":"입고","prob":"품절 보충","exJa":"入庫する時期がいつ頃か確認していただけませんか？","exKo":"(언제쯤 입고되는지 확인해 주실 수 있겠습니까?)","exRuby":"<ruby>入庫<rt>にゅうこ</rt></ruby>する<ruby>時期<rt>じき</rt></ruby>がいつ<ruby>頃<rt>ごろ</rt></ruby>か<ruby>確認<rt>かくにん</rt></ruby>していただけませんか？"},{"id":190,"word":"時期","reading":"じき","meaning":"시기","prob":"품절 보충","exJa":"","exKo":"","exRuby":""},{"id":191,"word":"いつ頃","reading":"いつごろ","meaning":"언제쯤","prob":"품절 보충","exJa":"","exKo":"","exRuby":""},{"id":192,"word":"人気","reading":"にんき","meaning":"인기","prob":"품절 보충","exJa":"","exKo":"","exRuby":""},{"id":193,"word":"やっぱり","reading":"やっぱり","meaning":"역시","prob":"품절 보충","exJa":"","exKo":"","exRuby":""},{"id":194,"word":"確認します","reading":"かくにんします","meaning":"확인하겠습니다","prob":"주문·자료·배송 확인","exJa":"","exKo":"","exRuby":""},{"id":195,"word":"連絡します","reading":"れんらくします","meaning":"연락하겠습니다","prob":"지각·고장·배송 대응","exJa":"","exKo":"","exRuby":""},{"id":196,"word":"説明します","reading":"せつめいします","meaning":"설명하겠습니다","prob":"자료·업무 안내","exJa":"","exKo":"","exRuby":""},{"id":197,"word":"申し訳ありません","reading":"もうしわけありません","meaning":"죄송합니다","prob":"정중한 사과","exJa":"","exKo":"","exRuby":""},{"id":198,"word":"承知しました","reading":"しょうちしました","meaning":"알겠습니다","prob":"업무 지시·안내 수락","exJa":"","exKo":"","exRuby":""},{"id":199,"word":"ご迷惑をおかけして","reading":"ごめいわくをおかけして","meaning":"폐를 끼쳐","prob":"뒤에 사과를 이어 말함","exJa":"","exKo":"","exRuby":""},{"id":200,"word":"折り返しご連絡します","reading":"おりかえしごれんらくします","meaning":"확인 후 다시 연락드리겠습니다","prob":"확인 후 후속 연락","exJa":"","exKo":"","exRuby":""},{"id":201,"word":"提出します","reading":"ていしゅつします","meaning":"제출하겠습니다","prob":"보고서·자료 제출","exJa":"","exKo":"","exRuby":""},{"id":202,"word":"修正してから送ります","reading":"しゅうせいしてからおくります","meaning":"수정한 다음 보내겠습니다","prob":"수정 후 발송","exJa":"","exKo":"","exRuby":""},{"id":203,"word":"今日中に","reading":"きょうじゅうに","meaning":"오늘 중에","prob":"행동의 기한을 붙일 때","exJa":"","exKo":"","exRuby":""},{"id":204,"word":"三時までに","reading":"さんじまでに","meaning":"3시까지","prob":"그때까지 완료한다는 뜻","exJa":"","exKo":"","exRuby":""},{"id":205,"word":"あと十分で着きます","reading":"あとじゅっぷんでつきます","meaning":"앞으로 10분이면 도착합니다","prob":"도착 시간 안내","exJa":"","exKo":"","exRuby":""},{"id":206,"word":"電車が遅れています","reading":"でんしゃがおくれています","meaning":"전철이 지연되고 있습니다","prob":"지각 이유 설명","exJa":"","exKo":"","exRuby":""},{"id":207,"word":"相談しましょう","reading":"そうだんしましょう","meaning":"상담합시다","prob":"문제 해결 제안","exJa":"","exKo":"","exRuby":""},{"id":208,"word":"よかったら","reading":"よかったら","meaning":"괜찮으시면","prob":"제안을 부드럽게 시작","exJa":"","exKo":"","exRuby":""},{"id":209,"word":"手伝います","reading":"てつだいます","meaning":"돕겠습니다","prob":"도움 요청 수락","exJa":"","exKo":"","exRuby":""},{"id":210,"word":"午後なら","reading":"ごごなら","meaning":"오후라면","prob":"가능한 조건 제시","exJa":"","exKo":"","exRuby":""},{"id":211,"word":"荷物を預けてもいいですか","reading":"にもつをあずけてもいいですか","meaning":"짐을 맡겨도 될까요","prob":"짐 보관 허가 요청","exJa":"","exKo":"","exRuby":""},{"id":212,"word":"確認していただけますか","reading":"かくにんしていただけますか","meaning":"확인해 주실 수 있을까요","prob":"정중한 확인 요청","exJa":"","exKo":"","exRuby":""},{"id":213,"word":"教えていただけませんか","reading":"おしえていただけませんか","meaning":"알려주실 수 있을까요","prob":"정중한 정보 요청","exJa":"","exKo":"","exRuby":""},{"id":214,"word":"売り切れ","reading":"うりきれ","meaning":"품절","prob":"물건이 다 팔린 상태","exJa":"","exKo":"","exRuby":""},{"id":215,"word":"取り寄せていただくことはできますか","reading":"とりよせていただくことはできますか","meaning":"다른 곳에서 주문해 받아주실 수 있나요","prob":"재고 없는 상품 주문 요청","exJa":"","exKo":"","exRuby":""},{"id":216,"word":"予約の手続き","reading":"よやくのてつづき","meaning":"예약 절차","prob":"예약 수속","exJa":"","exKo":"","exRuby":""},{"id":217,"word":"配送状況を確認します","reading":"はいそうじょうきょうをかくにんします","meaning":"배송 상황을 확인하겠습니다","prob":"배송 지연 대응","exJa":"","exKo":"","exRuby":""},{"id":218,"word":"お願いします","reading":"おねがいします","meaning":"부탁드립니다","prob":"요청을 마무리할 때","exJa":"","exKo":"","exRuby":""},{"id":219,"word":"この意見に同意します","reading":"このいけんにどういします","meaning":"이 의견에 동의합니다","prob":"의견 제시 공통","exJa":"","exKo":"","exRuby":""},{"id":220,"word":"賛成です","reading":"さんせいです","meaning":"찬성합니다","prob":"의견 제시 공통","exJa":"","exKo":"","exRuby":""},{"id":221,"word":"理由は二つあります","reading":"りゆうはふたつあります","meaning":"이유는 두 가지입니다","prob":"이유 제시 공통","exJa":"","exKo":"","exRuby":""},{"id":222,"word":"その理由は","reading":"そのりゆうは","meaning":"그 이유는","prob":"이유 제시 공통","exJa":"","exKo":"","exRuby":""},{"id":223,"word":"次に","reading":"つぎに","meaning":"다음으로","prob":"근거 나열 공통","exJa":"","exKo":"","exRuby":""},{"id":224,"word":"それに","reading":"それに","meaning":"게다가","prob":"근거 추가 공통","exJa":"","exKo":"","exRuby":""},{"id":225,"word":"また","reading":"また","meaning":"또한","prob":"근거 추가 공통","exJa":"","exKo":"","exRuby":""},{"id":226,"word":"しかし","reading":"しかし","meaning":"그러나","prob":"반대 근거 공통","exJa":"","exKo":"","exRuby":""},{"id":227,"word":"その反面","reading":"そのはんめん","meaning":"그 반면","prob":"장단점 비교 공통","exJa":"","exKo":"","exRuby":""},{"id":228,"word":"その結果","reading":"そのけっか","meaning":"그 결과","prob":"경험과 결과 공통","exJa":"","exKo":"","exRuby":""},{"id":229,"word":"こうした理由から","reading":"こうしたりゆうから","meaning":"이러한 이유로","prob":"결론 공통","exJa":"","exKo":"","exRuby":""},{"id":230,"word":"したがって","reading":"したがって","meaning":"따라서","prob":"결론 공통","exJa":"","exKo":"","exRuby":""},{"id":231,"word":"ですので","reading":"ですので","meaning":"그러므로","prob":"결론 공통","exJa":"","exKo":"","exRuby":""},{"id":232,"word":"に比べて","reading":"にくらべて","meaning":"에 비해, 와 비교하면","prob":"비교 공통","exJa":"","exKo":"","exRuby":""},{"id":233,"word":"が挙げられます","reading":"があげられます","meaning":"을 들 수 있습니다","prob":"장점과 단점 제시","exJa":"","exKo":"","exRuby":""},{"id":234,"word":"につながる","reading":"につながる","meaning":"로 이어지다","prob":"원인과 결과 공통","exJa":"","exKo":"","exRuby":""},{"id":235,"word":"必ずしも必要ではない","reading":"かならずしもひつようではない","meaning":"반드시 필요한 것은 아니다","prob":"11 대학 진학 / 11 대학진학","exJa":"","exKo":"","exRuby":""},{"id":236,"word":"このような","reading":"このような","meaning":"이러한, 이런","prob":"01 전철에서의전화","exJa":"","exKo":"","exRuby":""},{"id":237,"word":"行動","reading":"こうどう","meaning":"행동","prob":"01 전철에서의전화","exJa":"","exKo":"","exRuby":""},{"id":238,"word":"望ましい","reading":"のぞましい","meaning":"바람직하다, 좋다","prob":"01 전철에서의전화","exJa":"","exKo":"","exRuby":""},{"id":239,"word":"電話","reading":"でんわ","meaning":"전화","prob":"01 전철에서의전화","exJa":"","exKo":"","exRuby":""},{"id":240,"word":"周り","reading":"まわり","meaning":"주위, 주변","prob":"01 전철에서의전화","exJa":"","exKo":"","exRuby":""},{"id":241,"word":"人々","reading":"ひとびと","meaning":"사람들","prob":"01 전철에서의전화","exJa":"","exKo":"","exRuby":""},{"id":242,"word":"迷惑をかける","reading":"めいわくをかける","meaning":"폐를 끼치다","prob":"01 전철에서의전화","exJa":"","exKo":"","exRuby":""},{"id":243,"word":"うるさい","reading":"うるさい","meaning":"시끄럽다, 소란스럽다","prob":"01 전철에서의전화","exJa":"","exKo":"","exRuby":""},{"id":244,"word":"防犯カメラ","reading":"ぼうはんかめら","meaning":"방범카메라","prob":"02 방범카메라","exJa":"","exKo":"","exRuby":""},{"id":245,"word":"メリット","reading":"めりっと","meaning":"장점, 이점","prob":"02 방범카메라","exJa":"","exKo":"","exRuby":""},{"id":246,"word":"デメリット","reading":"でめりっと","meaning":"단점, 폐해","prob":"02 방범카메라","exJa":"","exKo":"","exRuby":""},{"id":247,"word":"犯罪","reading":"はんざい","meaning":"범죄","prob":"02 방범카메라","exJa":"","exKo":"","exRuby":""},{"id":248,"word":"証拠","reading":"しょうこ","meaning":"증거","prob":"02 방범카메라","exJa":"","exKo":"","exRuby":""},{"id":249,"word":"確保","reading":"かくほ","meaning":"확보, 확보하다","prob":"02 방범카메라","exJa":"","exKo":"","exRuby":""},{"id":250,"word":"設置","reading":"せっち","meaning":"설치, 배치","prob":"02 방범카메라","exJa":"","exKo":"","exRuby":""},{"id":251,"word":"未然に","reading":"みぜんに","meaning":"미연에, 일이 일어나기 전에","prob":"02 방범카메라","exJa":"","exKo":"","exRuby":""},{"id":252,"word":"防ぐ","reading":"ふせぐ","meaning":"방지하다, 막다","prob":"02 방범카메라","exJa":"","exKo":"","exRuby":""},{"id":253,"word":"効果","reading":"こうか","meaning":"효과","prob":"02 방범카메라","exJa":"","exKo":"","exRuby":""},{"id":254,"word":"プライバシー","reading":"ぷらいばしー","meaning":"사생활, 프라이버시","prob":"02 방범카메라","exJa":"","exKo":"","exRuby":""},{"id":255,"word":"侵害","reading":"しんがい","meaning":"침해","prob":"02 방범카메라","exJa":"","exKo":"","exRuby":""},{"id":256,"word":"監視","reading":"かんし","meaning":"감시","prob":"02 방범카메라","exJa":"","exKo":"","exRuby":""},{"id":257,"word":"俳優","reading":"はいゆう","meaning":"배우","prob":"03 배우의보수","exJa":"","exKo":"","exRuby":""},{"id":258,"word":"芸能人","reading":"げいのうじん","meaning":"연예인","prob":"03 배우의보수","exJa":"","exKo":"","exRuby":""},{"id":259,"word":"出演","reading":"しゅつえん","meaning":"출연","prob":"03 배우의보수","exJa":"","exKo":"","exRuby":""},{"id":260,"word":"撮影","reading":"さつえい","meaning":"촬영, 촬영하다","prob":"03 배우의보수","exJa":"","exKo":"","exRuby":""},{"id":261,"word":"報酬","reading":"ほうしゅう","meaning":"보수, 보상","prob":"03 배우의보수","exJa":"","exKo":"","exRuby":""},{"id":262,"word":"社会人","reading":"しゃかいじん","meaning":"사회인, 직장인","prob":"03 배우의보수","exJa":"","exKo":"","exRuby":""},{"id":263,"word":"想像","reading":"そうぞう","meaning":"상상, 상상하다","prob":"03 배우의보수","exJa":"","exKo":"","exRuby":""},{"id":264,"word":"金額","reading":"きんがく","meaning":"금액","prob":"03 배우의보수","exJa":"","exKo":"","exRuby":""},{"id":265,"word":"現場","reading":"げんば","meaning":"현장","prob":"03 배우의보수","exJa":"","exKo":"","exRuby":""},{"id":266,"word":"制作","reading":"せいさく","meaning":"제작, 제작하다","prob":"03 배우의보수","exJa":"","exKo":"","exRuby":""},{"id":267,"word":"スタッフ","reading":"すたっふ","meaning":"스태프, 직원","prob":"03 배우의보수","exJa":"","exKo":"","exRuby":""},{"id":268,"word":"勤務環境","reading":"きんむかんきょう","meaning":"근무환경","prob":"03 배우의보수","exJa":"","exKo":"","exRuby":""},{"id":269,"word":"整う","reading":"ととのう","meaning":"환경이나 조건이 갖춰지다","prob":"03 배우의보수","exJa":"","exKo":"","exRuby":""},{"id":270,"word":"改善","reading":"かいぜん","meaning":"개선, 개선하다","prob":"03 배우의보수","exJa":"","exKo":"","exRuby":""},{"id":271,"word":"ちりも積もれば山となる","reading":"ちりもつもればやまとなる","meaning":"티끌 모아 태산","prob":"04 작은노력이모여","exJa":"","exKo":"","exRuby":""},{"id":272,"word":"何事","reading":"なにごと","meaning":"무엇이든, 어떤 일이든","prob":"04 작은노력이모여","exJa":"","exKo":"","exRuby":""},{"id":273,"word":"定める","reading":"さだめる","meaning":"정하다, 결정하다","prob":"04 작은노력이모여","exJa":"","exKo":"","exRuby":""},{"id":274,"word":"日々","reading":"ひび","meaning":"매일, 나날이","prob":"04 작은노력이모여","exJa":"","exKo":"","exRuby":""},{"id":275,"word":"努力","reading":"どりょく","meaning":"노력, 힘쓰다","prob":"04 작은노력이모여","exJa":"","exKo":"","exRuby":""},{"id":276,"word":"重ねる","reading":"かさねる","meaning":"쌓다, 거듭하다","prob":"04 작은노력이모여","exJa":"","exKo":"","exRuby":""},{"id":277,"word":"結果","reading":"けっか","meaning":"결과","prob":"04 작은노력이모여","exJa":"","exKo":"","exRuby":""},{"id":278,"word":"得る","reading":"える","meaning":"얻다, 획득하다","prob":"04 작은노력이모여","exJa":"","exKo":"","exRuby":""},{"id":279,"word":"中学時代","reading":"ちゅうがくじだい","meaning":"중학 시절","prob":"04 작은노력이모여","exJa":"","exKo":"","exRuby":""},{"id":280,"word":"苦手","reading":"にがて","meaning":"잘하지 못함, 서투름","prob":"04 작은노력이모여","exJa":"","exKo":"","exRuby":""},{"id":281,"word":"少しずつ","reading":"すこしずつ","meaning":"조금씩, 차츰차츰","prob":"04 작은노력이모여","exJa":"","exKo":"","exRuby":""},{"id":282,"word":"触れる","reading":"ふれる","meaning":"접하다, 닿다","prob":"04 작은노력이모여","exJa":"","exKo":"","exRuby":""},{"id":283,"word":"校内","reading":"こうない","meaning":"교내, 학교 안","prob":"04 작은노력이모여","exJa":"","exKo":"","exRuby":""},{"id":284,"word":"入賞","reading":"にゅうしょう","meaning":"입상, 수상","prob":"04 작은노력이모여","exJa":"","exKo":"","exRuby":""},{"id":285,"word":"自信","reading":"じしん","meaning":"자신감","prob":"04 작은노력이모여","exJa":"","exKo":"","exRuby":""},{"id":286,"word":"飲み会","reading":"のみかい","meaning":"회식, 술자리","prob":"05 직장회식","exJa":"","exKo":"","exRuby":""},{"id":287,"word":"同僚","reading":"どうりょう","meaning":"동료","prob":"05 직장회식","exJa":"","exKo":"","exRuby":""},{"id":288,"word":"上司","reading":"じょうし","meaning":"상사","prob":"05 직장회식","exJa":"","exKo":"","exRuby":""},{"id":289,"word":"コミュニケーション","reading":"こみゅにけーしょん","meaning":"소통, 의사소통","prob":"05 직장회식","exJa":"","exKo":"","exRuby":""},{"id":290,"word":"お互い","reading":"おたがい","meaning":"서로, 상호","prob":"05 직장회식","exJa":"","exKo":"","exRuby":""},{"id":291,"word":"ストレスを発散する","reading":"すとれすをはっさんする","meaning":"스트레스를 풀다","prob":"05 직장회식","exJa":"","exKo":"","exRuby":""},{"id":292,"word":"強制する","reading":"きょうせいする","meaning":"강제하다","prob":"05 직장회식","exJa":"","exKo":"","exRuby":""},{"id":293,"word":"人間関係","reading":"にんげんかんけい","meaning":"인간관계","prob":"05 직장회식","exJa":"","exKo":"","exRuby":""},{"id":294,"word":"築く","reading":"きずく","meaning":"구축하다, 세우다","prob":"05 직장회식","exJa":"","exKo":"","exRuby":""},{"id":295,"word":"役立つ","reading":"やくだつ","meaning":"유용하다, 도움이 되다","prob":"05 직장회식","exJa":"","exKo":"","exRuby":""},{"id":296,"word":"定年","reading":"ていねん","meaning":"정년","prob":"06 정년연장","exJa":"","exKo":"","exRuby":""},{"id":297,"word":"延長","reading":"えんちょう","meaning":"연장","prob":"06 정년연장","exJa":"","exKo":"","exRuby":""},{"id":298,"word":"少子高齢化","reading":"しょうしこうれいか","meaning":"저출산 고령화","prob":"06 정년연장","exJa":"","exKo":"","exRuby":""},{"id":299,"word":"労働力","reading":"ろうどうりょく","meaning":"노동력","prob":"06 정년연장","exJa":"","exKo":"","exRuby":""},{"id":300,"word":"不足","reading":"ふそく","meaning":"부족","prob":"06 정년연장","exJa":"","exKo":"","exRuby":""},{"id":301,"word":"高齢者","reading":"こうれいしゃ","meaning":"고령자, 노인","prob":"06 정년연장","exJa":"","exKo":"","exRuby":""},{"id":302,"word":"豊富","reading":"ほうふ","meaning":"풍부한","prob":"06 정년연장 / 07 온라인vs오프라인쇼핑","exJa":"","exKo":"","exRuby":""},{"id":303,"word":"経験","reading":"けいけん","meaning":"경험","prob":"06 정년연장 / 12 이직반복","exJa":"","exKo":"","exRuby":""},{"id":304,"word":"知識","reading":"ちしき","meaning":"지식","prob":"06 정년연장","exJa":"","exKo":"","exRuby":""},{"id":305,"word":"活かす","reading":"いかす","meaning":"활용하다, 살리다","prob":"06 정년연장","exJa":"","exKo":"","exRuby":""},{"id":306,"word":"健康","reading":"けんこう","meaning":"건강","prob":"06 정년연장 / 09 돈vs시간","exJa":"","exKo":"","exRuby":""},{"id":307,"word":"維持","reading":"いじ","meaning":"유지, 유지하다","prob":"06 정년연장","exJa":"","exKo":"","exRuby":""},{"id":308,"word":"年金","reading":"ねんきん","meaning":"연금","prob":"06 정년연장","exJa":"","exKo":"","exRuby":""},{"id":309,"word":"ネットショッピング","reading":"ねっとしょっぴんぐ","meaning":"온라인 쇼핑","prob":"07 온라인vs오프라인쇼핑","exJa":"","exKo":"","exRuby":""},{"id":310,"word":"実店舗","reading":"じってんぽ","meaning":"오프라인 매장","prob":"07 온라인vs오프라인쇼핑","exJa":"","exKo":"","exRuby":""},{"id":311,"word":"スマートフォン","reading":"すまーとふぉん","meaning":"스마트폰","prob":"07 온라인vs오프라인쇼핑","exJa":"","exKo":"","exRuby":""},{"id":312,"word":"いつでもどこでも","reading":"いつでもどこでも","meaning":"언제 어디서나","prob":"07 온라인vs오프라인쇼핑","exJa":"","exKo":"","exRuby":""},{"id":313,"word":"買い物","reading":"かいもの","meaning":"쇼핑, 구매","prob":"07 온라인vs오프라인쇼핑","exJa":"","exKo":"","exRuby":""},{"id":314,"word":"交通費","reading":"こうつうひ","meaning":"교통비","prob":"07 온라인vs오프라인쇼핑 / 14 대중교통vs자가용","exJa":"","exKo":"","exRuby":""},{"id":315,"word":"節約","reading":"せつやく","meaning":"절약","prob":"07 온라인vs오프라인쇼핑","exJa":"","exKo":"","exRuby":""},{"id":316,"word":"商品","reading":"しょうひん","meaning":"상품","prob":"07 온라인vs오프라인쇼핑","exJa":"","exKo":"","exRuby":""},{"id":317,"word":"種類","reading":"しゅるい","meaning":"종류","prob":"07 온라인vs오프라인쇼핑","exJa":"","exKo":"","exRuby":""},{"id":318,"word":"レビュー","reading":"れびゅー","meaning":"리뷰, 평가","prob":"07 온라인vs오프라인쇼핑","exJa":"","exKo":"","exRuby":""},{"id":319,"word":"動画","reading":"どうが","meaning":"동영상","prob":"08 TV vs YouTube","exJa":"","exKo":"","exRuby":""},{"id":320,"word":"理由","reading":"りゆう","meaning":"이유","prob":"08 TV vs YouTube","exJa":"","exKo":"","exRuby":""},{"id":321,"word":"好きなコンテンツ","reading":"すきなこんてんつ","meaning":"좋아하는 콘텐츠","prob":"08 TV vs YouTube","exJa":"","exKo":"","exRuby":""},{"id":322,"word":"選ぶ","reading":"えらぶ","meaning":"선택하다","prob":"08 TV vs YouTube","exJa":"","exKo":"","exRuby":""},{"id":323,"word":"テレビと違って","reading":"てれびとちがって","meaning":"TV와 달리","prob":"08 TV vs YouTube","exJa":"","exKo":"","exRuby":""},{"id":324,"word":"外出先","reading":"がいしゅつさき","meaning":"외출한 곳, 집 밖에 나가 있는 곳","prob":"08 TV vs YouTube","exJa":"","exKo":"","exRuby":""},{"id":325,"word":"楽しめる","reading":"たのしめる","meaning":"즐길 수 있다","prob":"08 TV vs YouTube","exJa":"","exKo":"","exRuby":""},{"id":326,"word":"一般の人","reading":"いっぱんのひと","meaning":"일반인","prob":"08 TV vs YouTube","exJa":"","exKo":"","exRuby":""},{"id":327,"word":"面白い","reading":"おもしろい","meaning":"재미있는","prob":"08 TV vs YouTube","exJa":"","exKo":"","exRuby":""},{"id":328,"word":"勉強になる","reading":"べんきょうになる","meaning":"배울 점이 있다, 공부가 되다","prob":"08 TV vs YouTube","exJa":"","exKo":"","exRuby":""},{"id":329,"word":"傾向","reading":"けいこう","meaning":"경향, 추세","prob":"08 TV vs YouTube","exJa":"","exKo":"","exRuby":""},{"id":330,"word":"プライベート","reading":"ぷらいべーと","meaning":"개인 생활, 사생활","prob":"09 돈vs시간","exJa":"","exKo":"","exRuby":""},{"id":331,"word":"お金","reading":"おかね","meaning":"돈","prob":"09 돈vs시간","exJa":"","exKo":"","exRuby":""},{"id":332,"word":"大切","reading":"たいせつ","meaning":"소중한, 중요한","prob":"09 돈vs시간","exJa":"","exKo":"","exRuby":""},{"id":333,"word":"心身","reading":"しんしん","meaning":"심신, 마음과 몸","prob":"09 돈vs시간","exJa":"","exKo":"","exRuby":""},{"id":334,"word":"重要","reading":"じゅうよう","meaning":"중요한","prob":"09 돈vs시간","exJa":"","exKo":"","exRuby":""},{"id":335,"word":"ストレスが溜まる","reading":"すとれすがたまる","meaning":"스트레스가 쌓이다","prob":"09 돈vs시간","exJa":"","exKo":"","exRuby":""},{"id":336,"word":"病気","reading":"びょうき","meaning":"병, 질병","prob":"09 돈vs시간","exJa":"","exKo":"","exRuby":""},{"id":337,"word":"家族","reading":"かぞく","meaning":"가족","prob":"09 돈vs시간","exJa":"","exKo":"","exRuby":""},{"id":338,"word":"趣味","reading":"しゅみ","meaning":"취미","prob":"09 돈vs시간","exJa":"","exKo":"","exRuby":""},{"id":339,"word":"人生","reading":"じんせい","meaning":"인생","prob":"09 돈vs시간","exJa":"","exKo":"","exRuby":""},{"id":340,"word":"豊か","reading":"ゆたか","meaning":"풍요로운, 풍부한","prob":"09 돈vs시간","exJa":"","exKo":"","exRuby":""},{"id":341,"word":"重視","reading":"じゅうし","meaning":"중시, 중시하다","prob":"09 돈vs시간 / 11 대학진학","exJa":"","exKo":"","exRuby":""},{"id":342,"word":"使い捨て用品","reading":"つかいすてようひん","meaning":"일회용품","prob":"10 일회용품제한","exJa":"","exKo":"","exRuby":""},{"id":343,"word":"制限","reading":"せいげん","meaning":"제한","prob":"10 일회용품제한","exJa":"","exKo":"","exRuby":""},{"id":344,"word":"プラスチック","reading":"ぷらすちっく","meaning":"플라스틱","prob":"10 일회용품제한","exJa":"","exKo":"","exRuby":""},{"id":345,"word":"ごみ","reading":"ごみ","meaning":"쓰레기","prob":"10 일회용품제한","exJa":"","exKo":"","exRuby":""},{"id":346,"word":"減らす","reading":"へらす","meaning":"줄이다, 감소시키다","prob":"10 일회용품제한","exJa":"","exKo":"","exRuby":""},{"id":347,"word":"環境保護","reading":"かんきょうほご","meaning":"환경보호","prob":"10 일회용품제한","exJa":"","exKo":"","exRuby":""},{"id":348,"word":"貢献","reading":"こうけん","meaning":"기여, 공헌","prob":"10 일회용품제한","exJa":"","exKo":"","exRuby":""},{"id":349,"word":"地球温暖化","reading":"ちきゅうおんだんか","meaning":"지구 온난화","prob":"10 일회용품제한","exJa":"","exKo":"","exRuby":""},{"id":350,"word":"深刻","reading":"しんこく","meaning":"심각한","prob":"10 일회용품제한","exJa":"","exKo":"","exRuby":""},{"id":351,"word":"マイボトル","reading":"まいぼとる","meaning":"개인 물병, 텀블러","prob":"10 일회용품제한","exJa":"","exKo":"","exRuby":""},{"id":352,"word":"エコバッグ","reading":"えこばっぐ","meaning":"에코백","prob":"10 일회용품제한","exJa":"","exKo":"","exRuby":""},{"id":353,"word":"習慣","reading":"しゅうかん","meaning":"습관","prob":"10 일회용품제한","exJa":"","exKo":"","exRuby":""},{"id":354,"word":"身につく","reading":"みにつく","meaning":"익혀지다, 습관이나 능력이 몸에 배다","prob":"10 일회용품제한","exJa":"","exKo":"","exRuby":""},{"id":355,"word":"不便","reading":"ふべん","meaning":"불편한","prob":"10 일회용품제한","exJa":"","exKo":"","exRuby":""},{"id":356,"word":"未来","reading":"みらい","meaning":"미래","prob":"10 일회용품제한","exJa":"","exKo":"","exRuby":""},{"id":357,"word":"大学進学","reading":"だいがくしんがく","meaning":"대학 진학","prob":"11 대학진학","exJa":"","exKo":"","exRuby":""},{"id":358,"word":"専門学校","reading":"せんもんがっこう","meaning":"전문학교","prob":"11 대학진학","exJa":"","exKo":"","exRuby":""},{"id":359,"word":"就職","reading":"しゅうしょく","meaning":"취직, 취업","prob":"11 대학진학","exJa":"","exKo":"","exRuby":""},{"id":360,"word":"選択肢","reading":"せんたくし","meaning":"선택지, 선택 옵션","prob":"11 대학진학","exJa":"","exKo":"","exRuby":""},{"id":361,"word":"社会に出る","reading":"しゃかいにでる","meaning":"사회로 나가다","prob":"11 대학진학","exJa":"","exKo":"","exRuby":""},{"id":362,"word":"経験を積む","reading":"けいけんをつむ","meaning":"경험을 쌓다","prob":"11 대학진학","exJa":"","exKo":"","exRuby":""},{"id":363,"word":"立派","reading":"りっぱ","meaning":"당당한, 훌륭한","prob":"11 대학진학","exJa":"","exKo":"","exRuby":""},{"id":364,"word":"キャリア","reading":"きゃりあ","meaning":"경력, 커리어","prob":"11 대학진학","exJa":"","exKo":"","exRuby":""},{"id":365,"word":"学歴","reading":"がくれき","meaning":"학력","prob":"11 대학진학","exJa":"","exKo":"","exRuby":""},{"id":366,"word":"実力","reading":"じつりょく","meaning":"실력","prob":"11 대학진학","exJa":"","exKo":"","exRuby":""},{"id":367,"word":"スキル","reading":"すきる","meaning":"기술, 능력","prob":"11 대학진학 / 12 이직반복","exJa":"","exKo":"","exRuby":""},{"id":368,"word":"進路","reading":"しんろ","meaning":"진로","prob":"11 대학진학","exJa":"","exKo":"","exRuby":""},{"id":369,"word":"転職","reading":"てんしょく","meaning":"이직, 직업 변경","prob":"12 이직반복","exJa":"","exKo":"","exRuby":""},{"id":370,"word":"繰り返す","reading":"くりかえす","meaning":"반복하다","prob":"12 이직반복","exJa":"","exKo":"","exRuby":""},{"id":371,"word":"企業","reading":"きぎょう","meaning":"기업","prob":"12 이직반복","exJa":"","exKo":"","exRuby":""},{"id":372,"word":"幅広い","reading":"はばひろい","meaning":"폭넓은","prob":"12 이직반복","exJa":"","exKo":"","exRuby":""},{"id":373,"word":"身につける","reading":"みにつける","meaning":"습득하다, 익히다","prob":"12 이직반복","exJa":"","exKo":"","exRuby":""},{"id":374,"word":"成長","reading":"せいちょう","meaning":"성장","prob":"12 이직반복","exJa":"","exKo":"","exRuby":""},{"id":375,"word":"つながる","reading":"つながる","meaning":"연결되다, 이어지다","prob":"12 이직반복","exJa":"","exKo":"","exRuby":""},{"id":376,"word":"職場環境","reading":"しょくばかんきょう","meaning":"직장 환경","prob":"12 이직반복","exJa":"","exKo":"","exRuby":""},{"id":377,"word":"条件","reading":"じょうけん","meaning":"조건","prob":"12 이직반복","exJa":"","exKo":"","exRuby":""},{"id":378,"word":"求める","reading":"もとめる","meaning":"추구하다, 요구하다","prob":"12 이직반복","exJa":"","exKo":"","exRuby":""},{"id":379,"word":"自然","reading":"しぜん","meaning":"자연, 이 문맥에서는 자연스러움","prob":"12 이직반복","exJa":"","exKo":"","exRuby":""},{"id":380,"word":"キャリアアップ","reading":"きゃりああっぷ","meaning":"경력 개발, 커리어 업","prob":"12 이직반복","exJa":"","exKo":"","exRuby":""},{"id":381,"word":"朝型","reading":"あさがた","meaning":"아침형","prob":"13 아침형저녁형","exJa":"","exKo":"","exRuby":""},{"id":382,"word":"夜型","reading":"よるがた","meaning":"저녁형, 밤에 활동하는 생활 유형","prob":"13 아침형저녁형","exJa":"","exKo":"","exRuby":""},{"id":383,"word":"早く起きる","reading":"はやくおきる","meaning":"일찍 일어나다","prob":"13 아침형저녁형","exJa":"","exKo":"","exRuby":""},{"id":384,"word":"すっきりした状態","reading":"すっきりしたじょうたい","meaning":"머리가 맑고 개운한 상태","prob":"13 아침형저녁형","exJa":"","exKo":"","exRuby":""},{"id":385,"word":"集中","reading":"しゅうちゅう","meaning":"집중","prob":"13 아침형저녁형","exJa":"","exKo":"","exRuby":""},{"id":386,"word":"スケジュール","reading":"すけじゅーる","meaning":"일정, 스케줄","prob":"13 아침형저녁형","exJa":"","exKo":"","exRuby":""},{"id":387,"word":"余裕","reading":"よゆう","meaning":"여유","prob":"13 아침형저녁형","exJa":"","exKo":"","exRuby":""},{"id":388,"word":"生まれる","reading":"うまれる","meaning":"생기다, 생겨나다","prob":"13 아침형저녁형","exJa":"","exKo":"","exRuby":""},{"id":389,"word":"太陽","reading":"たいよう","meaning":"태양","prob":"13 아침형저녁형","exJa":"","exKo":"","exRuby":""},{"id":390,"word":"光","reading":"ひかり","meaning":"빛","prob":"13 아침형저녁형","exJa":"","exKo":"","exRuby":""},{"id":391,"word":"浴びる","reading":"あびる","meaning":"쬐다, 맞다","prob":"13 아침형저녁형","exJa":"","exKo":"","exRuby":""},{"id":392,"word":"生活リズム","reading":"せいかつりずむ","meaning":"생활 리듬","prob":"13 아침형저녁형","exJa":"","exKo":"","exRuby":""},{"id":393,"word":"公共交通機関","reading":"こうきょうこうつうきかん","meaning":"대중교통","prob":"14 대중교통vs자가용","exJa":"","exKo":"","exRuby":""},{"id":394,"word":"通勤","reading":"つうきん","meaning":"통근","prob":"14 대중교통vs자가용","exJa":"","exKo":"","exRuby":""},{"id":395,"word":"マイカー","reading":"まいかー","meaning":"자가용","prob":"14 대중교통vs자가용","exJa":"","exKo":"","exRuby":""},{"id":396,"word":"本を読む","reading":"ほんをよむ","meaning":"책을 읽다","prob":"14 대중교통vs자가용","exJa":"","exKo":"","exRuby":""},{"id":397,"word":"音楽を聴く","reading":"おんがくをきく","meaning":"음악을 듣다","prob":"14 대중교통vs자가용","exJa":"","exKo":"","exRuby":""},{"id":398,"word":"時間を有効に使う","reading":"じかんをゆうこうにつかう","meaning":"시간을 효과적으로 사용하다","prob":"14 대중교통vs자가용","exJa":"","exKo":"","exRuby":""},{"id":399,"word":"運転","reading":"うんてん","meaning":"운전","prob":"14 대중교통vs자가용","exJa":"","exKo":"","exRuby":""},{"id":400,"word":"疲れ","reading":"つかれ","meaning":"피로","prob":"14 대중교통vs자가용","exJa":"","exKo":"","exRuby":""},{"id":401,"word":"渋滞","reading":"じゅうたい","meaning":"교통 체증","prob":"14 대중교통vs자가용","exJa":"","exKo":"","exRuby":""},{"id":402,"word":"環境に優しい","reading":"かんきょうにやさしい","meaning":"환경 친화적","prob":"14 대중교통vs자가용","exJa":"","exKo":"","exRuby":""},{"id":403,"word":"安く抑える","reading":"やすくおさえる","meaning":"비용 등을 낮게 유지하다","prob":"14 대중교통vs자가용","exJa":"","exKo":"","exRuby":""}];
 
     // 상태 관리
     let displayedList = [...RAW_VOCAB];
+    const STUDY_POSITION_KEY = 'sjpt_basic_vocab403_position_v1';
+    const HIGHLIGHTS_KEY = 'sjpt_basic_vocab403_highlights_v1';
+    let cardHighlights = {};
+    try {
+      cardHighlights = JSON.parse(localStorage.getItem(HIGHLIGHTS_KEY)) || {};
+    } catch {}
+    let pendingHighlightSelection = null;
     let currentIndex = 0;
     let isFlipped = false;
     let starredIds = new Set(JSON.parse(localStorage.getItem('starred_vocab') || '[]'));
     let onlyStarred = false;
-    const AUTO_DELAY = 5000;
+    let autoRun = 0;
     let autoPlaying = false;
-    let autoTimer = null;
 
     // DOM 요소
     const cardContainer = document.getElementById('cardContainer');
@@ -632,8 +247,7 @@
     const backWordMini = document.getElementById('backWordMini');
     const backReadingMini = document.getElementById('backReadingMini');
     const backMeaning = document.getElementById('backMeaning');
-    const currentNumBadge = document.getElementById('currentNumBadge');
-    const currentProbBadge = document.getElementById('currentProbBadge');
+    const frontMeaning = document.getElementById('frontMeaning');
     const progressBar = document.getElementById('progressBar');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
@@ -649,13 +263,8 @@
     const probFilter = document.getElementById('probFilter');
     const shuffleBtn = document.getElementById('shuffleBtn');
     const resetOrderBtn = document.getElementById('resetOrderBtn');
-    const modeFlashcardBtn = document.getElementById('modeFlashcardBtn');
-    const modeListBtn = document.getElementById('modeListBtn');
     const studyStarredBtn = document.getElementById('studyStarredBtn');
     const flashcardView = document.getElementById('flashcardView');
-    const listView = document.getElementById('listView');
-    const vocabTableBody = document.getElementById('vocabTableBody');
-    const listTotalCount = document.getElementById('listTotalCount');
 
     // 문제 번호 셀렉트박스 옵션 채우기
     function initProbOptions() {
@@ -673,26 +282,76 @@
       sortedProbs.forEach(p => {
         const opt = document.createElement('option');
         opt.value = p;
-        opt.textContent = `문제 ${p}`;
+        opt.textContent = `${p}번`;
         probFilter.appendChild(opt);
       });
     }
 
     // TTS 음성 재생 (일본어)
-    function playJapaneseAudio(text) {
-      if (!('speechSynthesis' in window)) return;
+    function playJapaneseAudio(text, onEnd, onError) {
+      if (!onEnd && autoPlaying) stopAuto();
+      if (!('speechSynthesis' in window)) {
+        onError?.();
+        return;
+      }
       window.speechSynthesis.cancel();
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = 'ja-JP';
       utterance.rate = 0.9;
+      utterance.onend = onEnd || null;
+      utterance.onerror = onError || null;
       window.speechSynthesis.speak(utterance);
     }
 
-    function clearAutoTimer() { if (autoTimer) { clearTimeout(autoTimer); autoTimer = null; } }
     function updateAutoStatus() { autoPlayBtn.classList.toggle('ring-2', autoPlaying); autoPlayBtn.classList.toggle('ring-orange-200', autoPlaying); autoPlayBtn.textContent = autoPlaying ? '■' : '▶'; autoPlayBtn.setAttribute('aria-pressed', String(autoPlaying)); const label = autoPlaying ? '자동 넘김 정지' : '자동 넘김 시작'; autoPlayBtn.setAttribute('aria-label', label); autoPlayBtn.title = label; }
-    function stopAuto() { autoPlaying = false; clearAutoTimer(); updateAutoStatus(); }
-    function scheduleAuto() { clearAutoTimer(); if (!autoPlaying || !displayedList.length || flashcardView.classList.contains('hidden')) { stopAuto(); return; } autoTimer = setTimeout(() => { window.speechSynthesis?.cancel(); if (isFlipped) { currentIndex = (currentIndex + 1) % displayedList.length; renderCurrentCard(); playJapaneseAudio(displayedList[currentIndex].word.replace(/[()]/g, '')); } else { setFlipped(true); } scheduleAuto(); }, AUTO_DELAY); }
-    function toggleAuto() { if (autoPlaying) { stopAuto(); window.speechSynthesis?.cancel(); return; } if (!displayedList.length) return; listView.classList.add('hidden'); flashcardView.classList.remove('hidden'); setFlipped(false); autoPlaying = true; updateAutoStatus(); playJapaneseAudio(displayedList[currentIndex].word.replace(/[()]/g, '')); scheduleAuto(); }
+    const AUTO_PAUSE_MS = 2000;
+    let autoPauseTimer;
+
+    function stopAuto() {
+      const wasPlaying = autoPlaying;
+      autoPlaying = false;
+      autoRun++;
+      clearTimeout(autoPauseTimer);
+      if (wasPlaying) window.speechSynthesis?.cancel();
+      updateAutoStatus();
+    }
+
+    function scheduleAuto() {
+      if (!autoPlaying || !displayedList.length || flashcardView.classList.contains('hidden')) {
+        stopAuto();
+        return;
+      }
+      const run = ++autoRun;
+      const current = () => autoPlaying && run === autoRun;
+      clearTimeout(autoPauseTimer);
+      const pause = next => {
+        if (!current()) return;
+        autoPauseTimer = setTimeout(() => {
+          if (current()) next();
+        }, AUTO_PAUSE_MS);
+      };
+      const fail = () => { if (current()) stopAuto(); };
+
+      renderCurrentCard(true);
+      const card = displayedList[currentIndex];
+      const next = () => {
+        currentIndex = (currentIndex + 1) % displayedList.length;
+        scheduleAuto();
+      };
+      playJapaneseAudio(card.reading, () => pause(() => {
+        if (card.exJa) playJapaneseAudio(card.exJa, () => pause(next), fail);
+        else next();
+      }), fail);
+    }
+
+    function toggleAuto() {
+      if (autoPlaying) { stopAuto(); return; }
+      if (!displayedList.length) return;
+      flashcardView.classList.remove('hidden');
+      autoPlaying = true;
+      updateAutoStatus();
+      scheduleAuto();
+    }
 
     // 필터링 적용 함수
     function applyFilters() {
@@ -703,12 +362,12 @@
       displayedList = RAW_VOCAB.filter(item => {
         if (onlyStarred && !starredIds.has(item.id)) return false;
 
-        const matchesQuery = !query || 
+        const matchesQuery = !query ||
           item.id.toString() === query ||
           item.word.toLowerCase().includes(query) ||
           item.reading.toLowerCase().includes(query) ||
           item.meaning.toLowerCase().includes(query) ||
-          item.prob.toLowerCase().includes(query);
+          item.prob.toLowerCase().includes(query) || item.exJa.toLowerCase().includes(query) || item.exKo.toLowerCase().includes(query);
 
         const matchesProb = selectedProb === 'ALL' || item.prob.includes(selectedProb);
 
@@ -718,24 +377,83 @@
       currentIndex = 0;
       isFlipped = false;
       renderCurrentCard();
-      renderListView();
       clearSearchBtn.classList.toggle('hidden', query === '');
     }
 
     // 현재 카드 렌더링
-    function renderCurrentCard() {
+    function renderHighlightedExample(card) {
+      const example = document.getElementById('backExampleJapanese');
+      example.innerHTML = card.exRuby;
+      const offsets = new Set(cardHighlights[card.id] || []);
+      if (!offsets.size) return;
+      const walker = document.createTreeWalker(example, NodeFilter.SHOW_TEXT);
+      const nodes = [];
+      while (walker.nextNode()) {
+        if (!walker.currentNode.parentElement.closest('rt,rp')) nodes.push(walker.currentNode);
+      }
+      let offset = 0;
+      for (const node of nodes) {
+        const value = node.data;
+        const fragment = document.createDocumentFragment();
+        for (let start = 0, end; start < value.length; start = end) {
+          const marked = offsets.has(offset + start);
+          end = start + 1;
+          while (end < value.length && offsets.has(offset + end) === marked) end++;
+          const text = value.slice(start, end);
+          if (marked) {
+            const mark = document.createElement('mark');
+            mark.textContent = text;
+            fragment.append(mark);
+          } else {
+            fragment.append(text);
+          }
+        }
+        node.replaceWith(fragment);
+        offset += value.length;
+      }
+    }
+
+    function getExampleSelection() {
+      const selection = window.getSelection();
+      if (!isFlipped || !selection?.rangeCount || selection.isCollapsed) return null;
+      const example = document.getElementById('backExampleJapanese');
+      const range = selection.getRangeAt(0);
+      if (!example.contains(range.startContainer) || !example.contains(range.endContainer)) return null;
+      const offsetAt = (node, offset) => {
+        const prefix = document.createRange();
+        prefix.selectNodeContents(example);
+        const reading = (node.nodeType === Node.ELEMENT_NODE ? node : node.parentElement).closest('rt,rp');
+        if (reading) prefix.setEndBefore(reading);
+        else prefix.setEnd(node, offset);
+        const content = prefix.cloneContents();
+        content.querySelectorAll('rt,rp').forEach(element => element.remove());
+        return content.textContent.length;
+      };
+      return {
+        cardId: displayedList[currentIndex]?.id,
+        start: offsetAt(range.startContainer, range.startOffset),
+        end: offsetAt(range.endContainer, range.endOffset)
+      };
+    }
+
+    function renderCurrentCard(keepBack = false) {
+      pendingHighlightSelection = null;
+      const highlighter = document.getElementById('highlightExampleBtn');
+      highlighter.hidden = true;
+      document.getElementById('copyBackBtn').hidden = true;
       const example = document.getElementById('backExample');
+      const exampleAudio = document.getElementById('exampleAudioBtn');
       example.hidden = true;
+      exampleAudio.hidden = true;
       document.getElementById('cardContainer').classList.remove('has-example');
       if (displayedList.length === 0) {
         frontWord.textContent = "검색 결과 없음";
         frontReading.textContent = "-";
         frontCardId.textContent = "No. 0";
         backMeaning.textContent = "조건에 일치하는 단어가 없습니다";
+        frontMeaning.textContent = "";
         backWordMini.textContent = "-";
         backReadingMini.textContent = "";
-        currentNumBadge.textContent = "0 / 0";
-        currentProbBadge.textContent = "-";
         progressBar.style.width = '0%';
         starToggleBtn.innerHTML = '<i class="fa-regular fa-star"></i>';
         return;
@@ -748,30 +466,32 @@
 
       backCardId.textContent = `No. ${item.id}`;
       backWordMini.textContent = item.word;
-      backReadingMini.textContent = `[${item.reading}]`;
+      backReadingMini.textContent = item.reading;
       backMeaning.textContent = item.meaning;
-      if (item.id === 189) {
-        document.getElementById('backExampleJapanese').textContent = '入庫する時期がいつ頃か確認していただけませんか？';
-        document.getElementById('backExampleKorean').textContent = '(언제쯤 입고되는지 확인해 주실 수 있겠습니까?)';
+      frontMeaning.textContent = item.meaning;
+      if (item.exJa) {
+        renderHighlightedExample(item);
+        highlighter.hidden = false;
+        document.getElementById('copyBackBtn').hidden = false;
+        document.getElementById('backExampleKorean').textContent = item.exKo;
         example.hidden = false;
+        exampleAudio.hidden = false;
         document.getElementById('cardContainer').classList.add('has-example');
       }
-      backProbTag.textContent = `문제: ${item.prob}`;
+      backProbTag.textContent = `구간: ${item.prob}`;
 
-      currentNumBadge.textContent = `Card ${currentIndex + 1} / ${displayedList.length}`;
-      currentProbBadge.textContent = `관련 문제: ${item.prob}`;
 
       const progress = ((currentIndex + 1) / displayedList.length) * 100;
       progressBar.style.width = `${progress}%`;
 
       // 별표 상태 업데이트
       const isStarred = starredIds.has(item.id);
-      starToggleBtn.innerHTML = isStarred 
-        ? '<i class="fa-solid fa-star text-amber-400"></i>' 
+      starToggleBtn.innerHTML = isStarred
+        ? '<i class="fa-solid fa-star text-amber-400"></i>'
         : '<i class="fa-regular fa-star text-slate-400"></i>';
 
       // 카드 앞면 상태로 리셋
-      setFlipped(false);
+      setFlipped(keepBack);
     }
 
     // 카드 회전 함수
@@ -782,51 +502,34 @@
       } else {
         cardInner.classList.remove('rotate-y-180');
       }
+      const card = displayedList[currentIndex];
+      if (card) {
+        try {
+          localStorage.setItem(STUDY_POSITION_KEY, JSON.stringify({ cardId: card.id, back: flipped }));
+        } catch {
+          // The card remains usable when browser storage is unavailable.
+        }
+      }
+    }
+
+    function restoreStudyPosition() {
+      let saved;
+      try {
+        saved = JSON.parse(localStorage.getItem(STUDY_POSITION_KEY));
+      } catch {
+        return false;
+      }
+      const savedIndex = displayedList.findIndex(card => card.id === saved?.cardId);
+      if (savedIndex < 0) return false;
+      currentIndex = savedIndex;
+      return saved.back === true;
     }
 
     function toggleFlip() {
       if (displayedList.length === 0) return;
+      if (getExampleSelection()) return;
+      if (autoPlaying) stopAuto();
       setFlipped(!isFlipped);
-      if (autoPlaying) scheduleAuto();
-    }
-
-    // 목록 모드 렌더링
-    function renderListView() {
-      listTotalCount.textContent = displayedList.length;
-      vocabTableBody.innerHTML = '';
-
-      if (displayedList.length === 0) {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `<td colspan="7" class="py-6 text-center text-slate-500">조건에 맞는 단어가 없습니다.</td>`;
-        vocabTableBody.appendChild(tr);
-        return;
-      }
-
-      displayedList.forEach(item => {
-        const isStarred = starredIds.has(item.id);
-        const tr = document.createElement('tr');
-        tr.className = "hover:bg-slate-750/50 transition border-b border-slate-800/80 group";
-        tr.innerHTML = `
-          <td class="py-2.5 px-3 text-center">
-            <button class="row-star-btn text-xs ${isStarred ? 'text-amber-400' : 'text-slate-600 hover:text-slate-400'}" data-id="${item.id}">
-              <i class="fa-${isStarred ? 'solid' : 'regular'} fa-star"></i>
-            </button>
-          </td>
-          <td class="py-2.5 px-3 text-center font-mono text-slate-400">${item.id}</td>
-          <td class="py-2.5 px-3 font-bold text-white text-base">${item.word}</td>
-          <td class="py-2.5 px-3 text-indigo-300">${item.reading}</td>
-          <td class="py-2.5 px-3 text-emerald-300 font-medium">${item.meaning}</td>
-          <td class="py-2.5 px-3 text-center">
-            <span class="inline-block px-2 py-0.5 rounded bg-slate-800 text-[11px] text-slate-300 border border-slate-700 font-mono">${item.prob}</span>
-          </td>
-          <td class="py-2.5 px-3 text-center">
-            <button class="row-audio-btn text-slate-400 hover:text-indigo-400 transition" data-word="${item.word}">
-              <i class="fa-solid fa-volume-high"></i>
-            </button>
-          </td>
-        `;
-        vocabTableBody.appendChild(tr);
-      });
     }
 
     // 별표 토글 및 로컬스토리지 동기화
@@ -839,15 +542,99 @@
       localStorage.setItem('starred_vocab', JSON.stringify([...starredIds]));
       starredCount.textContent = starredIds.size;
       renderCurrentCard();
-      renderListView();
     }
 
     // 이벤트 리스너 설정
     function setupEventListeners() {
       autoPlayBtn.addEventListener('click', toggleAuto);
+      const highlighter = document.getElementById('highlightExampleBtn');
+      const highlightStatus = document.getElementById('highlightStatus');
+      highlighter.addEventListener('pointerdown', event => {
+        pendingHighlightSelection = getExampleSelection();
+        if (pendingHighlightSelection && event.pointerType === 'mouse') event.preventDefault();
+      });
+      highlighter.addEventListener('click', event => {
+        event.stopPropagation();
+        const selected = getExampleSelection() || pendingHighlightSelection;
+        pendingHighlightSelection = null;
+        const card = displayedList[currentIndex];
+        if (!isFlipped || !card || selected?.cardId !== card.id || selected.start >= selected.end) {
+          highlighter.textContent = '예문을 선택하세요';
+          highlightStatus.textContent = highlighter.textContent;
+          return;
+        }
+        const offsets = new Set(cardHighlights[card.id] || []);
+        const selectedOffsets = Array.from({length: selected.end - selected.start}, (_, i) => selected.start + i);
+        const erase = selectedOffsets.every(offset => offsets.has(offset));
+        for (const offset of selectedOffsets) {
+          if (erase) offsets.delete(offset);
+          else offsets.add(offset);
+        }
+        if (offsets.size) cardHighlights[card.id] = [...offsets];
+        else delete cardHighlights[card.id];
+        highlighter.textContent = '형광펜';
+        try {
+          localStorage.setItem(HIGHLIGHTS_KEY, JSON.stringify(cardHighlights));
+          highlightStatus.textContent = erase ? '형광펜 표시를 지웠습니다.' : '형광펜 표시를 저장했습니다.';
+        } catch {
+          highlightStatus.textContent = '이 브라우저에 형광펜 표시를 저장할 수 없습니다.';
+        }
+        window.getSelection()?.removeAllRanges();
+        renderHighlightedExample(card);
+      });
+      const copyBackBtn = document.getElementById('copyBackBtn');
+      let copyFeedbackTimer;
+      copyBackBtn.addEventListener('click', async event => {
+        event.stopPropagation();
+        const card = displayedList[currentIndex];
+        const text = card?.exJa;
+        if (!text) return;
+        try {
+          await navigator.clipboard.writeText(text);
+          copyBackBtn.textContent = '복사 완료';
+        } catch {
+          copyBackBtn.textContent = '복사 실패';
+        }
+        clearTimeout(copyFeedbackTimer);
+        copyFeedbackTimer = setTimeout(() => { copyBackBtn.textContent = '복사'; }, 1500);
+      });
+      const furiganaButtons = cardContainer.querySelectorAll('.furiganaControl[aria-pressed]');
+      function toggleFurigana() {
+        const hidden = cardContainer.classList.toggle('furigana-hidden');
+        furiganaButtons.forEach(control => {
+          if (!control.closest('.backCardActions')) {
+            control.textContent = hidden ? '후리가나 보기' : '후리가나 숨기기';
+          }
+          control.setAttribute('aria-pressed', String(!hidden));
+        });
+      }
+      furiganaButtons.forEach(button => button.addEventListener('click', event => {
+        event.stopPropagation();
+        toggleFurigana();
+      }));
 
       // 카드 뒤집기
       cardContainer.addEventListener('click', toggleFlip);
+      let swipeStart = null;
+      cardContainer.addEventListener('touchstart', event => {
+        const touch = event.touches[0];
+        swipeStart = event.touches.length === 1 && !event.target.closest('button')
+          ? {id: touch.identifier, x: touch.clientX, y: touch.clientY, time: Date.now()}
+          : null;
+      }, {passive: true});
+      cardContainer.addEventListener('touchcancel', () => { swipeStart = null; });
+      cardContainer.addEventListener('touchend', event => {
+        const start = swipeStart;
+        swipeStart = null;
+        if (!start || Date.now() - start.time > 500 || getExampleSelection()) return;
+        const touch = Array.from(event.changedTouches).find(point => point.identifier === start.id);
+        if (!touch) return;
+        const dx = touch.clientX - start.x;
+        const dy = touch.clientY - start.y;
+        if (Math.abs(dx) < 45 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+        if (event.cancelable) event.preventDefault();
+        (dx < 0 ? nextBtn : prevBtn).click();
+      }, {passive: false});
       flipBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         toggleFlip();
@@ -857,25 +644,24 @@
       prevBtn.addEventListener('click', () => {
         if (displayedList.length === 0) return;
         currentIndex = (currentIndex - 1 + displayedList.length) % displayedList.length;
-        if (autoPlaying) clearAutoTimer();
-        renderCurrentCard();
         if (autoPlaying) scheduleAuto();
+        else renderCurrentCard(isFlipped);
       });
 
       nextBtn.addEventListener('click', () => {
         if (displayedList.length === 0) return;
         currentIndex = (currentIndex + 1) % displayedList.length;
-        if (autoPlaying) clearAutoTimer();
-        renderCurrentCard();
         if (autoPlaying) scheduleAuto();
+        else renderCurrentCard(isFlipped);
       });
 
       // 음성 듣기
       ttsBtn.addEventListener('click', () => {
         if (displayedList.length === 0) return;
-        playJapaneseAudio(displayedList[currentIndex].word);
+        playJapaneseAudio(displayedList[currentIndex].reading);
       });
 
+      document.getElementById('exampleAudioBtn').addEventListener('click', (e) => { e.stopPropagation(); if(displayedList.length)playJapaneseAudio(displayedList[currentIndex].exJa); });
       // 현재 카드 별표 토글
       starToggleBtn.addEventListener('click', () => {
         if (displayedList.length === 0) return;
@@ -903,7 +689,6 @@
         }
         currentIndex = 0;
         renderCurrentCard();
-        renderListView();
       });
 
       // 원래 순서 리셋
@@ -921,48 +706,25 @@
         applyFilters();
       });
 
-      // 모드 변경 (카드 vs 리스트)
-      modeFlashcardBtn.addEventListener('click', () => {
-        stopAuto();
-        modeFlashcardBtn.className = "px-3 py-1.5 rounded-lg bg-indigo-600 font-semibold text-white transition";
-        modeListBtn.className = "px-3 py-1.5 rounded-lg bg-slate-700 font-medium text-slate-300 transition hover:bg-slate-600";
-        flashcardView.classList.remove('hidden');
-        listView.classList.add('hidden');
-      });
-
-      modeListBtn.addEventListener('click', () => {
-        stopAuto();
-        modeListBtn.className = "px-3 py-1.5 rounded-lg bg-indigo-600 font-semibold text-white transition";
-        modeFlashcardBtn.className = "px-3 py-1.5 rounded-lg bg-slate-700 font-medium text-slate-300 transition hover:bg-slate-600";
-        listView.classList.remove('hidden');
-        flashcardView.classList.add('hidden');
-        renderListView();
-      });
-
-      // 테이블 내부 클릭 이벤트 (위임)
-      vocabTableBody.addEventListener('click', (e) => {
-        const starBtn = e.target.closest('.row-star-btn');
-        if (starBtn) {
-          const id = parseInt(starBtn.dataset.id);
-          toggleStar(id);
-          return;
-        }
-
-        const audioBtn = e.target.closest('.row-audio-btn');
-        if (audioBtn) {
-          const word = audioBtn.dataset.word;
-          playJapaneseAudio(word);
-        }
-      });
-
       // 키보드 단축키
       window.addEventListener('keydown', (e) => {
-        if (['input', 'select', 'textarea'].includes(document.activeElement.tagName.toLowerCase())) {
+        if (['input', 'select', 'textarea'].includes(document.activeElement.tagName.toLowerCase()) ||
+            (e.code === 'Space' && document.activeElement.matches('.furiganaControl'))) {
           return;
         }
         if (e.code === 'Space') {
           e.preventDefault();
           toggleFlip();
+        } else if (e.code === 'ArrowUp' || e.code === 'ArrowDown') {
+          if (flashcardView.classList.contains('hidden') || !displayedList.length ||
+              e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
+          e.preventDefault();
+          if (e.repeat) return;
+          if (e.code === 'ArrowUp') toggleFurigana();
+          else {
+            const meaning = isFlipped ? backMeaning : frontMeaning;
+            meaning.hidden = !meaning.hidden;
+          }
         } else if (e.code === 'ArrowLeft') {
           e.preventDefault();
           prevBtn.click();
@@ -977,7 +739,7 @@
         } else if (e.code === 'KeyV') {
           e.preventDefault();
           if (displayedList.length > 0) {
-            playJapaneseAudio(displayedList[currentIndex].word);
+            playJapaneseAudio(displayedList[currentIndex].reading);
           }
         }
       });
@@ -988,11 +750,8 @@
       initProbOptions();
       starredCount.textContent = starredIds.size;
       setupEventListeners();
-      renderCurrentCard();
-      renderListView();
+      renderCurrentCard(restoreStudyPosition());
     });
   </script>
 </body>
 </html>
-
-
